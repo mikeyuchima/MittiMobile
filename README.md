@@ -57,7 +57,7 @@ $ cp config.js.example config.js
 
 ```sh
 $ cd android/app
-$ keytool -genkey -v -keystore roserocket-release-key.keystore -alias roserocket-key -keyalg RSA -keysize 2048 -validity 10000
+$ keytool -genkey -v -keystore mitti-mobile-release-key.keystore -alias mitti-mobile-key -keyalg RSA -keysize 2048 -validity 10000
 ```
 
 For production release key, ask Alex
@@ -201,8 +201,8 @@ buildTypes:
 7.  Create `~/.gradle/gradle.properties`
 
 ```
-MITTI_MOBILE_RELEASE_STORE_FILE=
-MITTI_MOBILE_RELEASE_KEY_ALIAS=
+MITTI_MOBILE_RELEASE_STORE_FILE=mitti-mobile-release-key.keystore
+MITTI_MOBILE_RELEASE_KEY_ALIAS=mitti-mobile-key-alias
 MITTI_MOBILE_RELEASE_STORE_PASSWORD=
 MITTI_MOBILE_RELEASE_KEY_PASSWORD=
 ```
