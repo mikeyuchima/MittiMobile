@@ -57,8 +57,10 @@ $ cp config.js.example config.js
 
 ```sh
 $ cd android/app
-$ keytool -genkey -v -keystore mitti-mobile-release-key.keystore -alias mitti-mobile-key -keyalg RSA -keysize 2048 -validity 10000
+$ keytool -genkey -v -keystore mitti-mobile-release-key.keystore -alias mitti-mobile-key-alias -keyalg RSA -keysize 2048 -validity 10000
 ```
+
+When asked for password enter: mitti
 
 For production release key, ask Alex
 
@@ -203,8 +205,8 @@ buildTypes:
 ```
 MITTI_MOBILE_RELEASE_STORE_FILE=mitti-mobile-release-key.keystore
 MITTI_MOBILE_RELEASE_KEY_ALIAS=mitti-mobile-key-alias
-MITTI_MOBILE_RELEASE_STORE_PASSWORD=
-MITTI_MOBILE_RELEASE_KEY_PASSWORD=
+MITTI_MOBILE_RELEASE_STORE_PASSWORD=mitti
+MITTI_MOBILE_RELEASE_KEY_PASSWORD=mitti
 ```
 
 8.  Run build
