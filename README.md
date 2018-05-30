@@ -160,8 +160,6 @@ For react-native-onesignal, make sure `compileSdkVersion` and `buildToolsVersion
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
-        manifestPlaceholders = [onesignal_app_id: ROSEROCKET_ONESIGNAL_APP_ID, // ADD THIS
-                                onesignal_google_project_number: "REMOTE"] // ADD THIS
 ```
 
 For release, add signingConfigs section on top of buildTypes and add below parameter inside
