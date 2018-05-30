@@ -1,4 +1,5 @@
-import React, { PropTypes, Component } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 // module actions
@@ -16,37 +17,37 @@ import { SCENES } from '../../routes';
 import { ActionConst } from 'react-native-router-flux';
 
 class SplashContainer extends Component {
-  static propTypes = {
-    // module actions
-    getLastSession: PropTypes.func.isRequired,
-    changeScene: PropTypes.func.isRequired,
-  };
+    static propTypes = {
+        // module actions
+        getLastSession: PropTypes.func.isRequired,
+        changeScene: PropTypes.func.isRequired,
+    };
 
-  componentDidMount() {
-    this.props.getLastSession().then(token => {
-      if (token) {
-        setTimeout(() => {
-          this.props.changeScene(SCENES.home.key, {}, ActionConst.RESET);
-        }, SPLASH_WAIT);
-      } else {
-        setTimeout(() => {
-          this.props.changeScene(SCENES.login.key, {}, ActionConst.RESET);
-        }, SPLASH_WAIT);
-      }
-    });
-  }
+    componentDidMount() {
+        this.props.getLastSession().then(token => {
+            if (token) {
+                setTimeout(() => {
+                    this.props.changeScene(SCENES.home.key, {}, ActionConst.RESET);
+                }, SPLASH_WAIT);
+            } else {
+                setTimeout(() => {
+                    this.props.changeScene(SCENES.login.key, {}, ActionConst.RESET);
+                }, SPLASH_WAIT);
+            }
+        });
+    }
 
-  render() {
-    return <Splash />;
-  }
+    render() {
+        return <Splash />;
+    }
 }
 
 function mapStateToProps(state) {
-  return {};
+    return {};
 }
 
 export default connect(mapStateToProps, {
-  // module actions
-  getLastSession,
-  changeScene,
+    // module actions
+    getLastSession,
+    changeScene,
 })(SplashContainer);

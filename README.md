@@ -49,3 +49,178 @@ $ react-native link
 ```sh
 $ cp config.js.example config.js
 ```
+
+## Android setup
+
+1.  Create new keystore and place it in `android/app` directory
+    https://facebook.github.io/react-native/docs/signed-apk-android.html
+
+```sh
+$ cd android/app
+$ keytool -genkey -v -keystore roserocket-release-key.keystore -alias roserocket-key -keyalg RSA -keysize 2048 -validity 10000
+```
+
+For production release key, ask Alex
+
+2.  Update `android/gradle.properties`
+
+3.  Update `android/build.gradle`
+
+Update gradle:
+
+```
+classpath 'com.android.tools.build:gradle:3.0.1'
+```
+
+For react-native maps, add this at the bottom:
+
+```
+ext {
+    compileSdkVersion   = 26
+    targetSdkVersion    = 26
+    buildToolsVersion   = "26.0.2"
+    supportLibVersion   = "26.1.0"
+    googlePlayServicesVersion = "11.8.0"
+    androidMapsUtilsVersion = "0.5+"
+}
+```
+
+4.  Update `android/gradle/wrapper/gradle-wrapper.properties`
+
+```
+distributionUrl=https\://services.gradle.org/distributions/gradle-4.1-all.zip
+```
+
+5.  Update `android/app/src/AndroidManifest.xml`
+
+For react-native-maps, add this to child of application
+
+```
+<application>
+    <!-- You will only need to add this meta-data tag, but make sure it's a child of application -->
+    <meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="Your Google maps API Key Here"/>
+</application>
+```
+
+For react-native-onesignal, add this:
+
+```
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- Approximate location - If you want to use promptLocation for letting OneSignal know the user location. -->
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!--  Precise location If you want to use promptLocation for letting OneSignal know the user location. -->
+
+<application ....>
+  <activity
+    android:name=".MainActivity"
+    android:label="OneSignal Example"
+    android:launchMode="singleTop"> <!-- Add this attribute to your main activity -->
+  </activity>
+    .....
+```
+
+6.  On `android/app/build.gradle`
+
+For react-native-vector-icons, add this:
+
+```
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
+```
+
+For react-native-maps, add this to dependencies:
+
+```
+...
+dependencies {
+    ...
+    implementation(project(':react-native-maps')){
+        exclude group: 'com.google.android.gms', module: 'play-services-base'
+        exclude group: 'com.google.android.gms', module: 'play-services-maps'
+    }
+    implementation 'com.google.android.gms:play-services-base:10.0.1'
+    implementation 'com.google.android.gms:play-services-maps:10.0.1'
+}
+```
+
+For react-native-onesignal, add this to the very top:
+
+```
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' } // Gradle Plugin Portal
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.10.0, 0.99.99]'
+    }
+}
+
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+```
+
+For react-native-onesignal, make sure `compileSdkVersion` and `buildToolsVersion` is < 26
+
+```
+    compileSdkVersion 26 // UPDATE THIS
+    buildToolsVersion "26.0.3" // UPDATE THIS
+
+    defaultConfig {
+        applicationId "com.mittimobile"
+        minSdkVersion 16
+        targetSdkVersion 26 // UPDATE THIS
+        multiDexEnabled true // ADD THIS
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+        manifestPlaceholders = [onesignal_app_id: ROSEROCKET_ONESIGNAL_APP_ID, // ADD THIS
+                                onesignal_google_project_number: "REMOTE"] // ADD THIS
+```
+
+For release, add signingConfigs section on top of buildTypes and add below parameter inside
+buildTypes:
+
+```
+    signingConfigs {
+        release {
+            storeFile file(MITTI_MOBILE_RELEASE_STORE_FILE)
+            storePassword MITTI_MOBILE_RELEASE_STORE_PASSWORD
+            keyAlias MITTI_MOBILE_RELEASE_KEY_ALIAS
+            keyPassword MITTI_MOBILE_RELEASE_KEY_PASSWORD
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled enableProguardInReleaseBuilds
+            proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release // ADD THIS
+        }
+    }
+```
+
+7.  Create `~/.gradle/gradle.properties`
+
+```
+MITTI_MOBILE_RELEASE_STORE_FILE=
+MITTI_MOBILE_RELEASE_KEY_ALIAS=
+MITTI_MOBILE_RELEASE_STORE_PASSWORD=
+MITTI_MOBILE_RELEASE_KEY_PASSWORD=
+```
+
+8.  Run build
+
+```sh
+$ react-native run-android
+```
+
+## Android Deployment
+
+1.  Update the splash screen?
+
+2.  Update the app icon
+
+3.  Update `./config.js` to use production url and set `DEBUG_MODE = false;`
+
+4.  Make sure the onesignal app id in `~/.gradle/gradle.properties` is the production app id
+
+5.  Make sure the key in `~/.gradle/gradle.properties` is the production key
