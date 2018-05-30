@@ -224,3 +224,15 @@ $ react-native run-android
 4.  Make sure the onesignal app id in `~/.gradle/gradle.properties` is the production app id
 
 5.  Make sure the key in `~/.gradle/gradle.properties` is the production key
+
+## Testing location with Virtual Device
+
+Simulate location from terminal:
+
+```
+# Get your auth token at
+$ cat ~/.emulator_console_auth_token
+$ telnet localhost 5554
+auth <token>
+geo fix -79.380319 43.653982
+```

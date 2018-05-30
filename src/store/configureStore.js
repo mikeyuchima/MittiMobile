@@ -1,24 +1,20 @@
-import {createStore, applyMiddleware, compose} from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import {createLogger} from 'redux-logger';
+import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
-import {DEBUG_MODE} from '../config'; 
+import { DEBUG_MODE } from '../../config';
 
 export default function configureStore(initialState) {
-  let middlewares = [thunk];
-  if (DEBUG_MODE) {
-    const loggerMiddleware = createLogger();
-    middlewares = [
-      ...middlewares,
-      loggerMiddleware,
-    ]
-  }
+    let middlewares = [thunk];
 
-  const finalCreateStore = compose(
-    applyMiddleware(...middlewares)
-  )(createStore);
+    if (DEBUG_MODE) {
+        const loggerMiddleware = createLogger();
+        middlewares = [...middlewares, loggerMiddleware];
+    }
 
-  const store = finalCreateStore(rootReducer, initialState);
+    const finalCreateStore = compose(applyMiddleware(...middlewares))(createStore);
 
-  return store;
+    const store = finalCreateStore(rootReducer, initialState);
+
+    return store;
 }

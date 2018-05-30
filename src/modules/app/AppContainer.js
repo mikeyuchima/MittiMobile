@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ENVIRONMENT } from '../../config';
+import { ENVIRONMENT, ONESIGNAL_APP_ID } from '../../../config';
 
 // constants
 import { DEFAULT_LOCALE } from '../../constants/constants';
@@ -23,7 +23,6 @@ import OneSignal from 'react-native-onesignal';
 import { SCENES } from '../../routes';
 import moment from 'moment';
 import { NOTIFICATION_TYPES } from '../../constants/constants';
-import { ONESIGNAL_APP_ID } from '../../../config';
 
 // OneSignal config
 OneSignal.enableVibrate(true); // Android only
