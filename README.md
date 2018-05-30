@@ -129,21 +129,6 @@ For react-native-vector-icons, add this:
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 ```
 
-For react-native-maps, add this to dependencies:
-
-```
-...
-dependencies {
-    ...
-    implementation(project(':react-native-maps')){
-        exclude group: 'com.google.android.gms', module: 'play-services-base'
-        exclude group: 'com.google.android.gms', module: 'play-services-maps'
-    }
-    implementation 'com.google.android.gms:play-services-base:10.0.1'
-    implementation 'com.google.android.gms:play-services-maps:10.0.1'
-}
-```
-
 For react-native-onesignal, add this to the very top:
 
 ```
