@@ -2,3 +2,5 @@ export const BASE_URI = 'http://162.243.126.154:4040';
 export const ENVIRONMENT = 'development';
 export const DEBUG_MODE = true;
 // export const ENVIRONMENT = 'staging';
+
+export const ONESIGNAL_APP_ID = ''; // ask alex

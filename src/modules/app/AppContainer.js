@@ -23,6 +23,7 @@ import OneSignal from 'react-native-onesignal';
 import { SCENES } from '../../routes';
 import moment from 'moment';
 import { NOTIFICATION_TYPES } from '../../constants/constants';
+import { ONESIGNAL_APP_ID } from '../../../config';
 
 // OneSignal config
 OneSignal.enableVibrate(true); // Android only
@@ -37,16 +38,18 @@ class AppContainer extends Component {
     };
 
     componentWillMount() {
+        OneSignal.init(ONESIGNAL_APP_ID);
+
         OneSignal.addEventListener('received', this._oneSignalOnReceived);
         OneSignal.addEventListener('opened', this._oneSignalOnOpened);
-        OneSignal.addEventListener('registered', this._oneSignalOnRegistered);
+        // OneSignal.addEventListener('registered', this._oneSignalOnRegistered);
         OneSignal.addEventListener('ids', this._oneSignalOnIds);
     }
 
     componentWillUnmount() {
         OneSignal.removeEventListener('received', this._oneSignalOnReceived);
         OneSignal.removeEventListener('opened', this._oneSignalOnOpened);
-        OneSignal.removeEventListener('registered', this._oneSignalOnRegistered);
+        // OneSignal.removeEventListener('registered', this._oneSignalOnRegistered);
         OneSignal.removeEventListener('ids', this._oneSignalOnIds);
     }
 
@@ -90,9 +93,9 @@ class AppContainer extends Component {
         this._openNotification(notification, false);
     };
 
-    _oneSignalOnRegistered = notifData => {
-        console.log('Device had been registered for push notifications!', notifData);
-    };
+    // _oneSignalOnRegistered = notifData => {
+    //     console.log('Device had been registered for push notifications!', notifData);
+    // };
 
     _oneSignalOnIds = device => {
         console.log('Device info: ', device);
