@@ -46,8 +46,11 @@ function mapStateToProps(state) {
     return {};
 }
 
-export default connect(mapStateToProps, {
-    // module actions
-    getLastSession,
-    changeScene,
-})(SplashContainer);
+export default connect(
+    mapStateToProps,
+    {
+        // module actions
+        getLastSession,
+        changeScene,
+    }
+)(SplashContainer);

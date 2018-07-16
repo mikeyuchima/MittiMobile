@@ -37,29 +37,24 @@ class AppContainer extends Component {
     };
 
     componentWillMount() {
-        OneSignal.init(ONESIGNAL_APP_ID);
-
-        OneSignal.addEventListener('received', this._oneSignalOnReceived);
-        OneSignal.addEventListener('opened', this._oneSignalOnOpened);
-        // OneSignal.addEventListener('registered', this._oneSignalOnRegistered);
-        OneSignal.addEventListener('ids', this._oneSignalOnIds);
+        // OneSignal.init(ONESIGNAL_APP_ID);
+        // OneSignal.addEventListener('received', this._oneSignalOnReceived);
+        // OneSignal.addEventListener('opened', this._oneSignalOnOpened);
+        // OneSignal.addEventListener('ids', this._oneSignalOnIds);
     }
 
     componentWillUnmount() {
-        OneSignal.removeEventListener('received', this._oneSignalOnReceived);
-        OneSignal.removeEventListener('opened', this._oneSignalOnOpened);
-        // OneSignal.removeEventListener('registered', this._oneSignalOnRegistered);
-        OneSignal.removeEventListener('ids', this._oneSignalOnIds);
+        // OneSignal.removeEventListener('received', this._oneSignalOnReceived);
+        // OneSignal.removeEventListener('opened', this._oneSignalOnOpened);
+        // OneSignal.removeEventListener('ids', this._oneSignalOnIds);
     }
 
-    componentDidMount() {
-        // this._oneSignalSetup(this.props);
-    }
+    componentDidMount() {}
 
     componentWillReceiveProps(nextProps) {
         if (this.props.me === null && nextProps.me) {
             this.props.findUnreadMessages();
-            this._oneSignalSetup(nextProps);
+            // this._oneSignalSetup(nextProps);
             setLocale(nextProps.me.settings.locale || DEFAULT_LOCALE);
             this.props.setDefaultRadius(
                 nextProps.me.settings.defaultRadius,
@@ -91,10 +86,6 @@ class AppContainer extends Component {
 
         this._openNotification(notification, false);
     };
-
-    // _oneSignalOnRegistered = notifData => {
-    //     console.log('Device had been registered for push notifications!', notifData);
-    // };
 
     _oneSignalOnIds = device => {
         console.log('Device info: ', device);
@@ -184,10 +175,13 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {
-    findUnreadMessages,
-    changeScene,
-    refreshScene,
-    setDefaultRadius,
-    onMessage,
-})(AppContainer);
+export default connect(
+    mapStateToProps,
+    {
+        findUnreadMessages,
+        changeScene,
+        refreshScene,
+        setDefaultRadius,
+        onMessage,
+    }
+)(AppContainer);
