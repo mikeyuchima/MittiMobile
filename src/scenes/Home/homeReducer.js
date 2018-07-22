@@ -1,4 +1,3 @@
-import {ActionConst} from 'react-native-router-flux';
 import {
   HOME_SCENE_GET_MARKERS,
   HOME_SCENE_GET_MARKERS_SUCCESS,
@@ -26,11 +25,11 @@ const initialState = {
 
 export default function homeScene(state = initialState, action) {
   switch (action.type) {
-    case ActionConst.PUSH: {
-      return {
-        ...state,
-      };
-    }
+    // case ActionConst.PUSH: {
+    //   return {
+    //     ...state,
+    //   };
+    // }
     case HOME_SCENE_CREATE_POST_OPEN: {
       return {
         ...state,

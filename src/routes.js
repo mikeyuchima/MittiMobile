@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
-// router
-import { Router, Scene, Actions } from 'react-native-router-flux';
+import {
+    reduxifyNavigator,
+    createReactNavigationReduxMiddleware,
+    createNavigationReducer,
+  } from 'react-navigation-redux-helpers';
 
 // components
 import { View } from 'react-native';
@@ -12,23 +15,23 @@ import { View } from 'react-native';
 import Login from './scenes/Login';
 import ForgotPassword from './scenes/ForgotPassword';
 import CreateAccount from './scenes/CreateAccount';
-import Tour from './scenes/Tour';
+// import Tour from './scenes/Tour';
 import Home from './scenes/Home';
-import Community from './scenes/Community';
-import Marketplace from './scenes/Marketplace';
-import MyPosts from './scenes/MyPosts';
-import CreatePost from './scenes/CreatePost';
-import ViewPost from './scenes/ViewPost';
-import CreateQuestion from './scenes/CreateQuestion';
-import Chat from './scenes/Chat';
-import MessageCenter from './scenes/MessageCenter';
-import ScheduleCenter from './scenes/ScheduleCenter';
-import Profile from './scenes/Profile';
-import Settings from './scenes/Settings';
-import PrivacyPolicy from './scenes/PrivacyPolicy';
-import TermsConditions from './scenes/TermsConditions';
+// import Community from './scenes/Community';
+// import Marketplace from './scenes/Marketplace';
+// import MyPosts from './scenes/MyPosts';
+// import CreatePost from './scenes/CreatePost';
+// import ViewPost from './scenes/ViewPost';
+// import CreateQuestion from './scenes/CreateQuestion';
+// import Chat from './scenes/Chat';
+// import MessageCenter from './scenes/MessageCenter';
+// import ScheduleCenter from './scenes/ScheduleCenter';
+// import Profile from './scenes/Profile';
+// import Settings from './scenes/Settings';
+// import PrivacyPolicy from './scenes/PrivacyPolicy';
+// import TermsConditions from './scenes/TermsConditions';
 import Splash from './scenes/Splash';
-import NavigationDrawerContainer from './modules/navigation/NavigationDrawerContainer';
+// import NavigationDrawerContainer from './modules/navigation/NavigationDrawerContainer';
 
 export const SCENES = {
     /*
@@ -204,14 +207,14 @@ const LoginStack = createStackNavigator(
     }
 );
 
-const AppStack = createStackNavigator({
+const MainStack = createStackNavigator({
     home: SCENES.home,
 });
 
 const AuthStack = createSwitchNavigator(
     {
         splash: SCENES.splash,
-        app: AppStack,
+        main: MainStack,
         login: LoginStack,
     },
     {
@@ -219,7 +222,7 @@ const AuthStack = createSwitchNavigator(
     }
 );
 
-export default createStackNavigator(
+const AppStack = createStackNavigator(
     {
         AuthStack,
     },
@@ -227,3 +230,14 @@ export default createStackNavigator(
         headerMode: 'none',
     }
 );
+
+const navReducer = createNavigationReducer(AppStack);
+export {navReducer};
+
+const AppStackRedux = reduxifyNavigator(AppStack, "root");
+const mapStateToProps = (state) => ({
+  state: state.nav,
+});
+const AppWithNavigationState = connect(mapStateToProps)(AppStackRedux);
+
+export default AppWithNavigationState;

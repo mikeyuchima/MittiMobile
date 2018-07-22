@@ -1,16 +1,11 @@
-// router actions
-import {Actions, ActionConst} from 'react-native-router-flux';
-
+import { NavigationActions } from 'react-navigation';
 // actiom types
 export const NAVIGATION_OPEN_DRAWER = 'NAVIGATION_OPEN_DRAWER';
 export const NAVIGATION_CLOSE_DRAWER = 'NAVIGATION_CLOSE_DRAWER';
 
-export const changeScene = (sceneKey, params = {}, type = ActionConst.PUSH) => {
+export const changeScene = (sceneKey, params = {}, type = 'PUSH') => {
   return (dispatch, getState) => {
-    Actions[sceneKey]({
-      ...params,
-      type
-    });
+    dispatch(NavigationActions.navigate(sceneKey, params));
   };
 };
 
@@ -25,7 +20,7 @@ export const refreshScene = (sceneKey, params = {}) => {
 
 export const back = () => {
   return (dispatch, getState) => {
-    Actions.pop();
+    dispatch(NavigationActions.back());
   };
 };
 

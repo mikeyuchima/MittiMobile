@@ -34,6 +34,7 @@ export default class Login extends Component {
 
         // module actions
         login: PropTypes.func.isRequired,
+        changeScene: PropTypes.func.isRequired,
     };
 
     render() {
@@ -96,7 +97,7 @@ export default class Login extends Component {
                         <TouchableOpacity
                             style={styles.anchor}
                             onPress={() =>
-                                this.props.navigation.navigate(SCENES.forgotPassword.key)
+                                this.props.changeScene(SCENES.forgotPassword.key)
                             }
                         >
                             <Text style={mittiStyles.darkFont}>{t(dictionary.forgotPassword)}</Text>
@@ -105,7 +106,7 @@ export default class Login extends Component {
                     <View>
                         <TouchableOpacity
                             style={styles.anchor}
-                            onPress={() => this.props.navigation.navigate(SCENES.createAccount.key)}
+                            onPress={() => this.props.changeScene(SCENES.createAccount.key)}
                         >
                             <Text style={mittiStyles.darkFont}>{t(dictionary.createAccount)}</Text>
                         </TouchableOpacity>

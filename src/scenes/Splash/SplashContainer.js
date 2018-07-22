@@ -19,17 +19,18 @@ class SplashContainer extends Component {
     static propTypes = {
         // module actions
         getLastSession: PropTypes.func.isRequired,
+        changeScene: PropTypes.func.isRequired,
     };
 
     componentDidMount() {
         this.props.getLastSession().then(token => {
             if (token) {
                 setTimeout(() => {
-                    this.props.navigation.navigate(SCENES.home.key);
+                    this.props.changeScene(SCENES.home.key);
                 }, SPLASH_WAIT);
             } else {
                 setTimeout(() => {
-                    this.props.navigation.navigate(SCENES.login.key);
+                    this.props.changeScene(SCENES.login.key);
                 }, SPLASH_WAIT);
             }
         });
@@ -49,5 +50,6 @@ export default connect(
     {
         // module actions
         getLastSession,
+        changeScene,
     }
 )(SplashContainer);

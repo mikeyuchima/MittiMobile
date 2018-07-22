@@ -94,7 +94,6 @@ class AppContainer extends Component {
     _openNotification = (notification, insideApp) => {
         const {
             findUnreadMessages,
-            currentSceneKey,
             refreshScene,
             changeScene,
             onMessage,
@@ -125,7 +124,7 @@ class AppContainer extends Component {
                                 refreshTimestamp: new Date().getTime(),
                             },
                         };
-                        if (currentSceneKey === SCENES.chat.key) {
+                        if (this.props.navigation.state.routeName === SCENES.chat.key) {
                             refreshScene(SCENES.chat.key, params);
                         } else {
                             if (insideApp) {
@@ -168,7 +167,6 @@ function mapStateToProps(state) {
     return {
         // states
         ...state.app,
-        currentSceneKey: state.navigation.scene.sceneKey,
 
         // other module states
         me: state.me.me,
