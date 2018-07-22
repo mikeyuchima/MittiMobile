@@ -55,17 +55,17 @@ class HomeContainer extends Component {
         items: PropTypes.array,
     };
 
-    static renderNavigationBar = props => {
-        const isVerified = props.me && props.me.isVerified;
+    // static renderNavigationBar = props => {
+    //     const isVerified = props.me && props.me.isVerified;
 
-        return (
-            <NavBar
-                title={t(dictionary.home)}
-                leftButton={<OpenDrawerButtonContainer />}
-                rightButton={<OpenDropdownButtonContainer />}
-            />
-        );
-    };
+    //     return (
+    //         <NavBar
+    //             title={t(dictionary.home)}
+    //             leftButton={<OpenDrawerButtonContainer />}
+    //             rightButton={<OpenDropdownButtonContainer />}
+    //         />
+    //     );
+    // };
 
     componentDidMount() {
         this.props.getMyStats();
@@ -160,17 +160,20 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {
-    openCreatePostModal,
-    closeCreatePostModal,
-    changeScene,
-    onRegionChange,
-    getPost,
-    getMarkers,
-    getMyStats,
-    getMe,
-    getMyQuestions,
-    getCurrentPosition,
-    requestVerification,
-    getItems,
-})(HomeContainer);
+export default connect(
+    mapStateToProps,
+    {
+        openCreatePostModal,
+        closeCreatePostModal,
+        changeScene,
+        onRegionChange,
+        getPost,
+        getMarkers,
+        getMyStats,
+        getMe,
+        getMyQuestions,
+        getCurrentPosition,
+        requestVerification,
+        getItems,
+    }
+)(HomeContainer);

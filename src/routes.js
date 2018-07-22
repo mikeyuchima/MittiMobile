@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 
 // router
 import { Router, Scene, Actions } from 'react-native-router-flux';
@@ -40,159 +41,189 @@ export const SCENES = {
   */
     splash: {
         key: 'splash',
-        component: Splash,
-        initial: true,
-        hideNavBar: true,
+        screen: Splash,
+        path: 'splash',
     },
     login: {
         key: 'login',
-        component: Login,
-        initial: false,
-        hideNavBar: true,
+        screen: Login,
+        path: 'login',
     },
     forgotPassword: {
         key: 'forgotPassword',
-        component: ForgotPassword,
-        initial: false,
-        hideNavBar: true,
+        screen: ForgotPassword,
+        path: 'forgotPassword',
     },
     createAccount: {
         key: 'createAccount',
-        component: CreateAccount,
-        initial: false,
-        hideNavBar: true,
+        screen: CreateAccount,
+        path: 'createAccount',
     },
-    tour: {
-        key: 'tour',
-        component: Tour,
-        initial: false,
-        hideNavBar: true,
-    },
+    // tour: {
+    //     key: 'tour',
+    //     component: Tour,
+    //     initial: false,
+    //     hideNavBar: true,
+    // },
     home: {
         key: 'home',
-        component: Home,
-        initial: false,
-        hideNavBar: false,
+        screen: Home,
+        path: 'home',
     },
-    profile: {
-        key: 'profile',
-        component: Profile,
-        initial: false,
-        hideNavBar: false,
-    },
-    settings: {
-        key: 'settings',
-        component: Settings,
-        initial: false,
-        hideNavBar: false,
-    },
-    privacyPolicy: {
-        key: 'privacyPolicy',
-        component: PrivacyPolicy,
-        initial: false,
-        hideNavBar: false,
-    },
-    termsConditions: {
-        key: 'termsConditions',
-        component: TermsConditions,
-        initial: false,
-        hideNavBar: false,
-    },
-    community: {
-        key: 'community',
-        component: Community,
-        initial: false,
-        hideNavBar: false,
-    },
-    marketplace: {
-        key: 'marketplace',
-        component: Marketplace,
-        initial: false,
-        hideNavBar: false,
-    },
-    myPosts: {
-        key: 'myPosts',
-        component: MyPosts,
-        initial: false,
-        hideNavBar: false,
-    },
-    createPost: {
-        key: 'createPost',
-        component: CreatePost,
-        initial: false,
-        hideNavBar: true,
-    },
-    viewPost: {
-        key: 'viewPost',
-        component: ViewPost,
-        initial: false,
-        hideNavBar: false,
-    },
-    createQuestion: {
-        key: 'createQuestion',
-        component: CreateQuestion,
-        initial: false,
-        hideNavBar: true,
-    },
-    chat: {
-        key: 'chat',
-        component: Chat,
-        initial: false,
-        hideNavBar: false,
-    },
-    messageCenter: {
-        key: 'messageCenter',
-        component: MessageCenter,
-        initial: false,
-        hideNavBar: false,
-    },
-    scheduleCenter: {
-        key: 'scheduleCenter',
-        component: ScheduleCenter,
-        initial: false,
-        hideNavBar: false,
-    },
+    // profile: {
+    //     key: 'profile',
+    //     component: Profile,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // settings: {
+    //     key: 'settings',
+    //     component: Settings,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // privacyPolicy: {
+    //     key: 'privacyPolicy',
+    //     component: PrivacyPolicy,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // termsConditions: {
+    //     key: 'termsConditions',
+    //     component: TermsConditions,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // community: {
+    //     key: 'community',
+    //     component: Community,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // marketplace: {
+    //     key: 'marketplace',
+    //     component: Marketplace,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // myPosts: {
+    //     key: 'myPosts',
+    //     component: MyPosts,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // createPost: {
+    //     key: 'createPost',
+    //     component: CreatePost,
+    //     initial: false,
+    //     hideNavBar: true,
+    // },
+    // viewPost: {
+    //     key: 'viewPost',
+    //     component: ViewPost,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // createQuestion: {
+    //     key: 'createQuestion',
+    //     component: CreateQuestion,
+    //     initial: false,
+    //     hideNavBar: true,
+    // },
+    // chat: {
+    //     key: 'chat',
+    //     component: Chat,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // messageCenter: {
+    //     key: 'messageCenter',
+    //     component: MessageCenter,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
+    // scheduleCenter: {
+    //     key: 'scheduleCenter',
+    //     component: ScheduleCenter,
+    //     initial: false,
+    //     hideNavBar: false,
+    // },
 };
 
-const scenes = Actions.create(
-    <Scene key="root">
-        {/* <Scene {...SCENES.boilerplate} /> */}
-        <Scene {...SCENES.splash} />
-        <Scene {...SCENES.login} />
-        <Scene {...SCENES.forgotPassword} />
-        <Scene {...SCENES.createAccount} />
-        <Scene {...SCENES.tour} />
-        <Scene {...SCENES.home} />
-        <Scene {...SCENES.community} />
-        <Scene {...SCENES.marketplace} />
-        <Scene {...SCENES.myPosts} />
-        <Scene {...SCENES.createPost} />
-        <Scene {...SCENES.viewPost} />
-        <Scene {...SCENES.createQuestion} />
-        <Scene {...SCENES.chat} />
-        <Scene {...SCENES.messageCenter} />
-        <Scene {...SCENES.scheduleCenter} />
-        <Scene {...SCENES.profile} />
-        <Scene {...SCENES.settings} />
-        <Scene {...SCENES.privacyPolicy} />
-        <Scene {...SCENES.termsConditions} />
-    </Scene>
+// const scenes = Actions.create(
+//     <Scene key="root">
+//         {/* <Scene {...SCENES.boilerplate} /> */}
+//         <Scene {...SCENES.splash} />
+//         <Scene {...SCENES.login} />
+//         <Scene {...SCENES.forgotPassword} />
+//         <Scene {...SCENES.createAccount} />
+//         <Scene {...SCENES.tour} />
+//         <Scene {...SCENES.home} />
+//         <Scene {...SCENES.community} />
+//         <Scene {...SCENES.marketplace} />
+//         <Scene {...SCENES.myPosts} />
+//         <Scene {...SCENES.createPost} />
+//         <Scene {...SCENES.viewPost} />
+//         <Scene {...SCENES.createQuestion} />
+//         <Scene {...SCENES.chat} />
+//         <Scene {...SCENES.messageCenter} />
+//         <Scene {...SCENES.scheduleCenter} />
+//         <Scene {...SCENES.profile} />
+//         <Scene {...SCENES.settings} />
+//         <Scene {...SCENES.privacyPolicy} />
+//         <Scene {...SCENES.termsConditions} />
+//     </Scene>
+// );
+
+// const RouterWithRedux = connect()(Router);
+
+// export default class Routes extends Component {
+//     static propTypes = {
+//         me: PropTypes.object,
+//     };
+
+//     render() {
+//         return (
+//             <View style={{ flex: 1 }}>
+//                 <NavigationDrawerContainer>
+//                     <RouterWithRedux me={this.props.me} scenes={scenes} />
+//                 </NavigationDrawerContainer>
+//             </View>
+//         );
+//     }
+// }
+
+const LoginStack = createStackNavigator(
+    {
+        login: SCENES.login,
+        createAccount: SCENES.createAccount,
+        forgotPassword: SCENES.forgotPassword,
+    },
+    {
+        headerMode: 'none',
+    }
 );
 
-const RouterWithRedux = connect()(Router);
+const AppStack = createStackNavigator({
+    home: SCENES.home,
+});
 
-export default class Routes extends Component {
-    static propTypes = {
-        me: PropTypes.object,
-    };
-
-    render() {
-        return (
-            <View style={{ flex: 1 }}>
-                <NavigationDrawerContainer>
-                    <RouterWithRedux me={this.props.me} scenes={scenes} />
-                </NavigationDrawerContainer>
-            </View>
-        );
+const AuthStack = createSwitchNavigator(
+    {
+        splash: SCENES.splash,
+        app: AppStack,
+        login: LoginStack,
+    },
+    {
+        initialRouteName: SCENES.splash.key,
     }
-}
+);
+
+export default createStackNavigator(
+    {
+        AuthStack,
+    },
+    {
+        headerMode: 'none',
+    }
+);

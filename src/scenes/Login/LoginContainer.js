@@ -1,58 +1,56 @@
-import React, {Component} from 'react'; import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // components
 import Login from './components/Login';
 
 // actions
-import {changeFormValue} from './loginActions';
+import { changeFormValue } from './loginActions';
 
 // module actions
-import {login} from '../../modules/auth/authActions';
-import {changeScene} from '../../modules/navigation/navigationActions.js';
+import { login } from '../../modules/auth/authActions';
 
 class LoginContainer extends Component {
-  static propTypes = {
-    // states
-    form: PropTypes.shape({
-      username: PropTypes.string,
-      password: PropTypes.string,
-    }),
+    static propTypes = {
+        // states
+        form: PropTypes.shape({
+            username: PropTypes.string,
+            password: PropTypes.string,
+        }),
 
-    // actions
-    changeFormValue: PropTypes.func.isRequired,
+        // actions
+        changeFormValue: PropTypes.func.isRequired,
 
-    // module states
-    isLoggingIn: PropTypes.bool.isRequired,
-    
-    // module actions
-    login: PropTypes.func.isRequired,
-    changeScene: PropTypes.func.isRequired,
-  };
+        // module states
+        isLoggingIn: PropTypes.bool.isRequired,
 
-  render() {
-    return <Login {...this.props} />
-  }
+        // module actions
+        login: PropTypes.func.isRequired,
+    };
+
+    render() {
+        return <Login {...this.props} />;
+    }
 }
 
 function mapStateToProps(state) {
-  return {
-    // states
-    ...state.loginScene,
+    return {
+        // states
+        ...state.loginScene,
 
-    // module states
-    isLoggingIn: state.auth.isLoggingIn,
-  };
+        // module states
+        isLoggingIn: state.auth.isLoggingIn,
+    };
 }
 
 export default connect(
-  mapStateToProps,
-  {
-    // actions
-    changeFormValue,
+    mapStateToProps,
+    {
+        // actions
+        changeFormValue,
 
-    // module actions
-    login,
-    changeScene,
-  }
+        // module actions
+        login,
+    }
 )(LoginContainer);

@@ -35,7 +35,7 @@ cd MyMittiMobile
 ```
 
 ```sh
-yarn add moment@2.22.1 react-native-animatable@1.2.4 react-native-aws3@0.0.8 react-native-drawer@2.5.0 react-native-geocoder@0.5.0 react-native-image-picker@0.26.10 react-native-maps@0.21.0 react-native-modal-datetime-picker@6.0.0 react-native-onesignal@3.2.5 react-native-router-flux@4.0.0-beta.31 react-native-snackbar@0.4.7 react-native-swiper@1.5.13 react-native-vector-icons@4.6.0 react-redux@5.0.7 redux@4.0.0 redux-logger@3.0.6 redux-thunk@2.3.0
+yarn add moment@2.22.1 react-native-animatable@1.2.4 react-native-aws3@0.0.8 react-native-drawer@2.5.0 react-native-geocoder@0.5.0 react-native-image-picker@0.26.10 react-native-maps@0.21.0 react-native-modal-datetime-picker@6.0.0 react-native-onesignal@3.2.5 react-native-snackbar@0.4.7 react-native-swiper@1.5.13 react-native-vector-icons@4.6.0 react-redux@5.0.7 redux@4.0.0 redux-logger@3.0.6 redux-thunk@2.3.0 react-navigation@2.8.0
 yarn add --dev @babel/core@7.0.0-beta.44
 ```
 
@@ -61,7 +61,7 @@ $ cd android/app
 $ keytool -genkey -v -keystore mitti-mobile-release-key.keystore -alias mitti-mobile-key-alias -keyalg RSA -keysize 2048 -validity 10000
 ```
 
-When asked for password enter: mitti
+When asked for password enter: password
 
 For production release key, ask Alex
 
@@ -119,7 +119,7 @@ ext {
 distributionUrl=https\://services.gradle.org/distributions/gradle-4.1-all.zip
 ```
 
-5.  Update `android/app/src/AndroidManifest.xml`
+5.  Update `android/app/src/main/AndroidManifest.xml`
 
 For react-native-maps, add this to child of application
 
