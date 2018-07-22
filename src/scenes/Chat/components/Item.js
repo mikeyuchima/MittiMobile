@@ -67,7 +67,7 @@ export default class Item extends Component {
     }
 
     return (
-      <View style={}>
+      <View>
         <View style={mapStyles.mapContainer}>
           {
             mapSnapshot
