@@ -48,7 +48,6 @@ export default class Form extends Component {
     return (
       <ScrollView style={[
         commonStyles.fullScreen, 
-        mittiStyles.topWithNavBar,
         mittiStyles.whiteBody,
       ]}>
         <SpinnerOverlay show={isUpdatingMyProfile} />

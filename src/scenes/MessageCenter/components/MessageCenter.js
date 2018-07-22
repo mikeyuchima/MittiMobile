@@ -48,7 +48,6 @@ export default class MessageCenter extends Component {
         ref={(ref) => { this.scrollView = ref; }}
         style={[
           mittiStyles.whiteBody,
-          mittiStyles.topWithNavBar,
         ]}>
         <View style={[
           commonStyles.fullScreen,

@@ -77,7 +77,6 @@ export default class Community extends Component {
       <ScrollView style={[
         commonStyles.fullScreen, 
         mittiStyles.darkBody,
-        mittiStyles.topWithNavBar,
       ]}>
         <View>
           <View style={isAnswerListOpen ? mapStyles.mapContainerShort : mapStyles.mapContainer}>

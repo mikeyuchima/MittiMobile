@@ -72,7 +72,6 @@ export default class ViewPost extends Component {
       <ScrollView 
         style={[
           mittiStyles.whiteBody,
-          mittiStyles.topWithNavBar,
         ]}>
         <View style={[
           commonStyles.fullScreen,

@@ -67,7 +67,7 @@ export default class Item extends Component {
     }
 
     return (
-      <View style={mittiStyles.topWithNavBar}>
+      <View style={}>
         <View style={mapStyles.mapContainer}>
           {
             mapSnapshot

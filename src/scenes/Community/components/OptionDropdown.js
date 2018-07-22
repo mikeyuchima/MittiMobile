@@ -36,7 +36,6 @@ export default class OptionDropDown extends Component {
           <View style={[
             styles.listMenu,
             mittiStyles.darkBody,
-            mittiStyles.topWithNavBar,
           ]}>
             {/*<MenuItem label={t(dictionary.edit)} onPress={this.props.onEdit} />*/}
             {/*<MenuItem label={t(dictionary.delete)} onPress={() => null} />*/}
