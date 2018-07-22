@@ -42,7 +42,6 @@ export default class MyPosts extends Component {
       <ScrollView style={[
         commonStyles.fullScreen, 
         mittiStyles.whiteBody,
-        mittiStyles.topWithNavBar,
       ]}>
         <View>
           <ItemList

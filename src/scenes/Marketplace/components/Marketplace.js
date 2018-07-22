@@ -55,7 +55,6 @@ export default class Marketplace extends Component {
       <ScrollView style={[
         commonStyles.fullScreen, 
         mittiStyles.darkBody,
-        mittiStyles.topWithNavBar,
       ]}>
         <View>
           <View style={mapStyles.mapContainer}>

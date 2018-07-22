@@ -33,8 +33,10 @@ export default class Profile extends Component {
     render() {
         return (
             <ScrollView
-                style={[commonStyles.fullScreen, mittiStyles.topWithNavBar, styles.container]}
-            >
+                style={[
+                    commonStyles.fullScreen, 
+                    styles.container]}>
+            
                 <View style={mittiStyles.bottomScrollExtra}>
                     <View style={styles.titleContainer}>
                         <Text style={styles.title}>{t(dictionary.termsConditions)}</Text>

@@ -44,7 +44,6 @@ export default class Home extends Component {
       return (
         <ScrollView style={[
           commonStyles.fullScreen, 
-          mittiStyles.topWithNavBar,
           mittiStyles.darkBody,
         ]}>
 

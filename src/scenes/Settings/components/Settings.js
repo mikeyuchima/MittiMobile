@@ -49,8 +49,10 @@ export default class Profile extends Component {
 
         return (
             <ScrollView
-                style={[commonStyles.fullScreen, mittiStyles.topWithNavBar, styles.container]}
-            >
+                style={[
+                    commonStyles.fullScreen, 
+                    styles.container]}>
+            
                 <View>
                     <SpinnerOverlay show={isUpdatingMySettings} />
 
