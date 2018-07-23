@@ -17,10 +17,9 @@ import homeScene from '../scenes/Home/homeReducer';
 import auth from '../modules/auth/authReducer';
 import app from '../modules/app/appReducer';
 import me from '../modules/me/meReducer';
-// import navigation from '../modules/navigation/navigationReducer';
 import radius from '../modules/radius/radiusReducer';
-// import currentLocation from '../modules/currentLocation/currentLocationReducer';
-// import map from '../modules/map/mapReducer';
+import currentLocation from '../modules/currentLocation/currentLocationReducer';
+import map from '../modules/map/mapReducer';
 import unreadMessages from '../modules/unreadMessages/unreadMessagesReducer';
 
 import { navReducer } from '../routes';
@@ -32,8 +31,8 @@ export default combineReducers({
     me,
     // navigation,
     radius,
-    // currentLocation,
-    // map,
+    currentLocation,
+    map,
     unreadMessages,
     loginScene,
     forgotPasswordScene,

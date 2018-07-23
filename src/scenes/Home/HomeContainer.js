@@ -67,6 +67,17 @@ class HomeContainer extends Component {
     //     );
     // };
 
+    static navigationOptions = {
+        // headerTitle instead of title
+        headerTitle: (
+            <NavBar
+                title={t(dictionary.home)}
+                leftButton={<OpenDrawerButtonContainer />}
+                rightButton={<OpenDropdownButtonContainer />}
+            />
+        ),
+    };
+
     componentDidMount() {
         this.props.getMyStats();
         this.props.getMyQuestions();

@@ -1,7 +1,4 @@
-import { NavigationActions } from 'react-navigation';
-// actiom types
-export const NAVIGATION_OPEN_DRAWER = 'NAVIGATION_OPEN_DRAWER';
-export const NAVIGATION_CLOSE_DRAWER = 'NAVIGATION_CLOSE_DRAWER';
+import { NavigationActions, DrawerActions } from 'react-navigation';
 
 export const changeScene = (routeName, params = {}, type = 'PUSH') => {
     return (dispatch, getState) => {
@@ -24,18 +21,20 @@ export const back = () => {
     };
 };
 
-// export const openDrawer = () => {
-//     return (dispatch, getState) => {
-//         dispatch({
-//             type: NAVIGATION_OPEN_DRAWER,
-//         });
-//     };
-// };
+export const openDrawer = () => {
+    return (dispatch, getState) => {
+        dispatch(DrawerActions.openDrawer());
+    };
+};
 
-// export const closeDrawer = () => {
-//     return (dispatch, getState) => {
-//         dispatch({
-//             type: NAVIGATION_CLOSE_DRAWER,
-//         });
-//     };
-// };
+export const closeDrawer = () => {
+    return (dispatch, getState) => {
+        dispatch(DrawerActions.closeDrawer());
+    };
+};
+
+export const toggleDrawer = () => {
+    return (dispatch, getState) => {
+        dispatch(DrawerActions.toggleDrawer());
+    };
+};

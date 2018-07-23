@@ -1,11 +1,12 @@
-import React, {Component} from 'react'; import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 // actions
-import {openDrawer, closeDrawer} from './navigationActions';
+import { toggleDrawer } from './navigationActions';
 
 // components
-import {TouchableOpacity} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // styles
@@ -13,40 +14,31 @@ import * as colors from '../../styles/colors';
 import * as font from '../../styles/font';
 
 class OpenDrawerButtonContainer extends Component {
-  static propTypes = {
-    // states
-    isDrawerOpen: PropTypes.bool.isRequired,
+    static propTypes = {
+        // states
 
-    // actions
-    openDrawer: PropTypes.func.isRequired,
-    closeDrawer: PropTypes.func.isRequired,
-  };
+        // actions
+        toggleDrawer: PropTypes.func.isRequired,
+    };
 
-  render(){
-    const {isDrawerOpen, openDrawer, closeDrawer} = this.props;
-    return (
-      <TouchableOpacity 
-        style={{padding: 8}}
-        onPress={isDrawerOpen ? closeDrawer : openDrawer}>
-        <Icon name='navicon' size={font.SIZE_H1} color={colors.WHITE} />
-      </TouchableOpacity>
-    );
-  }
+    render() {
+        const { toggleDrawer } = this.props;
+        return (
+            <TouchableOpacity style={{ padding: 8 }} onPress={toggleDrawer}>
+                <Icon name="navicon" size={font.SIZE_H1} color={colors.WHITE} />
+            </TouchableOpacity>
+        );
+    }
 }
 
 function mapStateToProps(state) {
-  const {isDrawerOpen} = state.navigation;
-  return {
-    // states
-    isDrawerOpen,
-  };
+    return {};
 }
 
 export default connect(
-  mapStateToProps,
-  {
-    // actions
-    openDrawer,
-    closeDrawer,
-  }
+    mapStateToProps,
+    {
+        // actions
+        toggleDrawer,
+    }
 )(OpenDrawerButtonContainer);

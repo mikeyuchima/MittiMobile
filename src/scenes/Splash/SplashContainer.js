@@ -25,7 +25,7 @@ class SplashContainer extends Component {
         this.props.getLastSession().then(token => {
             if (token) {
                 setTimeout(() => {
-                    this.props.changeScene('tour');
+                    this.props.changeScene('home');
                 }, SPLASH_WAIT);
             } else {
                 setTimeout(() => {
