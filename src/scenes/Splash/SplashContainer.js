@@ -13,7 +13,7 @@ import Splash from './components/Splash';
 import { SPLASH_WAIT } from '../../constants/constants';
 
 // other
-import { SCENES } from '../../routes';
+import SCENES from '../../scenes';
 
 class SplashContainer extends Component {
     static propTypes = {
@@ -44,8 +44,6 @@ class SplashContainer extends Component {
 function mapStateToProps(state) {
     return {};
 }
-
-console.log('xxxxx', getLastSession, changeScene);
 
 export default connect(
     mapStateToProps,

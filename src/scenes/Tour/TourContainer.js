@@ -8,7 +8,7 @@ import Tour3 from './components/Tour3';
 import { changePage } from './tourActions.js';
 import { changeScene } from '../../modules/navigation/navigationActions.js';
 import commonStyles from '../../styles/common';
-import { SCENES } from '../../routes';
+import SCENES from '../../scenes';
 import { t } from '../../i18n';
 import dictionary from './dictionary';
 import Swiper from 'react-native-swiper';
@@ -76,7 +76,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, {
-    changeScene,
-    changePage,
-})(TourContainer);
+export default connect(
+    mapStateToProps,
+    {
+        changeScene,
+        changePage,
+    }
+)(TourContainer);

@@ -17,7 +17,7 @@ import { setLocale } from '../../i18n';
 
 // other
 import OneSignal from 'react-native-onesignal';
-import { SCENES } from '../../routes';
+import SCENES from '../../scenes';
 import moment from 'moment';
 import { NOTIFICATION_TYPES } from '../../constants/constants';
 

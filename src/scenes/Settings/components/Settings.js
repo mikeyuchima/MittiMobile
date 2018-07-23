@@ -28,7 +28,7 @@ import dictionary from '../dictionary';
 // constants
 import { LOCALES } from '../../../constants/constants';
 
-import { SCENES } from '../../../routes';
+import SCENES from '../../../scenes';
 
 export default class Profile extends Component {
     static propTypes = {
@@ -48,11 +48,7 @@ export default class Profile extends Component {
         const { isUpdatingMySettings, updateMySettings, settings } = this.props;
 
         return (
-            <ScrollView
-                style={[
-                    commonStyles.fullScreen, 
-                    styles.container]}>
-            
+            <ScrollView style={[commonStyles.fullScreen, styles.container]}>
                 <View>
                     <SpinnerOverlay show={isUpdatingMySettings} />
 

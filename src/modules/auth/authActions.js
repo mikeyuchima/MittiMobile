@@ -16,7 +16,7 @@ import dictionary from './dictionary';
 import { t } from '../../i18n';
 
 // other
-import { SCENES } from '../../routes';
+import SCENES from '../../scenes';
 // action types
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';

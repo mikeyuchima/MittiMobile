@@ -8,7 +8,7 @@ import {
     REGION_CHANGE_DEFINITION,
     DISTANT_CONVERSION,
 } from '../../../constants/constants';
-import { SCENES } from '../../../routes';
+import SCENES from '../../../scenes';
 
 let timer = 0;
 

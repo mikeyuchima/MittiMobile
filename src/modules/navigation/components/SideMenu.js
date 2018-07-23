@@ -1,15 +1,9 @@
-import React, {Component} from 'react'; import PropTypes from 'prop-types';
-import {ActionConst} from 'react-native-router-flux';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { ActionConst } from 'react-native-router-flux';
 
 // components
-import {
-  StyleSheet,
-  View,
-  ScrollView,
-  Image,
-  Text,
-  TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -19,250 +13,225 @@ import * as font from '../../../styles/font';
 import * as colors from '../../../styles/colors';
 
 // i18n
-import {t} from '../../../i18n';
+import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import {SCENES} from '../../../routes';
-import {POST_TYPES} from '../../../constants/constants';
+import SCENES from '../../../scenes';
+import { POST_TYPES } from '../../../constants/constants';
 
-export default SideMenu = ({me, sceneKey, changeScene, logout}) => (
-	<ScrollView style={styles.container}>
-		<TouchableOpacity 
-      onPress={() => changeScene(SCENES.profile.key)}
-      style={styles.profileButton}>
-      <View style={profilePictureStyles.container}>
-        {renderProfilePicture(me)}
-      </View>
-			<Text style={styles.menuHeaderText}>
-				{getUserFullName(me)}
-			</Text>
-		</TouchableOpacity>
-    <View style={styles.menuContainer}>
-      {renderMenu(sceneKey, changeScene, logout)}
-    </View>
-	</ScrollView>
-);
+export default (SideMenu = ({ me, sceneKey, changeScene, logout }) => (
+    <ScrollView style={styles.container}>
+        <TouchableOpacity
+            onPress={() => changeScene(SCENES.profile.key)}
+            style={styles.profileButton}
+        >
+            <View style={profilePictureStyles.container}>{renderProfilePicture(me)}</View>
+            <Text style={styles.menuHeaderText}>{getUserFullName(me)}</Text>
+        </TouchableOpacity>
+        <View style={styles.menuContainer}>{renderMenu(sceneKey, changeScene, logout)}</View>
+    </ScrollView>
+));
 
 SideMenu.propTypes = {
-	changeScene: PropTypes.func.isRequired,
-	logout: PropTypes.func.isRequired,
+    changeScene: PropTypes.func.isRequired,
+    logout: PropTypes.func.isRequired,
 };
 
-const renderProfilePicture = (me) => {
-  const filePath = me &&
-                   me.profile &&
-                   me.profile.photo;
-  const isMentor = me &&
-                   me.isMentor;
+const renderProfilePicture = me => {
+    const filePath = me && me.profile && me.profile.photo;
+    const isMentor = me && me.isMentor;
 
-  // check if we have file path
-  if(filePath) {
-    return (
-      <Image
-        style={profilePictureStyles.image}
-        source={require('../../../assets/images/logo.png')}
-      />
-    );
-  }
-  else {
-    return (
-      <View style={profilePictureStyles.content}>
-        <MCIIcon
-          size={100}
-          name={'account-circle'}
-        />
-        {
-          isMentor
-          ? <MCIIcon
-              size={20}
-              name={'star'}
-              color={'white'}
-              style={profilePictureStyles.starButton}
+    // check if we have file path
+    if (filePath) {
+        return (
+            <Image
+                style={profilePictureStyles.image}
+                source={require('../../../assets/images/logo.png')}
             />
-          : null
-        }
-      </View>
-    );
-  }
+        );
+    } else {
+        return (
+            <View style={profilePictureStyles.content}>
+                <MCIIcon size={100} name={'account-circle'} />
+                {isMentor ? (
+                    <MCIIcon
+                        size={20}
+                        name={'star'}
+                        color={'white'}
+                        style={profilePictureStyles.starButton}
+                    />
+                ) : null}
+            </View>
+        );
+    }
 };
 
 const renderMenu = (sceneKey, changeScene, logout) => {
-  const menuItems = [
-    {
-      id: 'home',
-      onPress: () => changeScene(SCENES.home.key, {}, ActionConst.REPLACE),
-      icon: 'MCI',
-      iconName: 'home',
-      label: t(dictionary.home),
-    },
-    {
-      id: 'messageCenter',
-      onPress: () => changeScene(SCENES.messageCenter.key, {}, ActionConst.REPLACE),
-      icon: 'MCI',
-      iconName: 'message-processing',
-      label: t(dictionary.messages),
-    },
-    {
-      id: 'community',
-      onPress: () => changeScene(SCENES.community.key, {}, ActionConst.REPLACE),
-      icon: 'MCI',
-      iconName: 'vector-circle',
-      label: t(dictionary.community),
-    },
-    {
-      id: 'marketplace',
-      onPress: () => changeScene(SCENES.marketplace.key, {
-        navigationParams: {
-          marketType: POST_TYPES.free.id,
+    const menuItems = [
+        {
+            id: 'home',
+            onPress: () => changeScene(SCENES.home.key, {}, ActionConst.REPLACE),
+            icon: 'MCI',
+            iconName: 'home',
+            label: t(dictionary.home),
+        },
+        {
+            id: 'messageCenter',
+            onPress: () => changeScene(SCENES.messageCenter.key, {}, ActionConst.REPLACE),
+            icon: 'MCI',
+            iconName: 'message-processing',
+            label: t(dictionary.messages),
+        },
+        {
+            id: 'community',
+            onPress: () => changeScene(SCENES.community.key, {}, ActionConst.REPLACE),
+            icon: 'MCI',
+            iconName: 'vector-circle',
+            label: t(dictionary.community),
+        },
+        {
+            id: 'marketplace',
+            onPress: () =>
+                changeScene(
+                    SCENES.marketplace.key,
+                    {
+                        navigationParams: {
+                            marketType: POST_TYPES.free.id,
+                        },
+                    },
+                    ActionConst.REPLACE
+                ),
+            icon: 'FA',
+            iconName: 'gift',
+            label: t(dictionary.freeShare),
+        },
+        {
+            id: 'settings',
+            onPress: () => changeScene(SCENES.settings.key, {}),
+            icon: 'FA',
+            iconName: 'gear',
+            label: t(dictionary.settings),
+            hasTopGap: true,
+        },
+        {
+            id: 'logout',
+            onPress: logout,
+            icon: 'FA',
+            iconName: 'sign-out',
+            label: t(dictionary.logout),
+            hasTopGap: false,
+        },
+    ];
+
+    return menuItems.map(function(aMenuItem) {
+        const isCurrentScene = aMenuItem.id == sceneKey;
+
+        let menuItemStyles = [styles.menuItem];
+        let itemTextStyles = [styles.text];
+
+        // check if we have top gap
+        if (aMenuItem.hasTopGap) {
+            menuItemStyles.push({ marginTop: 100 });
         }
-      }, ActionConst.REPLACE),
-      icon: 'FA',
-      iconName: 'gift',
-      label: t(dictionary.freeShare),
-    },
-    {
-      id: 'settings',
-      onPress: () => changeScene(SCENES.settings.key, {}),
-      icon: 'FA',
-      iconName: 'gear',
-      label: t(dictionary.settings),
-      hasTopGap: true
-    },
-    {
-      id: 'logout',
-      onPress: logout,
-      icon: 'FA',
-      iconName: 'sign-out',
-      label: t(dictionary.logout),
-      hasTopGap: false,
-    },
-  ];
+        // check if current key
+        if (isCurrentScene) {
+            itemTextStyles.push({ color: colors.BLUE });
+        }
 
-  return menuItems.map(function(aMenuItem) {
-    const isCurrentScene = aMenuItem.id == sceneKey;
-
-    let menuItemStyles = [
-      styles.menuItem
-    ];
-    let itemTextStyles = [
-      styles.text
-    ];
-
-    // check if we have top gap
-    if(aMenuItem.hasTopGap) {
-      menuItemStyles.push(
-        { marginTop: 100 }
-      );
-    }
-    // check if current key
-    if(isCurrentScene) {
-      itemTextStyles.push(
-        { color: colors.BLUE }
-      );
-    }
-
-    return (
-      <View 
-        key={aMenuItem.id}
-        style={menuItemStyles}>
-
-        <TouchableOpacity 
-          style={styles.menuItemRow}
-          onPress={!isCurrentScene ? aMenuItem.onPress : null}>
-
-          <View style={styles.iconContainer}>
-            {renderIcon(aMenuItem.icon, aMenuItem.iconName, isCurrentScene)}
-          </View>
-          <View style={styles.textContainer}>
-            <Text style={itemTextStyles}>
-              {aMenuItem.label.toUpperCase()}
-            </Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  });
+        return (
+            <View key={aMenuItem.id} style={menuItemStyles}>
+                <TouchableOpacity
+                    style={styles.menuItemRow}
+                    onPress={!isCurrentScene ? aMenuItem.onPress : null}
+                >
+                    <View style={styles.iconContainer}>
+                        {renderIcon(aMenuItem.icon, aMenuItem.iconName, isCurrentScene)}
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text style={itemTextStyles}>{aMenuItem.label.toUpperCase()}</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+        );
+    });
 };
 
 const renderIcon = (iconType, iconName, isCurrentScene) => {
-  switch(iconType) {
-  case 'FA':
-    return (
-      <FAIcon
-        size={font.SIZE_MENU_ICON}
-        color={isCurrentScene ? colors.BLUE : null}
-        name={iconName}
-      />
-    );
-    break;
-  default:
-    return (
-      <MCIIcon
-        size={font.SIZE_MENU_ICON}
-        color={isCurrentScene ? colors.BLUE : null}
-        name={iconName}
-      />
-    );
-  }
+    switch (iconType) {
+        case 'FA':
+            return (
+                <FAIcon
+                    size={font.SIZE_MENU_ICON}
+                    color={isCurrentScene ? colors.BLUE : null}
+                    name={iconName}
+                />
+            );
+            break;
+        default:
+            return (
+                <MCIIcon
+                    size={font.SIZE_MENU_ICON}
+                    color={isCurrentScene ? colors.BLUE : null}
+                    name={iconName}
+                />
+            );
+    }
 };
 
-const getUserFullName = (me) => {
-  const profile = me &&
-                  me.profile;
-  const fullName = profile &&
-                   profile.fullName;
-  
-  return fullName;
+const getUserFullName = me => {
+    const profile = me && me.profile;
+    const fullName = profile && profile.fullName;
+
+    return fullName;
 };
 
 const styles = StyleSheet.create({
-	container: {
-	},
-	profileButton: {
-		padding: 20,
-    alignItems: 'center'
-	},
-  menuHeaderText: {
-    fontSize: font.SIZE_H1,
-  },
-	menuItem: {
-    height: 65,
-	},
-  menuItemRow: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingLeft: 30,
-    paddingRight: 30,
-  },
-  iconContainer: {
-    width: 45,
-    justifyContent: 'center',
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: font.SIZE_H1,
-  },
+    container: {},
+    profileButton: {
+        padding: 20,
+        alignItems: 'center',
+    },
+    menuHeaderText: {
+        fontSize: font.SIZE_H1,
+    },
+    menuItem: {
+        height: 65,
+    },
+    menuItemRow: {
+        flex: 1,
+        flexDirection: 'row',
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 30,
+        paddingRight: 30,
+    },
+    iconContainer: {
+        width: 45,
+        justifyContent: 'center',
+    },
+    textContainer: {
+        flex: 1,
+        justifyContent: 'center',
+    },
+    text: {
+        fontSize: font.SIZE_H1,
+    },
 });
 
 const profilePictureStyles = StyleSheet.create({
-  content: {
-    position: 'relative',
-  },
-  image: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-  },
-  starButton: {
-    backgroundColor: '#000000',
-    position: 'absolute',
-    bottom: 15,
-    right: 15,
-  }
+    content: {
+        position: 'relative',
+    },
+    image: {
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+    },
+    starButton: {
+        backgroundColor: '#000000',
+        position: 'absolute',
+        bottom: 15,
+        right: 15,
+    },
 });
