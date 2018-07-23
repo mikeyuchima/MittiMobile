@@ -14,7 +14,6 @@ import { SPLASH_WAIT } from '../../constants/constants';
 
 // other
 
-
 class SplashContainer extends Component {
     static propTypes = {
         // module actions
@@ -26,7 +25,7 @@ class SplashContainer extends Component {
         this.props.getLastSession().then(token => {
             if (token) {
                 setTimeout(() => {
-                    this.props.changeScene('home');
+                    this.props.changeScene('tour');
                 }, SPLASH_WAIT);
             } else {
                 setTimeout(() => {

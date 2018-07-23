@@ -36,13 +36,14 @@ export const resetPassword = username => {
     });
 };
 
-export const resendVerification = username => {
+export const resendVerification = (token, username) => {
     const data = { username };
     return fetch(`${BASE_URI}/api/me/resendVerification`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json;charset=utf-8',
+            Authorization: `Bearer ${token}`,
         },
     });
 };

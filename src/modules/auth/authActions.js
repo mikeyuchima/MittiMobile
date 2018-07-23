@@ -16,7 +16,7 @@ import dictionary from './dictionary';
 import { t } from '../../i18n';
 
 // other
-// 
+//
 // action types
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
@@ -183,10 +183,12 @@ export const register = (fullName, username, password) => {
 
 export const requestVerification = username => {
     return (dispatch, getState) => {
+        const { token } = getState().auth;
+
         dispatch(_requestVerification());
 
         return authApi
-            .resendVerification(username)
+            .resendVerification(token, username)
             .then(resp => dispatch(appActions.processApiResponse(resp)))
             .then(resp => {
                 dispatch(_requestVerificationSuccess());

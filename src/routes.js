@@ -164,7 +164,6 @@ const UnAuthenticatedStack = createStackNavigator(
 );
 
 const AuthenticatedStack = createStackNavigator({
-    tour: SCENES.tour,
     home: SCENES.home,
 });
 
@@ -182,6 +181,7 @@ const AuthFlowStack = createSwitchNavigator(
 const RootNavigator = createStackNavigator(
     {
         AuthFlowStack,
+        tour: SCENES.tour,
     },
     {
         headerMode: 'none',
