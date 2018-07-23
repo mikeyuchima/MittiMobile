@@ -6,9 +6,6 @@ import { ENVIRONMENT, ONESIGNAL_APP_ID } from '../../../config';
 // constants
 import { DEFAULT_LOCALE } from '../../constants/constants';
 
-// components
-import Routes from '../../routes.js';
-
 // actions
 import { setDefaultRadius } from '../radius/radiusActions';
 import { changeScene, refreshScene } from '../../modules/navigation/navigationActions.js';
@@ -64,7 +61,7 @@ class AppContainer extends Component {
     }
 
     render() {
-        return <Routes me={this.props.me} />;
+        return this.props.children;
     }
 
     _oneSignalSetup = props => {
@@ -92,12 +89,7 @@ class AppContainer extends Component {
     };
 
     _openNotification = (notification, insideApp) => {
-        const {
-            findUnreadMessages,
-            refreshScene,
-            changeScene,
-            onMessage,
-        } = this.props;
+        const { findUnreadMessages, refreshScene, changeScene, onMessage } = this.props;
 
         console.log('Notification received: ', notification);
 

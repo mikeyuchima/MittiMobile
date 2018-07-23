@@ -45,6 +45,8 @@ function mapStateToProps(state) {
     return {};
 }
 
+console.log('xxxxx', getLastSession, changeScene);
+
 export default connect(
     mapStateToProps,
     {

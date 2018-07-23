@@ -1,16 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
-
-import {
-    reduxifyNavigator,
-    createReactNavigationReduxMiddleware,
-    createNavigationReducer,
-  } from 'react-navigation-redux-helpers';
+import { createNavigationReducer } from 'react-navigation-redux-helpers';
 
 // components
-import { View } from 'react-native';
 // import Boilerplate from './scenes/Boilerplate';
 import Login from './scenes/Login';
 import ForgotPassword from './scenes/ForgotPassword';
@@ -222,7 +215,7 @@ const AuthStack = createSwitchNavigator(
     }
 );
 
-const AppStack = createStackNavigator(
+export const AppNavigator = createStackNavigator(
     {
         AuthStack,
     },
@@ -231,13 +224,4 @@ const AppStack = createStackNavigator(
     }
 );
 
-const navReducer = createNavigationReducer(AppStack);
-export {navReducer};
-
-const AppStackRedux = reduxifyNavigator(AppStack, "root");
-const mapStateToProps = (state) => ({
-  state: state.nav,
-});
-const AppWithNavigationState = connect(mapStateToProps)(AppStackRedux);
-
-export default AppWithNavigationState;
+export const navReducer = createNavigationReducer(AppNavigator);

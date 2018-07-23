@@ -38,188 +38,188 @@ export const AUTH_REQUEST_VERIFICATION_SUCCESS = 'AUTH_REQUEST_VERIFICATION_SUCC
 export const AUTH_REQUEST_VERIFICATION_ERROR = 'AUTH_REQUEST_VERIFICATION_ERROR';
 
 const _login = () => ({
-  type: AUTH_LOGIN,
+    type: AUTH_LOGIN,
 });
 
 const _loginSuccess = token => ({
-  type: AUTH_LOGIN_SUCCESS,
-  token,
+    type: AUTH_LOGIN_SUCCESS,
+    token,
 });
 
 const _loginError = error => ({
-  type: AUTH_LOGIN_ERROR,
-  error,
+    type: AUTH_LOGIN_ERROR,
+    error,
 });
 
 export const login = (username, password) => {
-  return (dispatch, getState) => {
-    dispatch(_login());
+    return (dispatch, getState) => {
+        dispatch(_login());
 
-    // return authApi.loginBadRequest(username, password) // uncomment this to test bad request on login
-    return authApi
-      .login(username, password)
-      .then(resp => dispatch(appActions.processApiResponse(resp)))
-      .then(resp => {
-        const { token } = resp;
+        // return authApi.loginBadRequest(username, password) // uncomment this to test bad request on login
+        return authApi
+            .login(username, password)
+            .then(resp => dispatch(appActions.processApiResponse(resp)))
+            .then(resp => {
+                const { token } = resp;
 
-        dispatch(_loginSuccess(token));
-        dispatch(createSession(token));
-        dispatch(meActions.getMe());
-        dispatch(navigationActions.changeScene(SCENES.home.key, {}, 'RESET'));
-        dispatch(appActions.onMessage(t(dictionary.loginSuccess)));
-        return resp;
-      })
-      .catch(error => {
-        dispatch(_loginError(error));
-        return error;
-      });
-  };
+                dispatch(_loginSuccess(token));
+                dispatch(createSession(token));
+                dispatch(meActions.getMe());
+                dispatch(navigationActions.changeScene(SCENES.home.key, {}, 'RESET'));
+                dispatch(appActions.onMessage(t(dictionary.loginSuccess)));
+                return resp;
+            })
+            .catch(error => {
+                dispatch(_loginError(error));
+                return error;
+            });
+    };
 };
 
 export const logout = () => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: AUTH_LOGOUT,
-    });
-    dispatch(destroySession());
-    dispatch(navigationActions.changeScene(SCENES.login.key, {}, 'RESET'));
-  };
+    return (dispatch, getState) => {
+        dispatch({
+            type: AUTH_LOGOUT,
+        });
+        dispatch(destroySession());
+        dispatch(navigationActions.changeScene(SCENES.login.key, {}, 'RESET'));
+    };
 };
 
 const _resetPassword = () => ({
-  type: AUTH_RESET_PASSWORD,
+    type: AUTH_RESET_PASSWORD,
 });
 
 const _resetPasswordSuccess = token => ({
-  type: AUTH_RESET_PASSWORD_SUCCESS,
-  token,
+    type: AUTH_RESET_PASSWORD_SUCCESS,
+    token,
 });
 
 const _resetPasswordError = error => ({
-  type: AUTH_RESET_PASSWORD_ERROR,
-  error,
+    type: AUTH_RESET_PASSWORD_ERROR,
+    error,
 });
 
 export const resetPassword = username => {
-  return (dispatch, getState) => {
-    dispatch(_resetPassword());
+    return (dispatch, getState) => {
+        dispatch(_resetPassword());
 
-    return authApi
-      .resetPassword(username)
-      .then(resp => dispatch(appActions.processApiResponse(resp)))
-      .then(resp => {
-        const { token } = resp;
+        return authApi
+            .resetPassword(username)
+            .then(resp => dispatch(appActions.processApiResponse(resp)))
+            .then(resp => {
+                const { token } = resp;
 
-        dispatch(_resetPasswordSuccess(token));
-        dispatch(navigationActions.changeScene(SCENES.login.key, {}, 'RESET'));
-        dispatch(appActions.onMessage(t(dictionary.passwordSent)));
-        return resp;
-      })
-      .catch(error => {
-        dispatch(_resetPasswordError(error));
-        return error;
-      });
-  };
+                dispatch(_resetPasswordSuccess(token));
+                dispatch(navigationActions.changeScene(SCENES.login.key, {}, 'RESET'));
+                dispatch(appActions.onMessage(t(dictionary.passwordSent)));
+                return resp;
+            })
+            .catch(error => {
+                dispatch(_resetPasswordError(error));
+                return error;
+            });
+    };
 };
 
 const _register = () => ({
-  type: AUTH_REGISTER,
+    type: AUTH_REGISTER,
 });
 
 const _registerSuccess = token => ({
-  type: AUTH_REGISTER_SUCCESS,
-  token,
+    type: AUTH_REGISTER_SUCCESS,
+    token,
 });
 
 const _registerError = error => ({
-  type: AUTH_REGISTER_ERROR,
-  error,
+    type: AUTH_REGISTER_ERROR,
+    error,
 });
 
 const _requestVerification = () => ({
-  type: AUTH_REQUEST_VERIFICATION,
+    type: AUTH_REQUEST_VERIFICATION,
 });
 
 const _requestVerificationSuccess = () => ({
-  type: AUTH_REQUEST_VERIFICATION_SUCCESS,
+    type: AUTH_REQUEST_VERIFICATION_SUCCESS,
 });
 
 const _requestVerificationError = error => ({
-  type: AUTH_REQUEST_VERIFICATION_ERROR,
-  error,
+    type: AUTH_REQUEST_VERIFICATION_ERROR,
+    error,
 });
 
 export const register = (fullName, username, password) => {
-  let nameSegments = fullName.split(' '),
-    firstName = nameSegments.shift(),
-    lastName = nameSegments.join(' ');
-  let profile = {
-    firstName: firstName,
-    lastName: lastName,
-  };
+    let nameSegments = fullName.split(' '),
+        firstName = nameSegments.shift(),
+        lastName = nameSegments.join(' ');
+    let profile = {
+        firstName: firstName,
+        lastName: lastName,
+    };
 
-  return (dispatch, getState) => {
-    dispatch(_register());
+    return (dispatch, getState) => {
+        dispatch(_register());
 
-    return authApi
-      .register(profile, username, password)
-      .then(resp => dispatch(appActions.processApiResponse(resp)))
-      .then(resp => {
-        const { token } = resp;
+        return authApi
+            .register(profile, username, password)
+            .then(resp => dispatch(appActions.processApiResponse(resp)))
+            .then(resp => {
+                const { token } = resp;
 
-        dispatch(_registerSuccess(token));
-        dispatch(createSession(token));
-        dispatch(meActions.getMe());
-        dispatch(navigationActions.changeScene(SCENES.tour.key, {}, 'RESET'));
-        dispatch(appActions.onMessage(t(dictionary.registerSuccess)));
-        return resp;
-      })
-      .catch(error => {
-        dispatch(_registerError(error));
-        return error;
-      });
-  };
+                dispatch(_registerSuccess(token));
+                dispatch(createSession(token));
+                dispatch(meActions.getMe());
+                dispatch(navigationActions.changeScene(SCENES.tour.key, {}, 'RESET'));
+                dispatch(appActions.onMessage(t(dictionary.registerSuccess)));
+                return resp;
+            })
+            .catch(error => {
+                dispatch(_registerError(error));
+                return error;
+            });
+    };
 };
 
-export const requestVerification = (username) => {
-  return (dispatch, getState) => {
-    dispatch(_requestVerification());
+export const requestVerification = username => {
+    return (dispatch, getState) => {
+        dispatch(_requestVerification());
 
-    return authApi
-      .resendVerification(username)
-      .then(resp => dispatch(appActions.processApiResponse(resp)))
-      .then(resp => {
-        dispatch(_requestVerificationSuccess());
-        dispatch(appActions.onMessage(t(dictionary.verificationResent)));
-        return resp;
-      })
-      .catch(error => {
-        dispatch(_requestVerificationError(error));
-        return error;
-      });
-  };
+        return authApi
+            .resendVerification(username)
+            .then(resp => dispatch(appActions.processApiResponse(resp)))
+            .then(resp => {
+                dispatch(_requestVerificationSuccess());
+                dispatch(appActions.onMessage(t(dictionary.verificationResent)));
+                return resp;
+            })
+            .catch(error => {
+                dispatch(_requestVerificationError(error));
+                return error;
+            });
+    };
 };
 
 export const getLastSession = () => {
-  return (dispatch, getState) => {
-    dispatch({
-      type: AUTH_GET_LAST_SESSION,
-    });
-    return AsyncStorage.getItem(STORAGE_KEYS.token, (error, token) => {
-      if (!error && token) {
-        dispatch(createSession(token));
-        dispatch(meActions.getMe());
-      }
-      return token;
-    });
-  };
+    return (dispatch, getState) => {
+        dispatch({
+            type: AUTH_GET_LAST_SESSION,
+        });
+        return AsyncStorage.getItem(STORAGE_KEYS.token, (error, token) => {
+            if (!error && token) {
+                dispatch(createSession(token));
+                dispatch(meActions.getMe());
+            }
+            return token;
+        });
+    };
 };
 
 export const createSession = token => ({
-  type: AUTH_CREATE_SESSION,
-  token,
+    type: AUTH_CREATE_SESSION,
+    token,
 });
 
 export const destroySession = () => ({
-  type: AUTH_DESTROY_SESSION,
+    type: AUTH_DESTROY_SESSION,
 });
