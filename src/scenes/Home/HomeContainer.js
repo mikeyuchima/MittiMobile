@@ -150,7 +150,7 @@ class HomeContainer extends Component {
 function mapStateToProps(state) {
     return {
         ...state.homeScene,
-        navigation: state.navigation.scene,
+        // navigation: state.navigation.scene,
         me: state.me.me,
         myQuestions: state.me.myQuestions,
         isFetchingMyQuestions: state.me.isFetchingMyQuestions,

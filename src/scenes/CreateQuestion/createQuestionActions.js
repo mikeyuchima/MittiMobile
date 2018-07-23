@@ -10,7 +10,7 @@ import dictionary from './dictionary';
 import { t } from '../../i18n';
 
 // others
-import SCENES from '../../scenes';
+
 import { ActionConst } from 'react-native-router-flux';
 
 export const CREATE_QUESTION_SCENE_SET_QUESTION_CATEGORY_ID =
@@ -49,7 +49,7 @@ export const cancelQuestion = () => {
         dispatch({
             type: CREATE_QUESTION_SCENE_CANCEL_QUESTION,
         });
-        dispatch(navigationActions.changeScene(SCENES.home.key, {}, ActionConst.RESET));
+        dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
     };
 };
 
@@ -84,7 +84,7 @@ export const createQuestion = () => {
                     question,
                 });
 
-                dispatch(navigationActions.changeScene(SCENES.home.key, {}, ActionConst.RESET));
+                dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
                 dispatch(appActions.onMessage(t(dictionary.createSuccess)));
                 return question;
             })

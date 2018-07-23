@@ -6,7 +6,7 @@ import * as appActions from '../../modules/app/appActions';
 import * as navigationActions from '../../modules/navigation/navigationActions';
 
 // other
-import SCENES from '../../scenes';
+
 
 export const MARKETPLACE_SCENE_SET_TYPE = 'MARKETPLACE_SCENE_SET_TYPE';
 export const MARKETPLACE_SCENE_SET_AREA = 'MARKETPLACE_SCENE_SET_AREA';

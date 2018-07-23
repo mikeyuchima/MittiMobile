@@ -9,14 +9,14 @@ export const changeScene = (routeName, params = {}, type = 'PUSH') => {
     };
 };
 
-export const refreshScene = (sceneKey, params = {}) => {
-    return (dispatch, getState) => {
-        Actions.refresh({
-            key: sceneKey,
-            ...params,
-        });
-    };
-};
+// export const refreshScene = (sceneKey, params = {}) => {
+//     return (dispatch, getState) => {
+//         Actions.refresh({
+//             key: sceneKey,
+//             ...params,
+//         });
+//     };
+// };
 
 export const back = () => {
     return (dispatch, getState) => {
@@ -24,18 +24,18 @@ export const back = () => {
     };
 };
 
-export const openDrawer = () => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: NAVIGATION_OPEN_DRAWER,
-        });
-    };
-};
+// export const openDrawer = () => {
+//     return (dispatch, getState) => {
+//         dispatch({
+//             type: NAVIGATION_OPEN_DRAWER,
+//         });
+//     };
+// };
 
-export const closeDrawer = () => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: NAVIGATION_CLOSE_DRAWER,
-        });
-    };
-};
+// export const closeDrawer = () => {
+//     return (dispatch, getState) => {
+//         dispatch({
+//             type: NAVIGATION_CLOSE_DRAWER,
+//         });
+//     };
+// };

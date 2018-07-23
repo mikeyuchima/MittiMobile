@@ -7,7 +7,7 @@ import * as appActions from '../../modules/app/appActions';
 import { changeScene } from '../../modules/navigation/navigationActions';
 
 // other
-import SCENES from '../../scenes';
+
 
 export const MESSAGE_CENTER_SCENE_GET_MESSAGES = 'MESSAGE_CENTER_SCENE_GET_MESSAGES';
 export const MESSAGE_CENTER_SCENE_GET_MESSAGES_SUCCESS =
@@ -71,7 +71,7 @@ export const gotoChat = (itemId, chat) => {
             chat,
             userId: me.id,
         });
-        dispatch(changeScene(SCENES.chat.key, params));
+        dispatch(changeScene('chat', params));
     };
 };
 

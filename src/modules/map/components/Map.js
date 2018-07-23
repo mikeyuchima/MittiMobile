@@ -8,7 +8,7 @@ import {
     REGION_CHANGE_DEFINITION,
     DISTANT_CONVERSION,
 } from '../../../constants/constants';
-import SCENES from '../../../scenes';
+
 
 let timer = 0;
 
@@ -98,7 +98,7 @@ export default class Map extends React.Component {
                 getItem(marker.id).then(item => {
                     const marketType = item && item.type;
 
-                    changeScene(SCENES.viewPost.key, {
+                    changeScene('viewPost', {
                         navigationParams: {
                             marketType,
                             item,

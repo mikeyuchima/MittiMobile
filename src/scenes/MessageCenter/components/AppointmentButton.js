@@ -12,14 +12,14 @@ import mittiStyles from '../../../styles/mitti';
 import * as colors from '../../../styles/colors';
 import * as font from '../../../styles/font';
 // other
-import SCENES from '../../../scenes';
+
 
 export default (AppointmentButton = ({ color, fontSize, badgeWidth, count, changeScene }) => {
     return (
         count > 0 && (
             <TouchableOpacity
                 onPress={() => {
-                    changeScene(SCENES.scheduleCenter.key);
+                    changeScene('scheduleCenter');
                 }}
                 style={[mittiStyles.navbarButtonContainer, styles.buttonContainer]}
             >

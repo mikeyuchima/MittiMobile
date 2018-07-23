@@ -19,7 +19,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 
 export default class ScheduleCenter extends Component {
     static propTypes = {
@@ -143,7 +143,7 @@ const ChatItem = ({ me, chat, changeScene }) => {
 
                 <View style={[styles.scheduleContainer, { justifyContent: 'center' }]}>
                     <TouchableOpacity
-                        onPress={() => changeScene(SCENES.chat.key, params)}
+                        onPress={() => changeScene('chat', params)}
                         style={styles.gotoMessageContainer}
                     >
                         <MCIIcon

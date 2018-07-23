@@ -17,7 +17,7 @@ import { setLocale } from '../../i18n';
 
 // other
 import OneSignal from 'react-native-onesignal';
-import SCENES from '../../scenes';
+
 import moment from 'moment';
 import { NOTIFICATION_TYPES } from '../../constants/constants';
 
@@ -116,15 +116,15 @@ class AppContainer extends Component {
                                 refreshTimestamp: new Date().getTime(),
                             },
                         };
-                        if (this.props.navigation.state.routeName === SCENES.chat.key) {
-                            refreshScene(SCENES.chat.key, params);
+                        if (this.props.navigation.state.routeName === 'chat') {
+                            refreshScene('chat', params);
                         } else {
                             if (insideApp) {
                                 onMessage('You just received a new message', () => {
-                                    changeScene(SCENES.chat.key, params);
+                                    changeScene('chat', params);
                                 });
                             } else {
-                                changeScene(SCENES.chat.key, params);
+                                changeScene('chat', params);
                             }
                         }
                     }
@@ -141,10 +141,10 @@ class AppContainer extends Component {
 
                         if (insideApp) {
                             onMessage('You just received a new answer', () => {
-                                changeScene(SCENES.community.key, params);
+                                changeScene('community', params);
                             });
                         } else {
-                            changeScene(SCENES.community.key, params);
+                            changeScene('community', params);
                         }
                     }
                     break;

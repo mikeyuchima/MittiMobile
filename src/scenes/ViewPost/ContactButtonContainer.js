@@ -16,7 +16,7 @@ import mittiStyles from '../../styles/mitti';
 
 import { t } from '../../i18n';
 import dictionary from './dictionary';
-import SCENES from '../../scenes';
+
 
 class ContactButtonContainer extends Component {
     static propTypes = {

@@ -16,7 +16,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 
 export default class Login extends Component {
     static propTypes = {
@@ -96,7 +96,7 @@ export default class Login extends Component {
                     <View>
                         <TouchableOpacity
                             style={styles.anchor}
-                            onPress={() => this.props.changeScene(SCENES.forgotPassword.key)}
+                            onPress={() => this.props.changeScene('forgotPassword')}
                         >
                             <Text style={mittiStyles.darkFont}>{t(dictionary.forgotPassword)}</Text>
                         </TouchableOpacity>
@@ -104,7 +104,7 @@ export default class Login extends Component {
                     <View>
                         <TouchableOpacity
                             style={styles.anchor}
-                            onPress={() => this.props.changeScene(SCENES.createAccount.key)}
+                            onPress={() => this.props.changeScene('createAccount')}
                         >
                             <Text style={mittiStyles.darkFont}>{t(dictionary.createAccount)}</Text>
                         </TouchableOpacity>

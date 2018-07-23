@@ -28,7 +28,7 @@ import dictionary from '../dictionary';
 // constants
 import { LOCALES } from '../../../constants/constants';
 
-import SCENES from '../../../scenes';
+
 
 export default class Profile extends Component {
     static propTypes = {
@@ -184,7 +184,7 @@ export default class Profile extends Component {
                     <View style={styles.divider} />
 
                     <TouchableOpacity
-                        onPress={() => this.props.changeScene(SCENES.privacyPolicy.key)}
+                        onPress={() => this.props.changeScene('privacyPolicy')}
                     >
                         <View style={styles.link}>
                             <View style={styles.linkLabel}>
@@ -199,7 +199,7 @@ export default class Profile extends Component {
                     <View style={styles.divider} />
 
                     <TouchableOpacity
-                        onPress={() => this.props.changeScene(SCENES.termsConditions.key)}
+                        onPress={() => this.props.changeScene('termsConditions')}
                     >
                         <View style={styles.link}>
                             <View style={styles.linkLabel}>

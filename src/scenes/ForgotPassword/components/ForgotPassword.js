@@ -15,7 +15,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 
 export default class ForgotPassword extends Component {
     static propTypes = {
@@ -82,7 +82,7 @@ export default class ForgotPassword extends Component {
 }
 
 const onLoginPress = changeScene => {
-    changeScene(SCENES.login.key);
+    changeScene('login');
 };
 
 const styles = StyleSheet.create({

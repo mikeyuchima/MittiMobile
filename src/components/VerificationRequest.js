@@ -18,9 +18,8 @@ import dictionary from './dictionary';
 import { POST_TYPES } from '../constants/constants';
 
 // other
-import SCENES from '../scenes';
 
-export default class Base extends Component {
+export default class VerificationRequest extends Component {
     static propTypes = {
         isOpen: PropTypes.bool.isRequired,
         resend: PropTypes.func.isRequired,

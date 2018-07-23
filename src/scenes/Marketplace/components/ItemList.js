@@ -13,7 +13,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 
 export default class ItemList extends Component {
     static propTypes = {
@@ -92,7 +92,7 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
     return (
         <TouchableOpacity
             onPress={() =>
-                changeScene(SCENES.viewPost.key, {
+                changeScene('viewPost', {
                     navigationParams: {
                         marketType,
                         item,

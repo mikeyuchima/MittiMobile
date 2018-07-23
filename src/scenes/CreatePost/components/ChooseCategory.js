@@ -16,7 +16,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 
 export default class ChooseCategory extends Component {
     static propTypes = {
@@ -345,7 +345,7 @@ const _createQuestion = (props, id) => {
     // set category id
     props.setQuestionCategoryId(id);
     // change to create question scene
-    props.changeScene(SCENES.createQuestion.key);
+    props.changeScene('createQuestion');
 };
 
 const styles = StyleSheet.create({

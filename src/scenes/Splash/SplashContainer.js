@@ -13,7 +13,7 @@ import Splash from './components/Splash';
 import { SPLASH_WAIT } from '../../constants/constants';
 
 // other
-import SCENES from '../../scenes';
+
 
 class SplashContainer extends Component {
     static propTypes = {
@@ -26,11 +26,11 @@ class SplashContainer extends Component {
         this.props.getLastSession().then(token => {
             if (token) {
                 setTimeout(() => {
-                    this.props.changeScene(SCENES.home.key);
+                    this.props.changeScene('home');
                 }, SPLASH_WAIT);
             } else {
                 setTimeout(() => {
-                    this.props.changeScene(SCENES.login.key);
+                    this.props.changeScene('login');
                 }, SPLASH_WAIT);
             }
         });

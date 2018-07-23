@@ -7,7 +7,7 @@ import * as appActions from '../../modules/app/appActions';
 import * as navigationActions from '../../modules/navigation/navigationActions';
 
 // other
-import SCENES from '../../scenes';
+
 
 export const MYPOSTS_SCENE_SET_TYPE = 'MYPOSTS_SCENE_SET_TYPE';
 export const MYPOSTS_SCENE_SET_AREA = 'MYPOSTS_SCENE_SET_AREA';

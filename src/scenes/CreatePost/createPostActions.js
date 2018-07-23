@@ -11,7 +11,7 @@ import dictionary from './dictionary';
 import { t } from '../../i18n';
 
 // others
-import SCENES from '../../scenes';
+
 import { ActionConst } from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
 import Geocoder from 'react-native-geocoder';
@@ -90,7 +90,7 @@ export const createPost = address => {
                     post,
                 });
 
-                dispatch(navigationActions.changeScene(SCENES.home.key, {}, ActionConst.RESET));
+                dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
                 dispatch(appActions.onMessage(t(dictionary.createSuccess)));
                 dispatch(appActions.clearImageUpload());
                 return post;
@@ -207,6 +207,6 @@ export const cancelPost = () => {
             type: CREATE_POST_SCENE_CANCEL_POST,
         });
         dispatch(appActions.clearImageUpload());
-        dispatch(navigationActions.changeScene(SCENES.home.key, {}, ActionConst.RESET));
+        dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
     };
 };

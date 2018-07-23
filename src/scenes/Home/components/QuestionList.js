@@ -12,7 +12,7 @@ import commonStyles from '../../../styles/common';
 import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
-import SCENES from '../../../scenes';
+
 
 export default class QuestionList extends Component {
     static propTypes = {
@@ -51,7 +51,7 @@ const Question = ({ question, changeScene }) => {
 
     return (
         <TouchableOpacity
-            onPress={() => changeScene(SCENES.community.key, params)}
+            onPress={() => changeScene('community', params)}
             style={styles.itemContainer}
         >
             <View style={styles.rowContainer}>

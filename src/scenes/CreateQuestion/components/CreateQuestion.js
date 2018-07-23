@@ -17,7 +17,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 import { QUESTION_CATEGORIES } from '../../../constants/constants';
 
 export default class CreateQuestion extends Component {

@@ -15,7 +15,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 
 export default class Base extends Component {
     static propTypes = {

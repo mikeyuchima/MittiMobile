@@ -8,7 +8,7 @@ import Tour3 from './components/Tour3';
 import { changePage } from './tourActions.js';
 import { changeScene } from '../../modules/navigation/navigationActions.js';
 import commonStyles from '../../styles/common';
-import SCENES from '../../scenes';
+
 import { t } from '../../i18n';
 import dictionary from './dictionary';
 import Swiper from 'react-native-swiper';
@@ -39,7 +39,7 @@ class TourContainer extends Component {
             >
                 <Tour1 onPress={() => this.swiper.scrollBy(1, true)} />
                 <Tour2 onPress={() => this.swiper.scrollBy(1, true)} />
-                <Tour3 onPress={() => changeScene(SCENES.home.key)} />
+                <Tour3 onPress={() => changeScene('home')} />
             </Swiper>
         );
     }

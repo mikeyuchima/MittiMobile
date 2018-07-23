@@ -16,7 +16,6 @@ import dictionary from './dictionary';
 import { POST_TYPES } from '../constants/constants';
 
 // other
-import SCENES from '../scenes';
 
 let isModalOpened = false;
 
@@ -62,7 +61,7 @@ export default class Base extends Component {
                         <View style={styles.topContainer}>
                             <TouchableOpacity
                                 onPress={() =>
-                                    this._showCreateForm(SCENES.createPost.key, POST_TYPES.free.id)
+                                    this._showCreateForm('createPost', POST_TYPES.free.id)
                                 }
                                 style={styles.buttonContainer}
                             >
@@ -79,9 +78,7 @@ export default class Base extends Component {
                         </View>
                         <View style={styles.bottomContainer}>
                             <TouchableOpacity
-                                onPress={() =>
-                                    this._showCreateForm(SCENES.createQuestion.key, 'question')
-                                }
+                                onPress={() => this._showCreateForm('createQuestion', 'question')}
                                 style={styles.askQuestionButton}
                             >
                                 <MCIIcon

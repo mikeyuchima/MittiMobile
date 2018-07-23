@@ -6,7 +6,7 @@ import * as appActions from '../../modules/app/appActions';
 import * as navigationActions from '../../modules/navigation/navigationActions';
 
 // others
-import SCENES from '../../scenes';
+
 import { POST_TYPES } from '../../constants/constants';
 
 export const VIEW_POST_SCENE_SET_ITEM = 'VIEW_POST_SCENE_SET_ITEM';
@@ -69,7 +69,7 @@ export const markCloseItem = () => {
                     item,
                 });
                 dispatch(
-                    navigationActions.changeScene(SCENES.marketplace.key, {
+                    navigationActions.changeScene('marketplace', {
                         navigationParams: {
                             marketType: POST_TYPES.free.id,
                         },
@@ -114,7 +114,7 @@ export const deleteItem = () => {
                     item,
                 });
                 dispatch(
-                    navigationActions.changeScene(SCENES.marketplace.key, {
+                    navigationActions.changeScene('marketplace', {
                         navigationParams: {
                             marketType: POST_TYPES.free.id,
                         },
@@ -158,7 +158,7 @@ export const openChatWindow = item => {
                         type: VIEW_POST_SCENE_OPEN_CHAT_WINDOW_SUCCESS,
                         chat,
                     });
-                    dispatch(navigationActions.changeScene(SCENES.chat.key, params));
+                    dispatch(navigationActions.changeScene('chat', params));
 
                     return chat;
                 })

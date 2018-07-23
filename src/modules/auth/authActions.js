@@ -16,7 +16,7 @@ import dictionary from './dictionary';
 import { t } from '../../i18n';
 
 // other
-import SCENES from '../../scenes';
+// 
 // action types
 export const AUTH_LOGIN = 'AUTH_LOGIN';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
@@ -65,7 +65,7 @@ export const login = (username, password) => {
                 dispatch(_loginSuccess(token));
                 dispatch(createSession(token));
                 dispatch(meActions.getMe());
-                dispatch(navigationActions.changeScene(SCENES.home.key, {}, 'RESET'));
+                dispatch(navigationActions.changeScene('home', {}, 'RESET'));
                 dispatch(appActions.onMessage(t(dictionary.loginSuccess)));
                 return resp;
             })
@@ -82,7 +82,7 @@ export const logout = () => {
             type: AUTH_LOGOUT,
         });
         dispatch(destroySession());
-        dispatch(navigationActions.changeScene(SCENES.login.key, {}, 'RESET'));
+        dispatch(navigationActions.changeScene('login', {}, 'RESET'));
     };
 };
 
@@ -111,7 +111,7 @@ export const resetPassword = username => {
                 const { token } = resp;
 
                 dispatch(_resetPasswordSuccess(token));
-                dispatch(navigationActions.changeScene(SCENES.login.key, {}, 'RESET'));
+                dispatch(navigationActions.changeScene('login', {}, 'RESET'));
                 dispatch(appActions.onMessage(t(dictionary.passwordSent)));
                 return resp;
             })
@@ -170,7 +170,7 @@ export const register = (fullName, username, password) => {
                 dispatch(_registerSuccess(token));
                 dispatch(createSession(token));
                 dispatch(meActions.getMe());
-                dispatch(navigationActions.changeScene(SCENES.tour.key, {}, 'RESET'));
+                dispatch(navigationActions.changeScene('tour', {}, 'RESET'));
                 dispatch(appActions.onMessage(t(dictionary.registerSuccess)));
                 return resp;
             })

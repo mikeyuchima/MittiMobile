@@ -16,7 +16,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 import { QUESTION_CATEGORIES } from '../../../constants/constants';
 
 const QuestionCategory = ({ id, iconName, onPress, isLeft }) => (

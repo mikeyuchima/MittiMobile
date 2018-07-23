@@ -6,7 +6,7 @@ import * as appActions from '../../modules/app/appActions';
 import * as navigationActions from '../../modules/navigation/navigationActions';
 
 // other
-import SCENES from '../../scenes';
+
 
 export const COMMUNITY_SCENE_OPEN_ANSWER_LIST = 'COMMUNITY_SCENE_OPEN_ANSWER_LIST';
 export const COMMUNITY_SCENE_CLOSE_ANSWER_LIST = 'COMMUNITY_SCENE_CLOSE_ANSWER_LIST';
@@ -117,7 +117,7 @@ export const openAnswerList = question => {
             type: COMMUNITY_SCENE_OPEN_ANSWER_LIST,
             question,
         });
-        dispatch(navigationActions.refreshScene(SCENES.community.key, params));
+        dispatch(navigationActions.refreshScene('community', params));
         dispatch(findAnswers());
     };
 };

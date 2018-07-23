@@ -17,13 +17,13 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 import { POST_TYPES } from '../../../constants/constants';
 
 export default (SideMenu = ({ me, sceneKey, changeScene, logout }) => (
     <ScrollView style={styles.container}>
         <TouchableOpacity
-            onPress={() => changeScene(SCENES.profile.key)}
+            onPress={() => changeScene('profile')}
             style={styles.profileButton}
         >
             <View style={profilePictureStyles.container}>{renderProfilePicture(me)}</View>
@@ -71,21 +71,21 @@ const renderMenu = (sceneKey, changeScene, logout) => {
     const menuItems = [
         {
             id: 'home',
-            onPress: () => changeScene(SCENES.home.key, {}, ActionConst.REPLACE),
+            onPress: () => changeScene('home', {}, ActionConst.REPLACE),
             icon: 'MCI',
             iconName: 'home',
             label: t(dictionary.home),
         },
         {
             id: 'messageCenter',
-            onPress: () => changeScene(SCENES.messageCenter.key, {}, ActionConst.REPLACE),
+            onPress: () => changeScene('messageCenter', {}, ActionConst.REPLACE),
             icon: 'MCI',
             iconName: 'message-processing',
             label: t(dictionary.messages),
         },
         {
             id: 'community',
-            onPress: () => changeScene(SCENES.community.key, {}, ActionConst.REPLACE),
+            onPress: () => changeScene('community', {}, ActionConst.REPLACE),
             icon: 'MCI',
             iconName: 'vector-circle',
             label: t(dictionary.community),
@@ -94,7 +94,7 @@ const renderMenu = (sceneKey, changeScene, logout) => {
             id: 'marketplace',
             onPress: () =>
                 changeScene(
-                    SCENES.marketplace.key,
+                    'marketplace',
                     {
                         navigationParams: {
                             marketType: POST_TYPES.free.id,
@@ -108,7 +108,7 @@ const renderMenu = (sceneKey, changeScene, logout) => {
         },
         {
             id: 'settings',
-            onPress: () => changeScene(SCENES.settings.key, {}),
+            onPress: () => changeScene('settings', {}),
             icon: 'FA',
             iconName: 'gear',
             label: t(dictionary.settings),

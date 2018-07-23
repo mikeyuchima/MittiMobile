@@ -9,7 +9,7 @@ import { t } from '../../i18n';
 import * as colors from '../../styles/colors';
 
 // other
-import SCENES from '../../scenes';
+
 import Snackbar from 'react-native-snackbar';
 import ImagePicker from 'react-native-image-picker';
 

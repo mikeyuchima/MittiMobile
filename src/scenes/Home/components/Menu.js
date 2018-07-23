@@ -11,7 +11,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 
 export default class Menu extends Component {
     static propTypes = {
@@ -40,7 +40,7 @@ const _renderMenu = (me, unreadMessages, changeScene) => {
             count: newMessagesCount,
             color: '#3CAE0F',
             iconName: 'commenting',
-            onPress: () => changeScene(SCENES.messageCenter.key),
+            onPress: () => changeScene('messageCenter'),
         },
         {
             id: 'confirmedSchedules',
@@ -48,7 +48,7 @@ const _renderMenu = (me, unreadMessages, changeScene) => {
             count: confirmedSchedulesCount,
             color: '#30B4EA',
             iconName: 'calendar',
-            onPress: () => changeScene(SCENES.scheduleCenter.key),
+            onPress: () => changeScene('scheduleCenter'),
         },
         {
             id: 'myFreeshares',
@@ -57,7 +57,7 @@ const _renderMenu = (me, unreadMessages, changeScene) => {
             color: '#FFFFFF',
             iconName: 'gift',
             onPress: () =>
-                changeScene(SCENES.myPosts.key, {
+                changeScene('myPosts', {
                     navigationParams: {
                         marketType: 'free',
                     },

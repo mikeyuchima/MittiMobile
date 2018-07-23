@@ -28,7 +28,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-import SCENES from '../../../scenes';
+
 import { MAX_IMAGE_UPLOAD } from '../../../constants/constants';
 
 export default class CreatePost extends Component {

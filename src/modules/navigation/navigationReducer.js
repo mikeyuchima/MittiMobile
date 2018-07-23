@@ -3,7 +3,7 @@ import { NAVIGATION_OPEN_DRAWER, NAVIGATION_CLOSE_DRAWER } from './navigationAct
 
 // other
 import { ActionConst } from 'react-native-router-flux';
-import SCENES from '../../scenes';
+
 
 const initialState = {
     scene: {},
