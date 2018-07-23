@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
+import {
+    createStackNavigator,
+    createSwitchNavigator,
+    createDrawerNavigator,
+} from 'react-navigation';
 import {
     reduxifyNavigator,
     createNavigationReducer,
@@ -30,6 +34,7 @@ import Home from './scenes/Home';
 // import TermsConditions from './scenes/TermsConditions';
 import Splash from './scenes/Splash';
 // import NavigationDrawerContainer from './modules/navigation/NavigationDrawerContainer';
+import SideMenuContainer from './modules/navigation/SideMenuContainer';
 
 const SCENES = {
     /*
@@ -167,10 +172,21 @@ const AuthenticatedStack = createStackNavigator({
     home: SCENES.home,
 });
 
+const DrawerNavigator = createDrawerNavigator(
+    {
+        Authenticated: {
+            screen: AuthenticatedStack,
+        },
+    },
+    {
+        contentComponent: SideMenuContainer,
+    }
+);
+
 const AuthFlowStack = createSwitchNavigator(
     {
         splash: SCENES.splash,
-        authenticated: AuthenticatedStack,
+        authenticated: DrawerNavigator,
         unauthenticated: UnAuthenticatedStack,
     },
     {
