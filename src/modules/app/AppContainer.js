@@ -49,7 +49,7 @@ class AppContainer extends Component {
     componentDidMount() {}
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.me === null && nextProps.me) {
+        if (this.props.me === null && nextProps.me && nextProps.me.settings) {
             this.props.findUnreadMessages();
             // this._oneSignalSetup(nextProps);
             setLocale(nextProps.me.settings.locale || DEFAULT_LOCALE);

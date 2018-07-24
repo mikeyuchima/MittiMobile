@@ -20,21 +20,23 @@ class SideMenuContainer extends Component {
         openDrawer: PropTypes.func.isRequired,
         closeDrawer: PropTypes.func.isRequired,
         changeScene: PropTypes.func.isRequired,
-        scene: PropTypes.object.isRequired,
 
         // other module actions
         logout: PropTypes.func.isRequired,
     };
 
     render() {
-        const me = this.props.me;
+        const {me, navigation, changeScene, logout} = this.props;
+        const sceneKey = navigation &&
+                         navigation.state &&
+                         navigation.state.routeName;
 
         return (
             <SideMenu
                 me={me}
-                sceneKey={'??????????'}
-                changeScene={this.props.changeScene}
-                logout={this.props.logout}
+                sceneKey={sceneKey}
+                changeScene={changeScene}
+                logout={logout}
             />
         );
     }

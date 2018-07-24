@@ -13,7 +13,7 @@ import homeScene from '../scenes/Home/homeReducer';
 // import chatScene from '../scenes/Chat/chatReducer';
 // import messageCenterScene from '../scenes/MessageCenter/messageCenterReducer';
 // import scheduleCenterScene from '../scenes/ScheduleCenter/scheduleCenterReducer';
-// import profileScene from '../scenes/Profile/profileReducer';
+import profileScene from '../scenes/Profile/profileReducer';
 import auth from '../modules/auth/authReducer';
 import app from '../modules/app/appReducer';
 import me from '../modules/me/meReducer';
@@ -48,5 +48,5 @@ export default combineReducers({
     // chatScene,
     // messageCenterScene,
     // scheduleCenterScene,
-    // profileScene,
+    profileScene,
 });

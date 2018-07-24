@@ -28,7 +28,7 @@ import Home from './scenes/Home';
 // import Chat from './scenes/Chat';
 // import MessageCenter from './scenes/MessageCenter';
 // import ScheduleCenter from './scenes/ScheduleCenter';
-// import Profile from './scenes/Profile';
+import Profile from './scenes/Profile';
 // import Settings from './scenes/Settings';
 // import PrivacyPolicy from './scenes/PrivacyPolicy';
 // import TermsConditions from './scenes/TermsConditions';
@@ -75,12 +75,11 @@ const SCENES = {
         screen: Home,
         path: 'home',
     },
-    // profile: {
-    //     key: 'profile',
-    //     component: Profile,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    profile: {
+        key: 'profile',
+        screen: Profile,
+        path: 'profile',
+    },
     // settings: {
     //     key: 'settings',
     //     component: Settings,
@@ -162,6 +161,7 @@ const UnAuthenticatedStack = createStackNavigator(
         login: SCENES.login,
         createAccount: SCENES.createAccount,
         forgotPassword: SCENES.forgotPassword,
+        profile: SCENES.profile,
     },
     {
         headerMode: 'none',
