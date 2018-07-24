@@ -132,11 +132,13 @@ For react-native-maps, add this to child of application
 </application>
 ```
 
-For react-native-onesignal, add this:
+For react-native-onesignal and react-image-picker, add this:
 
 ```
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- Approximate location - If you want to use promptLocation for letting OneSignal know the user location. -->
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!--  Precise location If you want to use promptLocation for letting OneSignal know the user location. -->
+<uses-permission android:name="android.permission.CAMERA"/>
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 <application ....>
   <activity

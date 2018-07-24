@@ -13,7 +13,6 @@ import { t } from '../../i18n';
 // others
 
 import { ActionConst } from 'react-native-router-flux';
-import ImagePicker from 'react-native-image-picker';
 import Geocoder from 'react-native-geocoder';
 
 export const CREATE_POST_SCENE_CHANGE_FORM_VALUE = 'CREATE_POST_SCENE_CHANGE_FORM_VALUE';

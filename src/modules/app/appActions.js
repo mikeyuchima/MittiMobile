@@ -171,9 +171,9 @@ export const uploadImage = (userId, imageDataList = []) => {
                 if (imageData.didCancel) {
                     reject('User cancelled image picker');
                 } else if (imageData.error) {
-                    reject('ImagePicker Error: ', imageData.error);
+                    reject('ImagePicker Error: ' + imageData.error);
                 } else if (imageData.customButton) {
-                    reject('User tapped custom button: ', imageData.customButton);
+                    reject('User tapped custom button: ' + imageData.customButton);
                 } else {
                     // add image data
                     newImageDataList = [...imageDataList, imageData];
