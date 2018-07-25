@@ -55,7 +55,7 @@ export default class Profile extends Component {
                 <View style={mittiStyles.bottomScrollExtra}>
                     <View style={styles.profileButton}>
                         <TouchableOpacity
-                            onPress={() => uploadImage(user.id)}
+                            onPress={() => uploadImage(user.id, user.profile)}
                             style={profilePictureStyles.container}
                         >
                             {renderProfilePicture(user)}

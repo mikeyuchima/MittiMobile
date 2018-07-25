@@ -47,14 +47,15 @@ class ProfileContainer extends Component {
     updateMyProfile: PropTypes.func.isRequired,
   };
 
-  static renderNavigationBar = (props) => {
-    return (
-      <NavBar
-        title={t(dictionary.profile)}
-        leftButton={<CancelButtonContainer />} 
-        rightButton={<SaveButtonContainer />} 
-      />
-    );
+  static navigationOptions = {
+      headerTitle: (
+          <NavBar
+              title={t(dictionary.profile)}
+              leftButton={<CancelButtonContainer />} 
+              rightButton={<SaveButtonContainer />} 
+          />
+      ),
+      headerLeft: null
   };
 
   componentDidMount() {

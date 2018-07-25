@@ -170,6 +170,7 @@ const UnAuthenticatedStack = createStackNavigator(
 
 const AuthenticatedStack = createStackNavigator({
     home: SCENES.home,
+    profile: SCENES.profile,
 });
 
 const DrawerNavigator = createDrawerNavigator(

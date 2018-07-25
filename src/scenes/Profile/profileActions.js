@@ -70,12 +70,24 @@ export const getProfile = id => {
   };
 };
 
-export const uploadImage = userId => {
+export const uploadImage = (userId, profile) => {
   return (dispatch, getState) => {
     // upload image to server
     dispatch(appActions.uploadImage(userId)).then(imageUrl => {
+      let _profile = {
+        firstName: profile.firstName,
+        lastName: profile.lastName,
+        isPhonePublic: profile.isPhonePublic,
+      };
+
+      // check if we have a phone
+      if(profile.phone) {
+        _profile.phone = profile.phone;
+      }
+
       const data = {
         profile: {
+          ..._profile,
           img: imageUrl,
         },
       };

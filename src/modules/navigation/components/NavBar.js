@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
                 height: 64,
             },
             android: {
-                height: 54,
+                height: 56,
             },
             windows: {
                 height: 54,
