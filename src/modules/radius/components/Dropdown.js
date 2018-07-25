@@ -80,17 +80,7 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     right: 0,
-    ...Platform.select({
-      ios: {
-        top: 64,
-      },
-      android: {
-        top: 54,
-      },
-      windows: {
-        top: 54,
-      },
-    }),
+    top: 0,
   },
   listMenu: {
     paddingVertical: 8,
