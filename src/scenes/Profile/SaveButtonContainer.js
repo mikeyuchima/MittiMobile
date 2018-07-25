@@ -28,6 +28,7 @@ import dictionary from './dictionary';
 
 class SaveButtonContainer extends Component {
   static propTypes = {
+    user: PropTypes.object,
     form: PropTypes.object.isRequired,
     isFetchingProfile: PropTypes.bool.isRequired,
     isEditable: PropTypes.bool.isRequired,
@@ -40,6 +41,7 @@ class SaveButtonContainer extends Component {
   render() {
     const {
       form,
+      user,
       isFetchingProfile,
       isEditable,
       isEditMode,
@@ -57,6 +59,10 @@ class SaveButtonContainer extends Component {
       username: form.email,
     };
 
+    // check if we have img
+    if(user && user.profile && user.profile.img) {
+      data.profile.img = user.profile.img;
+    }
     // check if edit mode
     if(isEditMode && isEditable && !isUpdatingMyProfile && !isFetchingProfile) {
       return (
