@@ -169,7 +169,7 @@ export const uploadImage = (userId, imageDataList = []) => {
                 let newImageDataList = [];
 
                 if (imageData.didCancel) {
-                    reject('User cancelled image picker');
+                    // reject('User cancelled image picker'); // we dont need this warning
                 } else if (imageData.error) {
                     reject('ImagePicker Error: ' + imageData.error);
                 } else if (imageData.customButton) {

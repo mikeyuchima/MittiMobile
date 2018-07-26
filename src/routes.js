@@ -24,7 +24,7 @@ import Home from './scenes/Home';
 // import MyPosts from './scenes/MyPosts';
 // import CreatePost from './scenes/CreatePost';
 // import ViewPost from './scenes/ViewPost';
-// import CreateQuestion from './scenes/CreateQuestion';
+import CreateQuestion from './scenes/CreateQuestion';
 // import Chat from './scenes/Chat';
 // import MessageCenter from './scenes/MessageCenter';
 // import ScheduleCenter from './scenes/ScheduleCenter';
@@ -128,12 +128,11 @@ const SCENES = {
     //     initial: false,
     //     hideNavBar: false,
     // },
-    // createQuestion: {
-    //     key: 'createQuestion',
-    //     component: CreateQuestion,
-    //     initial: false,
-    //     hideNavBar: true,
-    // },
+    createQuestion: {
+        key: 'createQuestion',
+        screen: CreateQuestion,
+        path: 'createQuestion',
+    },
     // chat: {
     //     key: 'chat',
     //     component: Chat,
@@ -161,7 +160,6 @@ const UnAuthenticatedStack = createStackNavigator(
         login: SCENES.login,
         createAccount: SCENES.createAccount,
         forgotPassword: SCENES.forgotPassword,
-        profile: SCENES.profile,
     },
     {
         headerMode: 'none',
@@ -171,6 +169,7 @@ const UnAuthenticatedStack = createStackNavigator(
 const AuthenticatedStack = createStackNavigator({
     home: SCENES.home,
     profile: SCENES.profile,
+    createQuestion: SCENES.createQuestion,
 });
 
 const DrawerNavigator = createDrawerNavigator(
