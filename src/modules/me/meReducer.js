@@ -13,6 +13,7 @@ import {
   ME_GET_QUESTIONS,
   ME_GET_QUESTIONS_SUCCESS,
   ME_GET_QUESTIONS_ERROR,
+  ME_SET_QUESTION,
   ME_GET_STATS,
   ME_GET_STATS_SUCCESS,
   ME_GET_STATS_ERROR,
@@ -118,6 +119,15 @@ export default function app(state = initialState, action) {
       return {
         ...state,
         isFetchingMyQuestions: false,
+      };
+    }
+    case ME_SET_QUESTION: {
+      return {
+        ...state,
+        myQuestions: [
+          ...state.myQuestions,
+          action.question,
+        ],
       };
     }
     case ME_GET_STATS: {

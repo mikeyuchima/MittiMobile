@@ -16,7 +16,7 @@ export default function currentLocation(state = initialState, action) {
     case CURRENT_LOCATION_SET_CURRENT_LOCATION_SUCCESS: {
       return {
         ...state,
-        address: action.address.formattedAddress,
+        address: action.address.myAddress,
       };
     }
     case CURRENT_LOCATION_RESET_LOCATION: {

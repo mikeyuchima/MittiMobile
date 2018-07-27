@@ -23,6 +23,7 @@ export const ME_UPDATE_MY_SETTINGS_ERROR = 'ME_UPDATE_MY_SETTINGS_ERROR';
 export const ME_GET_QUESTIONS = 'ME_GET_QUESTIONS';
 export const ME_GET_QUESTIONS_SUCCESS = 'ME_GET_QUESTIONS_SUCCESS';
 export const ME_GET_QUESTIONS_ERROR = 'ME_GET_QUESTIONS_ERROR';
+export const ME_SET_QUESTION = 'ME_SET_QUESTION';
 export const ME_GET_STATS = 'ME_GET_STATS';
 export const ME_GET_STATS_SUCCESS = 'ME_GET_STATS_SUCCESS';
 export const ME_GET_STATS_ERROR = 'ME_GET_STATS_ERROR';
@@ -86,6 +87,11 @@ export const getMyQuestions = () => {
       });
   };
 };
+
+export const setMyQuestion = (question) => ({
+  type: ME_SET_QUESTION,
+  question,
+});
 
 const _getMe = () => ({
   type: ME_GET,

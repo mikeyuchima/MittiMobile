@@ -10,6 +10,7 @@ import {GOOGLE_INFO} from '../../constants/constants';
 
 // others
 import Geocoder from 'react-native-geocoder';
+// import { POINT_CONVERSION_COMPRESSED } from 'constants';
 
 // actiom types
 export const CURRENT_LOCATION_GENERATE_LOCATION = 'CURRENT_LOCATION_GENERATE_LOCATION';
@@ -41,20 +42,55 @@ export const generateLocation = () => {
         dispatch(appActions.onMessage(t(dictionary.gettingLocation)));
         // run geocoder
         Geocoder.geocodePosition(position).then((data) => {
-          const isPositionAvailable = data && 
-                                      data.length && 
-                                      data[0].formattedAddress && 
-                                      data[0].position && 
-                                      data[0].position.lat && 
-                                      data[0].position.lng;
+          const isPositionAvailable = data && data.length;
+          let foundData = {},
+              processedData = {},
+              addressSegments = [];
 
+          // TODO encapsulate this
           // check if we have position
-          if(isPositionAvailable) {
-            // proceed
-            dispatch({
-              type: CURRENT_LOCATION_SET_CURRENT_LOCATION_SUCCESS,
-              address: data[0],
-            });  
+          if (isPositionAvailable) {
+              // process data
+              foundData = data.find(info => {
+                  return info.adminArea !== null;
+              });
+              processedData.adminArea = foundData.adminArea;
+              foundData = data.find(info => {
+                  return info.country !== null;
+              });
+              processedData.country = foundData.country;
+              foundData = data.find(info => {
+                  return info.countryCode !== null;
+              });
+              processedData.countryCode = foundData.countryCode;
+              foundData = data.find(info => {
+                  return info.formattedAddress !== null;
+              });
+              processedData.formattedAddress = foundData.formattedAddress;
+              foundData = data.find(info => {
+                  return info.locality !== null;
+              });
+              processedData.locality = foundData.locality;
+              foundData = data.find(info => {
+                  return info.postalCode !== null;
+              });
+              processedData.postalCode = foundData.postalCode;
+              foundData = data.find(info => {
+                  return info.position && info.position.lat && info.position.lng;
+              });
+              processedData.position = foundData.position;
+              // generate our own formatted address
+              processedData.locality && addressSegments.push(processedData.locality);
+              processedData.adminArea && addressSegments.push(processedData.adminArea);
+              processedData.postalCode && addressSegments.push(processedData.postalCode);
+              processedData.country && addressSegments.push(processedData.country);
+              // insert into passing argument
+              processedData.myAddress = addressSegments.join(', ');
+              // proceed
+              dispatch({
+                type: CURRENT_LOCATION_SET_CURRENT_LOCATION_SUCCESS,
+                address: processedData
+              });  
           }
           else {
             dispatch({

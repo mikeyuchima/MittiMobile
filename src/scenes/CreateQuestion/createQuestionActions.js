@@ -2,16 +2,13 @@
 import * as questionApi from '../../api/questionApi';
 
 // actions
+import * as meActions from '../../modules/me/meActions';
 import * as appActions from '../../modules/app/appActions';
 import * as navigationActions from '../../modules/navigation/navigationActions';
 
 // i18n
 import dictionary from './dictionary';
 import { t } from '../../i18n';
-
-// others
-
-import { ActionConst } from 'react-native-router-flux';
 
 export const CREATE_QUESTION_SCENE_SET_QUESTION_CATEGORY_ID =
     'CREATE_QUESTION_SCENE_SET_QUESTION_CATEGORY_ID';
@@ -49,7 +46,7 @@ export const cancelQuestion = () => {
         dispatch({
             type: CREATE_QUESTION_SCENE_CANCEL_QUESTION,
         });
-        dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
+        dispatch(navigationActions.changeScene('home', {}, 'RESET'));
     };
 };
 
@@ -84,7 +81,8 @@ export const createQuestion = () => {
                     question,
                 });
 
-                dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
+                dispatch(meActions.setMyQuestion(question));
+                dispatch(navigationActions.changeScene('home', {}, 'RESET'));
                 dispatch(appActions.onMessage(t(dictionary.createSuccess)));
                 return question;
             })
