@@ -19,7 +19,7 @@ import ForgotPassword from './scenes/ForgotPassword';
 import CreateAccount from './scenes/CreateAccount';
 import Tour from './scenes/Tour';
 import Home from './scenes/Home';
-// import Community from './scenes/Community';
+import Community from './scenes/Community';
 // import Marketplace from './scenes/Marketplace';
 // import MyPosts from './scenes/MyPosts';
 // import CreatePost from './scenes/CreatePost';
@@ -98,12 +98,11 @@ const SCENES = {
     //     initial: false,
     //     hideNavBar: false,
     // },
-    // community: {
-    //     key: 'community',
-    //     component: Community,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    community: {
+        key: 'community',
+        screen: Community,
+        path: 'community',
+    },
     // marketplace: {
     //     key: 'marketplace',
     //     component: Marketplace,
@@ -170,6 +169,7 @@ const AuthenticatedStack = createStackNavigator({
     home: SCENES.home,
     profile: SCENES.profile,
     createQuestion: SCENES.createQuestion,
+    community: SCENES.community,
 });
 
 const DrawerNavigator = createDrawerNavigator(

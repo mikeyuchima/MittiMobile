@@ -38,7 +38,6 @@ export default class Community extends Component {
     onRegionChange: PropTypes.func.isRequired,
     questions: PropTypes.array,
     question: PropTypes.object,
-    refreshScene: PropTypes.func.isRequired,
     onRegionChange: PropTypes.func.isRequired,
   };
 

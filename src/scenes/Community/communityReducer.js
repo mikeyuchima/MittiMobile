@@ -48,6 +48,7 @@ const initialState = {
 export default function communityScene(state = initialState, action) {
   switch (action.type) {
     case ActionConst.PUSH: {
+      // this is to make sure the answer list is always closed
       return {
         ...state,
         isAnswerListOpen: false,

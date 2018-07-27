@@ -5,9 +5,6 @@ import * as questionApi from '../../api/questionApi';
 import * as appActions from '../../modules/app/appActions';
 import * as navigationActions from '../../modules/navigation/navigationActions';
 
-// other
-
-
 export const COMMUNITY_SCENE_OPEN_ANSWER_LIST = 'COMMUNITY_SCENE_OPEN_ANSWER_LIST';
 export const COMMUNITY_SCENE_CLOSE_ANSWER_LIST = 'COMMUNITY_SCENE_CLOSE_ANSWER_LIST';
 export const COMMUNITY_SCENE_CHANGE_TEXT_VALUE = 'COMMUNITY_SCENE_CHANGE_TEXT_VALUE';

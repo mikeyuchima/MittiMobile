@@ -1,8 +1,21 @@
-import { NavigationActions, DrawerActions } from 'react-navigation';
+import { 
+    NavigationActions, 
+    StackActions,
+    DrawerActions 
+} from 'react-navigation';
 
 export const changeScene = (routeName, params = {}, type = 'PUSH') => {
     return (dispatch, getState) => {
         dispatch(NavigationActions.navigate({ routeName, params }));
+    };
+};
+
+export const refreshScene = (routeName, params = {}) => {
+    return (dispatch, getState) => {
+        dispatch(StackActions.reset({
+            index: 0,
+            actions: [NavigationActions.navigate({ routeName, params })],
+        }));
     };
 };
 

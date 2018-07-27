@@ -11,7 +11,7 @@ import {
   VerificationRequest, 
   CreatePostModal
 } from '../../components';
-import {changeScene, refreshScene} from '../../modules/navigation/navigationActions';
+import {changeScene} from '../../modules/navigation/navigationActions';
 import {requestVerification} from '../../modules/auth/authActions';
 import {getMe} from '../../modules/me/meActions';
 import {
@@ -57,7 +57,6 @@ class CommunityContainer extends Component {
     closeAnswerList: PropTypes.func.isRequired,
     changeTextValue: PropTypes.func.isRequired,
     changeScene: PropTypes.func.isRequired,
-    refreshScene: PropTypes.func.isRequired,
     setFocusFlag: PropTypes.func.isRequired,
     resetFocusFlag: PropTypes.func.isRequired,
     isAnswerInputOnFocus: PropTypes.bool.isRequired,
@@ -67,7 +66,6 @@ class CommunityContainer extends Component {
     openCreatePostModal: PropTypes.func.isRequired,
     closeCreatePostModal: PropTypes.func.isRequired,
     markCloseQuestion: PropTypes.func.isRequired,
-    navigationParams: PropTypes.object,
     onRegionChange: PropTypes.func.isRequired,
     requestVerification: PropTypes.func.isRequired,
     getMe: PropTypes.func.isRequired,
@@ -95,8 +93,12 @@ class CommunityContainer extends Component {
   };
 
   componentDidMount() {
-    const {findQuestions, navigationParams, isFetchingQuestions} = this.props;
-    const questionId = navigationParams && navigationParams.questionId;
+    const {findQuestions, navigation, isFetchingQuestions} = this.props;
+    const questionId = navigation && 
+                       navigation.state &&
+                       navigation.state.params &&
+                       navigation.state.params.navigationParams &&
+                       navigation.state.params.navigationParams.questionId;
 
     // check if fetching questions
     if(!isFetchingQuestions) {
@@ -120,10 +122,17 @@ class CommunityContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {findQuestions, navigationParams} = this.props;
-    const questionId = navigationParams && navigationParams.questionId;
-    const nextQuestionId = nextProps.navigationParams &&
-                           nextProps.navigationParams.questionId;
+    const {findQuestions, navigation} = this.props;
+    const questionId = navigation && 
+                       navigation.state &&
+                       navigation.state.params &&
+                       navigation.state.params.navigationParams &&
+                       navigation.state.params.navigationParams.questionId;
+    const nextQuestionId = nextProps.navigation && 
+                           nextProps.navigation.state &&
+                           nextProps.navigation.state.params &&
+                           nextProps.navigation.state.params.navigationParams &&
+                           nextProps.navigation.state.params.navigationParams.questionId;
 
     // check if fetching questions
     if(!nextProps.isFetchingQuestions) {
@@ -159,7 +168,6 @@ class CommunityContainer extends Component {
   render() {
     const {
       me, 
-      navigation,
       isAnswerListOpen, 
       answerText, 
       changeTextValue, 
@@ -226,7 +234,6 @@ function mapStateToProps(state) {
     ...state.communityScene,
     me: state.me.me,
     radius: state.radius,
-    navigation: state.navigation.scene,
     currentPosition: state.app.currentPosition,
     isGettingCurrentPosition: state.app.isGettingCurrentPosition,
   };
@@ -242,7 +249,6 @@ export default connect(
     resetFocusFlag,
     getCurrentPosition,
     changeScene,
-    refreshScene,
     findQuestions,
     openCreatePostModal,
     closeCreatePostModal,

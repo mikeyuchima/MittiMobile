@@ -4,7 +4,7 @@ import forgotPasswordScene from '../scenes/ForgotPassword/forgotPasswordReducer'
 import createAccountScene from '../scenes/CreateAccount/createAccountReducer';
 import tourScene from '../scenes/Tour/tourReducer';
 import homeScene from '../scenes/Home/homeReducer';
-// import communityScene from '../scenes/Community/communityReducer';
+import communityScene from '../scenes/Community/communityReducer';
 // import marketplaceScene from '../scenes/Marketplace/marketplaceReducer';
 // import myPostsScene from '../scenes/MyPosts/myPostsReducer';
 // import createPostScene from '../scenes/CreatePost/createPostReducer';
@@ -39,7 +39,7 @@ export default combineReducers({
     createAccountScene,
     tourScene,
     homeScene,
-    // communityScene,
+    communityScene,
     // marketplaceScene,
     // myPostsScene,
     // createPostScene,
