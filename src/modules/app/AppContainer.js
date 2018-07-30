@@ -110,11 +110,9 @@ class AppContainer extends Component {
                     findUnreadMessages();
                     if (notification.payload.additionalData.hasOwnProperty('chatId')) {
                         const params = {
-                            navigationParams: {
-                                itemId: notification.payload.additionalData.postId,
-                                chatId: notification.payload.additionalData.chatId,
-                                refreshTimestamp: new Date().getTime(),
-                            },
+                            itemId: notification.payload.additionalData.postId,
+                            chatId: notification.payload.additionalData.chatId,
+                            refreshTimestamp: new Date().getTime(),
                         };
                         if (this.props.navigation.state.routeName === 'chat') {
                             refreshScene('chat', params);
@@ -133,10 +131,8 @@ class AppContainer extends Component {
                 case NOTIFICATION_TYPES.answer:
                     if (notification.payload.additionalData.hasOwnProperty('questionId')) {
                         const params = {
-                            navigationParams: {
-                                questionId: notification.payload.additionalData.questionId,
-                                refreshTimestamp: new Date().getTime(),
-                            },
+                            questionId: notification.payload.additionalData.questionId,
+                            refreshTimestamp: new Date().getTime(),
                         };
 
                         if (insideApp) {

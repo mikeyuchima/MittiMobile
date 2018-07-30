@@ -99,10 +99,8 @@ export default class Map extends React.Component {
                     const marketType = item && item.type;
 
                     changeScene('viewPost', {
-                        navigationParams: {
-                            marketType,
-                            item,
-                        },
+                        marketType,
+                        item,
                     });
                 });
             }

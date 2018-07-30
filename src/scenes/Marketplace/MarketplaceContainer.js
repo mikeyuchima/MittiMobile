@@ -36,7 +36,6 @@ class MarketplaceContainer extends Component {
         changeScene: PropTypes.func.isRequired,
         getCurrentPosition: PropTypes.func.isRequired,
         onRegionChange: PropTypes.func.isRequired,
-        navigationParams: PropTypes.object.isRequired,
         marketType: PropTypes.string.isRequired,
         area: PropTypes.object.isRequired,
         openCreatePostModal: PropTypes.func.isRequired,
@@ -74,7 +73,7 @@ class MarketplaceContainer extends Component {
                 );
             }
         });
-        this.props.setType(this.props.navigationParams.marketType);
+        this.props.setType(this.props.navigation.getParam('marketType'));
     }
 
     componentWillReceiveProps(nextProps) {

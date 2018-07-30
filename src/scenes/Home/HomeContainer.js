@@ -76,6 +76,7 @@ class HomeContainer extends Component {
                 rightButton={<OpenDropdownButtonContainer />}
             />
         ),
+        headerLeft: null,
     };
 
     componentDidMount() {

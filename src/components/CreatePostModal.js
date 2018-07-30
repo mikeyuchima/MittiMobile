@@ -102,12 +102,7 @@ export default class Base extends Component {
 
     _showCreateForm = (sceneKey, type) => {
         let params = {
-            // We do this so that the navigation reducer does not look
-            // to have a scene specific data - it has navigationParams
-            // instead.
-            navigationParams: {
-                postType: type,
-            },
+            postType: type,
         };
 
         this.props.onClose();

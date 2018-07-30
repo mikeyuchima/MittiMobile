@@ -58,9 +58,7 @@ const _renderMenu = (me, unreadMessages, changeScene) => {
             iconName: 'gift',
             onPress: () =>
                 changeScene('myPosts', {
-                    navigationParams: {
-                        marketType: 'free',
-                    },
+                    marketType: 'free',
                 }),
         },
     ];

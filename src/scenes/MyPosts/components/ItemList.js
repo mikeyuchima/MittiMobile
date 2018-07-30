@@ -98,10 +98,8 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
                 <TouchableOpacity
                     onPress={() =>
                         changeScene('viewPost', {
-                            navigationParams: {
-                                marketType,
-                                item,
-                            },
+                            marketType,
+                            item,
                         })
                     }
                     style={styles.thumbnailContainer}
@@ -112,10 +110,8 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
                     <TouchableOpacity
                         onPress={() =>
                             changeScene('viewPost', {
-                                navigationParams: {
-                                    marketType,
-                                    item,
-                                },
+                                marketType,
+                                item,
                             })
                         }
                         style={styles.titleContainer}
@@ -128,9 +124,7 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
                     <TouchableOpacity
                         onPress={() =>
                             changeScene('messageCenter', {
-                                navigationParams: {
-                                    item,
-                                },
+                                item,
                             })
                         }
                         style={styles.inquiryContainer}

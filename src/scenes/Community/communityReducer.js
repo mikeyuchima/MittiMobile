@@ -52,7 +52,7 @@ export default function communityScene(state = initialState, action) {
       return {
         ...state,
         isAnswerListOpen: false,
-        navigationParams: action.navigationParams,
+        navigationParams: action.navigationParams, // TODO figure this out what to do
       };
     }
     case COMMUNITY_SCENE_OPEN_ANSWER_LIST: {

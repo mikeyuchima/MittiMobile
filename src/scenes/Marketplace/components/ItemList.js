@@ -93,10 +93,8 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
         <TouchableOpacity
             onPress={() =>
                 changeScene('viewPost', {
-                    navigationParams: {
-                        marketType,
-                        item,
-                    },
+                    marketType,
+                    item,
                 })
             }
             style={styles.itemContainer}

@@ -70,9 +70,7 @@ export const markCloseItem = () => {
                 });
                 dispatch(
                     navigationActions.changeScene('marketplace', {
-                        navigationParams: {
-                            marketType: POST_TYPES.free.id,
-                        },
+                        marketType: POST_TYPES.free.id,
                     })
                 );
 
@@ -115,9 +113,7 @@ export const deleteItem = () => {
                 });
                 dispatch(
                     navigationActions.changeScene('marketplace', {
-                        navigationParams: {
-                            marketType: POST_TYPES.free.id,
-                        },
+                        marketType: POST_TYPES.free.id,
                     })
                 );
 
@@ -148,10 +144,8 @@ export const openChatWindow = item => {
                 .then(resp => dispatch(appActions.processApiResponse(resp)))
                 .then(chat => {
                     const params = {
-                        navigationParams: {
-                            chatId: chat._id,
-                            itemId: item.id,
-                        },
+                        chatId: chat._id,
+                        itemId: item.id,
                     };
 
                     dispatch({

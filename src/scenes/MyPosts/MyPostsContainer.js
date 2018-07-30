@@ -29,7 +29,6 @@ class MyPostsContainer extends Component {
         me: PropTypes.object,
         isFetchingItems: PropTypes.bool.isRequired,
         changeScene: PropTypes.func.isRequired,
-        navigationParams: PropTypes.object.isRequired,
         marketType: PropTypes.string.isRequired,
         openCreatePostModal: PropTypes.func.isRequired,
         closeCreatePostModal: PropTypes.func.isRequired,
@@ -51,7 +50,7 @@ class MyPostsContainer extends Component {
     componentDidMount() {
         this.props.getItems();
         this.props.getChats();
-        this.props.setType(this.props.navigationParams.marketType);
+        this.props.setType(this.props.navigate.getParam('marketType'));
     }
 
     render() {

@@ -71,34 +71,46 @@ class CommunityContainer extends Component {
     getMe: PropTypes.func.isRequired,
   };
 
-  static renderNavigationBar = (props) => {
-    if(!props.me || !props.me.isVerified) {
-      return null;
-    }
-    else {
-      return (
-        <NavBar
-          title={t(dictionary.community)}
-          leftButton={<LeftButtonContainer />}
-          rightButton={
-            props.question
-            ? (props.question.creator.id === props.me.id 
-              ? <OptionButtonContainer /> 
-              : <TimestampContainer timestamp={moment(props.question.createdAt).fromNow()} />) 
-            : null
-          }
-        />
-      );
-    }
+  // static renderNavigationBar = (props) => {
+  //   if(!props.me || !props.me.isVerified) {
+  //     return null;
+  //   }
+  //   else {
+  //     return (
+  //       <NavBar
+  //         title={t(dictionary.community)}
+  //         leftButton={<LeftButtonContainer />}
+  //         rightButton={
+  //           props.question
+  //           ? (props.question.creator.id === props.me.id 
+  //             ? <OptionButtonContainer /> 
+  //             : <TimestampContainer timestamp={moment(props.question.createdAt).fromNow()} />) 
+  //           : null
+  //         }
+  //       />
+  //     );
+  //   }
+  // };
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerTitle: (
+          <NavBar
+              title={t(dictionary.community)}
+              leftButton={<LeftButtonContainer />} 
+              rightButton={
+                <OptionButtonContainer /> 
+              } 
+          />
+      ),
+      headerLeft: null
+    };
   };
 
   componentDidMount() {
     const {findQuestions, navigation, isFetchingQuestions} = this.props;
     const questionId = navigation && 
-                       navigation.state &&
-                       navigation.state.params &&
-                       navigation.state.params.navigationParams &&
-                       navigation.state.params.navigationParams.questionId;
+                       navigation.getParam('questionId');
 
     // check if fetching questions
     if(!isFetchingQuestions) {
@@ -124,15 +136,9 @@ class CommunityContainer extends Component {
   componentWillReceiveProps(nextProps) {
     const {findQuestions, navigation} = this.props;
     const questionId = navigation && 
-                       navigation.state &&
-                       navigation.state.params &&
-                       navigation.state.params.navigationParams &&
-                       navigation.state.params.navigationParams.questionId;
+                       navigation.getParam('questionId');
     const nextQuestionId = nextProps.navigation && 
-                           nextProps.navigation.state &&
-                           nextProps.navigation.state.params &&
-                           nextProps.navigation.state.params.navigationParams &&
-                           nextProps.navigation.state.params.navigationParams.questionId;
+                           nextProps.navigation.getParam('questionId');
 
     // check if fetching questions
     if(!nextProps.isFetchingQuestions) {

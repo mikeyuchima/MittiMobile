@@ -21,7 +21,6 @@ import dictionary from './dictionary';
 
 class CreatePostContainer extends Component {
     static propTypes = {
-        navigationParams: PropTypes.object.isRequired,
         form: PropTypes.object.isRequired,
         imageUpload: PropTypes.object.isRequired,
         isCreatingPost: PropTypes.bool.isRequired,
@@ -36,7 +35,7 @@ class CreatePostContainer extends Component {
     };
 
     componentDidMount() {
-        this.props.setType(this.props.navigationParams.postType);
+        this.props.setType(this.props.navigation.getParam('postType'));
     }
 
     componentWillReceiveProps(nextProps) {
@@ -50,7 +49,7 @@ class CreatePostContainer extends Component {
         const themeColor = colors.GREEN;
         const {
             me,
-            navigationParams,
+            navigation,
             changeFormValue,
             getGeocodeData,
             uploadImage,
@@ -66,7 +65,7 @@ class CreatePostContainer extends Component {
         const isFormCompleted = form.title && form.description && form.condition && form.address;
 
         // check if we have post type
-        if (!navigationParams.postType) {
+        if (!navigation.getParam('postType')) {
             return null;
         }
         if (isCreatingPost) {
@@ -81,7 +80,7 @@ class CreatePostContainer extends Component {
             <View style={commonStyles.fullScreen}>
                 <CreatePost
                     me={me}
-                    type={navigationParams.postType}
+                    type={navigation.getParam('postType')}
                     themeColor={themeColor}
                     changeFormValue={changeFormValue}
                     uploadImage={uploadImage}

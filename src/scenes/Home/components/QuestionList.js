@@ -44,9 +44,7 @@ export default class QuestionList extends Component {
 
 const Question = ({ question, changeScene }) => {
     const params = {
-        navigationParams: {
-            questionId: question._id,
-        },
+        questionId: question._id,
     };
 
     return (

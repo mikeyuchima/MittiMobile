@@ -38,7 +38,6 @@ class MessageCenterContainer extends Component {
   static propTypes = {
     me: PropTypes.object,
     chats: PropTypes.array.isRequired,
-    navigationParams: PropTypes.object,
     getMessages: PropTypes.func.isRequired,
     unreadMessages: PropTypes.array.isRequired,
     gotoChat: PropTypes.func.isRequired,
@@ -51,8 +50,8 @@ class MessageCenterContainer extends Component {
   };
 
   componentDidMount() {
-    const {getMessages, navigationParams} = this.props;
-    const item = navigationParams && navigationParams.item;
+    const {getMessages, navigation} = this.props;
+    const item = navigation && navigation.getParam('item');
 
     // check if we have item id
     if(item) {
@@ -64,8 +63,8 @@ class MessageCenterContainer extends Component {
   }
 
   componentWillReceiveProps(props) {
-    const {getMessages, navigationParams} = props;
-    const item = navigationParams && navigationParams.item;
+    const {getMessages, navigation} = props;
+    const item = navigation && navigation.getParam('item');
 
     // check if we have item id
     if(item && (this.itemId != item._id)) {
@@ -78,11 +77,11 @@ class MessageCenterContainer extends Component {
     const {
       me,
       chats,
-      navigationParams,
+      navigation,
       unreadMessages,
       gotoChat,
     } = this.props;
-    const item = navigationParams && navigationParams.item;
+    const item = navigation && navigation.getParam('item');
 
     if (!me) {
       return <SpinnerOverlay show={true} />
@@ -118,8 +117,8 @@ class MessageCenterContainer extends Component {
   }
 
   static renderNavigationBar = (props) => {
-    const {navigationParams} = props;
-    const item = navigationParams && navigationParams.item;
+    const {navigation} = props;
+    const item = navigation && navigation.getParam('item');
     const title = t(dictionary.messages);
 
     if(!props.me || !props.me.isVerified) {

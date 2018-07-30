@@ -54,10 +54,8 @@ export const gotoChat = (itemId, chat) => {
     return (dispatch, getState) => {
         const { me } = getState().me;
         const params = {
-            navigationParams: {
-                itemId,
-                chatId: chat.id,
-            },
+            itemId,
+            chatId: chat.id,
         };
 
         dispatch({

@@ -85,10 +85,8 @@ const ChatItem = ({ me, chat, changeScene }) => {
     if (post) {
         // generate params
         params = {
-            navigationParams: {
-                chatId: chat._id,
-                itemId: post._id,
-            },
+            chatId: chat._id,
+            itemId: post._id,
         };
         return (
             <View style={styles.chatItemContainer}>

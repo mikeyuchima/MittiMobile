@@ -38,9 +38,9 @@ class CreateQuestionContainer extends Component {
         position: PropTypes.object,
     };
 
-  static navigationOptions = {
-      header: null
-  };
+    static navigationOptions = {
+        header: null
+    };
 
     componentWillReceiveProps() {
         this.props.clearLocation();

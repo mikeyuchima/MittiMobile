@@ -18,7 +18,6 @@ import { POST_TYPES } from '../../constants/constants';
 
 class ViewPostContainer extends Component {
     static propTypes = {
-        navigationParams: PropTypes.object.isRequired,
         changeScene: PropTypes.func.isRequired,
         setItem: PropTypes.func.isRequired,
         item: PropTypes.object.isRequired,
@@ -30,7 +29,8 @@ class ViewPostContainer extends Component {
     };
 
     static renderNavigationBar = props => {
-        const item = props.navigationParams && props.navigationParams.item;
+        const item = props.navigation && 
+                     props.navigation.getParam('item');
         const marketType = item && item.type;
         const creatorId = item && item.creator && item.creator.id;
         const userId = props.me && props.me.id;
@@ -70,13 +70,13 @@ class ViewPostContainer extends Component {
     };
 
     componentDidMount() {
-        this.props.setItem(this.props.navigationParams.item);
+        this.props.setItem(this.props.navigation.getParam('item'));
     }
 
     render() {
         const {
             me,
-            navigationParams,
+            navigation,
             changeScene,
             setCurrentImage,
             currentImage,
@@ -88,7 +88,7 @@ class ViewPostContainer extends Component {
         } = this.props;
 
         // check if we have market type
-        if (!navigationParams.marketType) {
+        if (!navigation.getParam('marketType')) {
             return null;
         }
         if (!me) {

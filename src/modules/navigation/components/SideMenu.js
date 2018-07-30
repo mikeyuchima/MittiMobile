@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { ActionConst } from 'react-native-router-flux';
 
 // components
 import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
@@ -71,21 +70,21 @@ const renderMenu = (sceneKey, changeScene, logout) => {
     const menuItems = [
         {
             id: 'home',
-            onPress: () => changeScene('home', {}, ActionConst.REPLACE),
+            onPress: () => changeScene('home', {}, 'REPLACE'),
             icon: 'MCI',
             iconName: 'home',
             label: t(dictionary.home),
         },
         {
             id: 'messageCenter',
-            onPress: () => changeScene('messageCenter', {}, ActionConst.REPLACE),
+            onPress: () => changeScene('messageCenter', {}, 'REPLACE'),
             icon: 'MCI',
             iconName: 'message-processing',
             label: t(dictionary.messages),
         },
         {
             id: 'community',
-            onPress: () => changeScene('community', {}, ActionConst.REPLACE),
+            onPress: () => changeScene('community', {}, 'REPLACE'),
             icon: 'MCI',
             iconName: 'vector-circle',
             label: t(dictionary.community),
@@ -96,11 +95,9 @@ const renderMenu = (sceneKey, changeScene, logout) => {
                 changeScene(
                     'marketplace',
                     {
-                        navigationParams: {
-                            marketType: POST_TYPES.free.id,
-                        },
+                        marketType: POST_TYPES.free.id,
                     },
-                    ActionConst.REPLACE
+                    'REPLACE'
                 ),
             icon: 'FA',
             iconName: 'gift',

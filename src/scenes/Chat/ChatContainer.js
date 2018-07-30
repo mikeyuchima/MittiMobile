@@ -39,7 +39,6 @@ import dictionary from './dictionary';
 class ChatContainer extends Component {
   static propTypes = {
     me: PropTypes.object,
-    navigationParams: PropTypes.object.isRequired,
     setItem: PropTypes.func.isRequired,
     item: PropTypes.object.isRequired,
     currentImage: PropTypes.object.isRequired,
@@ -64,25 +63,30 @@ class ChatContainer extends Component {
   };
 
   componentDidMount() {
-    const {itemId, chatId} = this.props.navigationParams;
+    const itemId = this.props.navigation.getParam('itemId'),
+          chatId = this.props.navigation.getParam('chatId');
 
     this.props.setItem(itemId);
     this.props.initializeChat(itemId, chatId);
   }
 
   componentWillReceiveProps(nextProps) {
+    const chatId = nextProps.navigation.getParam('chatId');
+    const itemId = nextProps.navigation.getParam('itemId');
+    const refreshTimestamp = nextProps.navigation.getParam('refreshTimestamp');
+
     // check if we have navigation params, item, and chat objects
-    if(nextProps.navigationParams && this.props.item && this.props.chat) {
+    if(chatId && this.props.item && this.props.chat) {
       // check if new chat window
-      if(nextProps.navigationParams.chatId != this.props.chat.id) {
-        this.props.setItem(nextProps.navigationParams.itemId);
-        this.props.initializeChat(nextProps.navigationParams.itemId, nextProps.navigationParams.chatId);
+      if(chatId != this.props.chat.id) {
+        this.props.setItem(itemId);
+        this.props.initializeChat(itemId, chatId);
       }
       else {
         // check if the same chat object if there are any updates
-        if(this.props.refreshTimestamp < nextProps.navigationParams.refreshTimestamp) {
+        if(this.props.refreshTimestamp < refreshTimestamp) {
           // get chat data
-          this.props.getMessages(nextProps.navigationParams.itemId, nextProps.navigationParams.chatId);
+          this.props.getMessages(itemId, chatId);
         }
       }
     }
