@@ -106,15 +106,15 @@ export const findQuestions = questionId => {
 
 export const openAnswerList = question => {
     return (dispatch, getState) => {
-        const params = {
-            question,
-        };
+        // const params = {
+        //     question,
+        // };
 
         dispatch({
             type: COMMUNITY_SCENE_OPEN_ANSWER_LIST,
             question,
         });
-        dispatch(navigationActions.refreshScene('community', params));
+        // dispatch(navigationActions.refreshScene('community', params));
         dispatch(findAnswers());
     };
 };

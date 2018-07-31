@@ -32,6 +32,7 @@ export default class QuestionList extends Component {
   render() {
     const {question, questions, isAnswerListOpen} = this.props;
 
+    // WTF IS THIS WHY NOT WORKING?!
     let currentQuestionList = questions.map((aQuestion) => {
       return {
         ...aQuestion.obj,

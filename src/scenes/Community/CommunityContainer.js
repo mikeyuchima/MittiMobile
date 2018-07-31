@@ -71,27 +71,7 @@ class CommunityContainer extends Component {
     getMe: PropTypes.func.isRequired,
   };
 
-  // static renderNavigationBar = (props) => {
-  //   if(!props.me || !props.me.isVerified) {
-  //     return null;
-  //   }
-  //   else {
-  //     return (
-  //       <NavBar
-  //         title={t(dictionary.community)}
-  //         leftButton={<LeftButtonContainer />}
-  //         rightButton={
-  //           props.question
-  //           ? (props.question.creator.id === props.me.id 
-  //             ? <OptionButtonContainer /> 
-  //             : <TimestampContainer timestamp={moment(props.question.createdAt).fromNow()} />) 
-  //           : null
-  //         }
-  //       />
-  //     );
-  //   }
-  // };
-
+  // static renderNavi
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: (
@@ -134,14 +114,14 @@ class CommunityContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {findQuestions, navigation} = this.props;
+    const {isFetchingQuestions, findQuestions, navigation} = this.props;
     const questionId = navigation && 
                        navigation.getParam('questionId');
     const nextQuestionId = nextProps.navigation && 
                            nextProps.navigation.getParam('questionId');
 
     // check if fetching questions
-    if(!nextProps.isFetchingQuestions) {
+    if(!isFetchingQuestions && !nextProps.isFetchingQuestions) {
       // check if we have a question id
       if(nextQuestionId) {
         // check if we already fetched
