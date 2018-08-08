@@ -20,7 +20,7 @@ import dictionary from './dictionary';
 class TimestampContainer extends Component {
   static propTypes = {
     // states
-    timestamp: PropTypes.string.isRequired,
+    timestamp: PropTypes.string,
     // actions
   };
 

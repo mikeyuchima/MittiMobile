@@ -33,7 +33,7 @@ export const COMMUNITY_SCENE_MARK_CLOSE_QUESTION_ERROR =
     'COMMUNITY_SCENE_MARK_CLOSE_QUESTION_ERROR';
 export const COMMUNITY_SCENE_REGION_CHANGE = 'COMMUNITY_SCENE_REGION_CHANGE';
 
-export const findQuestions = questionId => {
+export const findQuestions = (questionId, navKey) => {
     return (dispatch, getState) => {
         const { token } = getState().auth;
 
@@ -53,7 +53,7 @@ export const findQuestions = questionId => {
                         question,
                     });
                     // open answer list
-                    dispatch(openAnswerList(question));
+                    dispatch(openAnswerList(question, navKey));
 
                     return question;
                 })
@@ -104,8 +104,13 @@ export const findQuestions = questionId => {
     };
 };
 
-export const openAnswerList = question => {
+export const openAnswerList = (question, navKey) => {
     return (dispatch, getState) => {
+        const state = getState();
+        const me = state &&
+                   state.me &&
+                   state.me.me;
+        const isOwnQuestion = question.creator.id == me.id;
         // const params = {
         //     question,
         // };
@@ -113,17 +118,26 @@ export const openAnswerList = question => {
         dispatch({
             type: COMMUNITY_SCENE_OPEN_ANSWER_LIST,
             question,
+            me,
         });
         // dispatch(navigationActions.refreshScene('community', params));
+        dispatch(navigationActions.setParams(navKey, {
+            isOwnQuestion, 
+            isAnswerListOpen: true, 
+            timestamp: question.createdAt,
+        }));
         dispatch(findAnswers());
     };
 };
 
-export const closeAnswerList = () => {
+export const closeAnswerList = (navKey) => {
     return (dispatch, getState) => {
         dispatch({
             type: COMMUNITY_SCENE_CLOSE_ANSWER_LIST,
         });
+        dispatch(navigationActions.setParams(navKey, {
+            isAnswerListOpen: false, 
+        }));
     };
 };
 
@@ -228,7 +242,7 @@ export const createAnswer = () => {
     };
 };
 
-export const markCloseQuestion = () => {
+export const markCloseQuestion = (navKey) => {
     return (dispatch, getState) => {
         const { question } = getState().communityScene;
         const { token } = getState().auth;
@@ -253,7 +267,7 @@ export const markCloseQuestion = () => {
                     type: COMMUNITY_SCENE_MARK_CLOSE_QUESTION_SUCCESS,
                     question,
                 });
-                dispatch(closeAnswerList());
+                dispatch(closeAnswerList(navKey));
 
                 return question;
             })

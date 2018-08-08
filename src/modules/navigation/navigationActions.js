@@ -19,6 +19,15 @@ export const refreshScene = (routeName, params = {}) => {
     };
 };
 
+export const setParams = (key, params = {}) => {
+    return (dispatch, getState) => {
+        dispatch(NavigationActions.setParams({
+            key,
+            params,
+        }));
+    };
+};
+
 // export const refreshScene = (sceneKey, params = {}) => {
 //     return (dispatch, getState) => {
 //         Actions.refresh({

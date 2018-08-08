@@ -1,5 +1,3 @@
-import {ActionConst} from 'react-native-router-flux';
-
 import {
   COMMUNITY_SCENE_OPEN_ANSWER_LIST,
   COMMUNITY_SCENE_CLOSE_ANSWER_LIST,
@@ -36,29 +34,33 @@ const initialState = {
   isOptionDropdownOpen: false,
   isCreatePostModalOpen: false,
   isRegionChanged: false,
+  isFetchingQuestions: false,
+  isFetchingAnswers: false,
+  isTogglingAnswerList: false,
   question: {},
   questions: [],
-  isFetchingQuestions: false,
   answers: [],
-  isFetchingAnswers: false,
   currentRegion: {},
   questionId: null,
 };
 
 export default function communityScene(state = initialState, action) {
   switch (action.type) {
-    case ActionConst.PUSH: {
-      // this is to make sure the answer list is always closed
-      return {
-        ...state,
-        isAnswerListOpen: false,
-        navigationParams: action.navigationParams, // TODO figure this out what to do
-      };
-    }
+    // case ActionConst.PUSH: {
+    //   // this is to make sure the answer list is always closed
+    //   return {
+    //     ...state,
+    //     isAnswerListOpen: false,
+    //     navigationParams: action.navigationParams, // TODO figure this out what to do
+    //   };
+    // }
     case COMMUNITY_SCENE_OPEN_ANSWER_LIST: {
+      const {me, question} = action;
+
       return {
         ...state,
         answers: [],
+        isFetchingQuestions: false,
         isAnswerListOpen: true,
         isAnswerInputOnFocus: false,
         isOptionDropdownOpen: false,
@@ -147,6 +149,7 @@ export default function communityScene(state = initialState, action) {
     case COMMUNITY_SCENE_FIND_QUESTION_SUCCESS: {
       const {question} = action;
       const questions = [{obj: question}];
+
       return {
         ...state,
         isFetchingQuestions: false,
@@ -190,7 +193,7 @@ export default function communityScene(state = initialState, action) {
     case COMMUNITY_SCENE_FIND_ANSWERS_ERROR: {
       return {
         ...state,
-        isFetchingAnswers: false
+        isFetchingAnswers: false,
       };
     }
     case COMMUNITY_SCENE_CREATE_ANSWER: {

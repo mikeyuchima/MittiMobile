@@ -53,6 +53,7 @@ class CommunityContainer extends Component {
     question: PropTypes.object,
     isAnswerListOpen: PropTypes.bool.isRequired,
     isOptionDropdownOpen: PropTypes.bool.isRequired,
+    isTogglingAnswerList: PropTypes.bool.isRequired,
     openAnswerList: PropTypes.func.isRequired,
     closeAnswerList: PropTypes.func.isRequired,
     changeTextValue: PropTypes.func.isRequired,
@@ -73,13 +74,22 @@ class CommunityContainer extends Component {
 
   // static renderNavi
   static navigationOptions = ({ navigation }) => {
+    const isOwnQuestion = navigation.getParam('isOwnQuestion', false),
+          isAnswerListOpen = navigation.getParam('isAnswerListOpen'),
+          timestamp = navigation.getParam('timestamp');
+    const navKey = navigation.state.key;
+
     return {
       headerTitle: (
           <NavBar
               title={t(dictionary.community)}
-              leftButton={<LeftButtonContainer />} 
+              leftButton={<LeftButtonContainer navKey={navKey} />} 
               rightButton={
-                <OptionButtonContainer /> 
+                isAnswerListOpen
+                ? isOwnQuestion
+                  ? <OptionButtonContainer /> 
+                  : <TimestampContainer timestamp={moment(timestamp).fromNow()} /> 
+                : null
               } 
           />
       ),
@@ -96,7 +106,7 @@ class CommunityContainer extends Component {
     if(!isFetchingQuestions) {
       // check if we have question id
       if(questionId) {
-        findQuestions(questionId);
+        findQuestions(questionId, navigation.state.key);
       }
       else {
         this.props
@@ -106,7 +116,7 @@ class CommunityContainer extends Component {
               if(currentPosition) {
                 // const {latitude: lat, longitude: lng} = currentPosition.coords;
                 // this.props.getItems(lat, lng);
-                findQuestions();
+                findQuestions(null, navigation.state.key);
             }
           });
       }
@@ -114,11 +124,20 @@ class CommunityContainer extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {isFetchingQuestions, findQuestions, navigation} = this.props;
+    const {
+      isFetchingQuestions, 
+      isTogglingAnswerList, 
+      isAnswerListOpen, 
+      findQuestions, 
+      navigation,
+      question,
+      me,
+    } = this.props;
     const questionId = navigation && 
                        navigation.getParam('questionId');
     const nextQuestionId = nextProps.navigation && 
                            nextProps.navigation.getParam('questionId');
+    const nextQuestion = nextProps.question;
 
     // check if fetching questions
     if(!isFetchingQuestions && !nextProps.isFetchingQuestions) {
@@ -126,7 +145,7 @@ class CommunityContainer extends Component {
       if(nextQuestionId) {
         // check if we already fetched
         if(questionId != nextQuestionId) {
-          findQuestions(nextQuestionId);
+          findQuestions(nextQuestionId, navigation.state.key);
         }
       }
       else {
@@ -166,6 +185,7 @@ class CommunityContainer extends Component {
       createAnswer,
       findAnswers,
       answers,
+      navigation,
       markCloseQuestion,
     } = this.props;
     const themeColor = colors.PURPLE;
@@ -203,7 +223,7 @@ class CommunityContainer extends Component {
             isOnFocus={isAnswerInputOnFocus}
             isAnswerListOpen={isAnswerListOpen} />
           <OptionDropdown
-            onMarkClose={markCloseQuestion}
+            onMarkClose={() => markCloseQuestion(navigation.state.key)}
             isOptionDropdownOpen={isOptionDropdownOpen} />
           <CreatePostModal
             changeScene={changeScene}

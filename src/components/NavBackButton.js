@@ -11,13 +11,14 @@ import * as font from '../styles/font';
 export default class NavBackButton extends Component {
   static propTypes = {
     back: PropTypes.func.isRequired,
+    navKey: PropTypes.string.isRequired,
   };
 
   render() {
     return (
       <TouchableOpacity 
         style={styles.button}
-        onPress={() => this.props.back()}>
+        onPress={() => this.props.back(this.props.navKey)}>
         <Icon name='arrow-left' size={font.SIZE_H1} color={colors.WHITE} />
       </TouchableOpacity>
     );

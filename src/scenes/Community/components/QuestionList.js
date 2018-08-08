@@ -67,10 +67,11 @@ const ListItem = ({
   closeAnswerList, 
   openAnswerList, 
   themeColor,
+  navigation,
 }) => {
   return (
     <TouchableOpacity
-      onPress={() => { !isAnswerListOpen ? openAnswerList(question) : null }}
+      onPress={() => { !isAnswerListOpen ? openAnswerList(question, navigation.state.key) : null }}
       style={styles.itemContainer}>
 
       <QuestionHeader 

@@ -14,12 +14,14 @@ class LeftButtonContainer extends Component {
   static propTypes = {
     isAnswerListOpen: PropTypes.bool.isRequired,
     closeAnswerList: PropTypes.func.isRequired,
+    navKey: PropTypes.string.isRequired,
   };
 
   render(){
     if(this.props.isAnswerListOpen) {
       return (
-        <NavBackButton back={this.props.closeAnswerList} />
+        <NavBackButton back={this.props.closeAnswerList} 
+                       navKey={this.props.navKey} />
       );
     }
     else {
