@@ -49,6 +49,22 @@ class MessageCenterContainer extends Component {
     getMe: PropTypes.func.isRequired,
   };
 
+  // static renderNavi
+  static navigationOptions = ({ navigation }) => {
+    const item = navigation && navigation.getParam('item');
+
+    return {
+      headerTitle: (
+          <NavBar
+              title={t(dictionary.messages)}
+              leftButton={<OpenDrawerButtonContainer />} 
+              rightButton={!item ? <AppointmentButtonContainer /> : null} 
+          />
+      ),
+      headerLeft: null
+    };
+  };
+
   componentDidMount() {
     const {getMessages, navigation} = this.props;
     const item = navigation && navigation.getParam('item');
@@ -115,25 +131,6 @@ class MessageCenterContainer extends Component {
       );
     }
   }
-
-  static renderNavigationBar = (props) => {
-    const {navigation} = props;
-    const item = navigation && navigation.getParam('item');
-    const title = t(dictionary.messages);
-
-    if(!props.me || !props.me.isVerified) {
-      return null;
-    }
-    else {
-      return (
-        <NavBar
-          title={title}
-          leftButton={<OpenDrawerButtonContainer />} 
-          rightButton={!item ? <AppointmentButtonContainer /> : null} 
-        />
-      );
-    }
-  };
 }
 
 function mapStateToProps(state) {

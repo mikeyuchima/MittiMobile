@@ -31,8 +31,17 @@ class SettingsContainer extends Component {
         changeScene: PropTypes.func.isRequired,
     };
 
-    static renderNavigationBar = props => {
-        return <NavBar title={t(dictionary.settings)} leftButton={<BackButtonContainer />} />;
+    // static renderNavi
+    static navigationOptions = ({ navigation }) => {
+        return {
+        headerTitle: (
+            <NavBar
+                title={t(dictionary.settings)}
+                leftButton={<BackButtonContainer />}
+            />
+        ),
+        headerLeft: null
+        };
     };
 
     render() {

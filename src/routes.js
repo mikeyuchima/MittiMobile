@@ -20,16 +20,16 @@ import CreateAccount from './scenes/CreateAccount';
 import Tour from './scenes/Tour';
 import Home from './scenes/Home';
 import Community from './scenes/Community';
-// import Marketplace from './scenes/Marketplace';
+import Marketplace from './scenes/Marketplace';
 // import MyPosts from './scenes/MyPosts';
 // import CreatePost from './scenes/CreatePost';
 // import ViewPost from './scenes/ViewPost';
 import CreateQuestion from './scenes/CreateQuestion';
 // import Chat from './scenes/Chat';
-// import MessageCenter from './scenes/MessageCenter';
+import MessageCenter from './scenes/MessageCenter';
 // import ScheduleCenter from './scenes/ScheduleCenter';
 import Profile from './scenes/Profile';
-// import Settings from './scenes/Settings';
+import Settings from './scenes/Settings';
 // import PrivacyPolicy from './scenes/PrivacyPolicy';
 // import TermsConditions from './scenes/TermsConditions';
 import Splash from './scenes/Splash';
@@ -80,12 +80,11 @@ const SCENES = {
         screen: Profile,
         path: 'profile',
     },
-    // settings: {
-    //     key: 'settings',
-    //     component: Settings,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    settings: {
+        key: 'settings',
+        screen: Settings,
+        path: 'settings',
+    },
     // privacyPolicy: {
     //     key: 'privacyPolicy',
     //     component: PrivacyPolicy,
@@ -103,12 +102,11 @@ const SCENES = {
         screen: Community,
         path: 'community',
     },
-    // marketplace: {
-    //     key: 'marketplace',
-    //     component: Marketplace,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    marketplace: {
+        key: 'marketplace',
+        screen: Marketplace,
+        path: 'marketplace',
+    },
     // myPosts: {
     //     key: 'myPosts',
     //     component: MyPosts,
@@ -138,12 +136,11 @@ const SCENES = {
     //     initial: false,
     //     hideNavBar: false,
     // },
-    // messageCenter: {
-    //     key: 'messageCenter',
-    //     component: MessageCenter,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    messageCenter: {
+        key: 'messageCenter',
+        screen: MessageCenter,
+        path: 'messageCenter',
+    },
     // scheduleCenter: {
     //     key: 'scheduleCenter',
     //     component: ScheduleCenter,
@@ -170,6 +167,9 @@ const AuthenticatedStack = createStackNavigator({
     profile: SCENES.profile,
     createQuestion: SCENES.createQuestion,
     community: SCENES.community,
+    messageCenter: SCENES.messageCenter,
+    marketplace: SCENES.marketplace,
+    settings: SCENES.settings,
 });
 
 const DrawerNavigator = createDrawerNavigator(

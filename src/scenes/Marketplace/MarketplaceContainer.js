@@ -48,17 +48,17 @@ class MarketplaceContainer extends Component {
         getMe: PropTypes.func.isRequired,
     };
 
-    static renderNavigationBar = props => {
-        if (!props.me || !props.me.isVerified) {
-            return null;
-        } else {
-            return (
-                <NavBar
-                    title={t(dictionary.freeShare)}
-                    leftButton={<OpenDrawerButtonContainer />}
-                />
-            );
-        }
+    // static renderNavi
+    static navigationOptions = ({ navigation }) => {
+        return {
+        headerTitle: (
+            <NavBar
+                title={t(dictionary.freeShare)}
+                leftButton={<OpenDrawerButtonContainer />}
+            />
+        ),
+        headerLeft: null
+        };
     };
 
     componentDidMount() {
