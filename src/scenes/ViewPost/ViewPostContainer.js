@@ -28,14 +28,16 @@ class ViewPostContainer extends Component {
         currentImage: PropTypes.object,
     };
 
-    static renderNavigationBar = props => {
-        const item = props.navigation && 
-                     props.navigation.getParam('item');
-        const marketType = item && item.type;
-        const creatorId = item && item.creator && item.creator.id;
-        const userId = props.me && props.me.id;
-        let translation = '';
-        let title = '';
+    // static renderNavi
+    static navigationOptions = ({ navigation }) => {
+        const item = navigation.getParam('item'),
+              userId = navigation.getParam('userId'),
+              themeColor = navigation.getParam('themeColor');
+        const navKey = navigation.state.key;
+        const marketType = item && item.type,
+              creatorId = item && item.creator && item.creator.id;
+        let translation = '',
+            title = '';
 
         // check market type
         switch (marketType) {
@@ -50,10 +52,11 @@ class ViewPostContainer extends Component {
         // get title
         title = (marketType && translation) || '';
 
-        return (
+        return {
+        headerTitle: (
             <NavBar
                 title={title.toUpperCase()}
-                leftButton={<BackButtonContainer />}
+                leftButton={<BackButtonContainer navKey={navKey} />}
                 rightButton={
                     creatorId && userId && creatorId == userId ? (
                         <OptionButtonContainer />
@@ -61,16 +64,26 @@ class ViewPostContainer extends Component {
                         <ContactButtonContainer
                             item={item}
                             marketType={marketType}
-                            themeColor={props.themeColor}
+                            themeColor={themeColor}
                         />
                     )
                 }
             />
-        );
+        ),
+        headerLeft: null
+        };
     };
 
     componentDidMount() {
-        this.props.setItem(this.props.navigation.getParam('item'));
+        const item = this.props.navigation.getParam('item');
+        const {themeColor, me} = this.props;
+
+        this.props.setItem(item);
+        this.props.navigation.setParams({
+            item,
+            userId: me.id,
+            themeColor,
+        });
     }
 
     render() {
@@ -80,17 +93,17 @@ class ViewPostContainer extends Component {
             changeScene,
             setCurrentImage,
             currentImage,
-            item,
             markCloseItem,
             deleteItem,
             isOptionDropdownOpen,
             themeColor,
         } = this.props;
+        const item = navigation.getParam('item');
 
         // check if we have market type
-        if (!navigation.getParam('marketType')) {
-            return null;
-        }
+        // if (!navigation.getParam('marketType')) {
+        //     return null;
+        // }
         if (!me) {
             return <SpinnerOverlay show={true} />;
         }

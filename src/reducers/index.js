@@ -8,7 +8,7 @@ import communityScene from '../scenes/Community/communityReducer';
 import marketplaceScene from '../scenes/Marketplace/marketplaceReducer';
 // import myPostsScene from '../scenes/MyPosts/myPostsReducer';
 // import createPostScene from '../scenes/CreatePost/createPostReducer';
-// import viewPostScene from '../scenes/ViewPost/viewPostReducer';
+import viewPostScene from '../scenes/ViewPost/viewPostReducer';
 import createQuestionScene from '../scenes/CreateQuestion/createQuestionReducer';
 // import chatScene from '../scenes/Chat/chatReducer';
 import messageCenterScene from '../scenes/MessageCenter/messageCenterReducer';
@@ -43,7 +43,7 @@ export default combineReducers({
     marketplaceScene,
     // myPostsScene,
     // createPostScene,
-    // viewPostScene,
+    viewPostScene,
     createQuestionScene,
     // chatScene,
     messageCenterScene,

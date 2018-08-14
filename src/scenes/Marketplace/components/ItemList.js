@@ -26,7 +26,14 @@ export default class ItemList extends Component {
     };
 
     render() {
-        const { changeScene, items, isFetchingItems, marketType, area, themeColor } = this.props;
+        const { 
+            changeScene, 
+            items, 
+            isFetchingItems, 
+            marketType, 
+            area, 
+            themeColor 
+        } = this.props;
 
         const locality = area && area.locality && area.locality.toUpperCase();
         const radius = area && area.radius;
@@ -93,7 +100,7 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
         <TouchableOpacity
             onPress={() =>
                 changeScene('viewPost', {
-                    marketType,
+                    // marketType,
                     item,
                 })
             }

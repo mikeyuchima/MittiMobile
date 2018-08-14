@@ -25,6 +25,7 @@ class NavBarContainer extends Component {
   render() {
     const postType = this.props.item &&
                      this.props.item.type;
+    const navKey = this.props.navigation.state.key;
     let translation = '';
     let title = '';
 
@@ -47,7 +48,7 @@ class NavBarContainer extends Component {
     return (
       <NavBar
         title={title}
-        leftButton={<BackButtonContainer />} 
+        leftButton={<BackButtonContainer navKey={navKey} />} 
       />
     );
   }

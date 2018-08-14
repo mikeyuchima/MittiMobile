@@ -96,10 +96,10 @@ export default class Map extends React.Component {
                 onCalloutPress(marker.id);
             } else {
                 getItem(marker.id).then(item => {
-                    const marketType = item && item.type;
+                    // const marketType = item && item.type;
 
                     changeScene('viewPost', {
-                        marketType,
+                        // marketType,
                         item,
                     });
                 });

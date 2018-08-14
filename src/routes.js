@@ -23,7 +23,7 @@ import Community from './scenes/Community';
 import Marketplace from './scenes/Marketplace';
 // import MyPosts from './scenes/MyPosts';
 // import CreatePost from './scenes/CreatePost';
-// import ViewPost from './scenes/ViewPost';
+import ViewPost from './scenes/ViewPost';
 import CreateQuestion from './scenes/CreateQuestion';
 // import Chat from './scenes/Chat';
 import MessageCenter from './scenes/MessageCenter';
@@ -119,12 +119,11 @@ const SCENES = {
     //     initial: false,
     //     hideNavBar: true,
     // },
-    // viewPost: {
-    //     key: 'viewPost',
-    //     component: ViewPost,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    viewPost: {
+        key: 'viewPost',
+        screen: ViewPost,
+        path: 'viewPost',
+    },
     createQuestion: {
         key: 'createQuestion',
         screen: CreateQuestion,
@@ -169,6 +168,7 @@ const AuthenticatedStack = createStackNavigator({
     community: SCENES.community,
     messageCenter: SCENES.messageCenter,
     marketplace: SCENES.marketplace,
+    viewPost: SCENES.viewPost,
     settings: SCENES.settings,
 });
 

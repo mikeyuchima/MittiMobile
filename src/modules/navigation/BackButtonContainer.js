@@ -18,12 +18,13 @@ class BackButtonContainer extends Component {
     static propTypes = {
         // actions
         back: PropTypes.func.isRequired,
+        navKey: PropTypes.string.isRequired,
     };
 
     render() {
-        const { back } = this.props;
+        const { back, navKey } = this.props;
 
-        return <NavBackButton back={back} />;
+        return <NavBackButton back={back} navKey={navKey} />;
     }
 }
 

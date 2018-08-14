@@ -33,14 +33,16 @@ class SettingsContainer extends Component {
 
     // static renderNavi
     static navigationOptions = ({ navigation }) => {
+        const navKey = navigation.state.key;
+
         return {
-        headerTitle: (
-            <NavBar
-                title={t(dictionary.settings)}
-                leftButton={<BackButtonContainer />}
-            />
-        ),
-        headerLeft: null
+            headerTitle: (
+                <NavBar
+                    title={t(dictionary.settings)}
+                    leftButton={<BackButtonContainer navKey={navKey} />}
+                />
+            ),
+            headerLeft: null
         };
     };
 

@@ -98,7 +98,7 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
                 <TouchableOpacity
                     onPress={() =>
                         changeScene('viewPost', {
-                            marketType,
+                            // marketType,
                             item,
                         })
                     }
@@ -110,7 +110,7 @@ const ListItem = ({ changeScene, marketType, item, themeColor }) => {
                     <TouchableOpacity
                         onPress={() =>
                             changeScene('viewPost', {
-                                marketType,
+                                // marketType,
                                 item,
                             })
                         }
