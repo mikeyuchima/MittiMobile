@@ -39,18 +39,25 @@ class MyPostsContainer extends Component {
         getMe: PropTypes.func.isRequired,
     };
 
-    static renderNavigationBar = props => {
-        if (!props.me || !props.me.isVerified) {
-            return null;
-        } else {
-            return <NavBar title={t(dictionary.freeShare)} leftButton={<BackButtonContainer />} />;
-        }
+    // static renderNavi
+    static navigationOptions = ({ navigation }) => {
+        const navKey = navigation.state.key;
+
+        return {
+        headerTitle: (
+            <NavBar
+                title={t(dictionary.freeShare)} 
+                leftButton={<BackButtonContainer navKey={navKey} />} 
+            />
+        ),
+        headerLeft: null
+        };
     };
 
     componentDidMount() {
         this.props.getItems();
         this.props.getChats();
-        this.props.setType(this.props.navigate.getParam('marketType'));
+        this.props.setType(this.props.navigation.getParam('marketType'));
     }
 
     render() {

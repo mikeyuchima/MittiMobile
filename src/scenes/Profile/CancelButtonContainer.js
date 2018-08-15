@@ -31,23 +31,26 @@ class CancelButtonContainer extends Component {
   static propTypes = {
     isEditMode: PropTypes.bool.isRequired,
     toggleEditMode: PropTypes.func.isRequired,
+    navKey: PropTypes.string.isRequired,
   };
 
   render() {
     const {
       isEditMode,
       toggleEditMode,
+      navKey,
     } = this.props;
 
     // check if edit mode
     if(isEditMode) {
       return (
         <NavBackButton
+          navKey={navKey}
           back={() => toggleEditMode(false)} />
       );
     }
     else {
-      return <BackButtonContainer />
+      return <BackButtonContainer navKey={navKey} />
     }
   }
 }

@@ -22,7 +22,7 @@ import { POST_TYPES } from '../../../constants/constants';
 export default (SideMenu = ({ me, sceneKey, changeScene, logout }) => (
     <ScrollView style={styles.container}>
         <TouchableOpacity
-            onPress={() => changeScene('profile')}
+            onPress={() => changeScene('profile', {})}
             style={styles.profileButton}
         >
             <View style={profilePictureStyles.container}>{renderProfilePicture(me)}</View>

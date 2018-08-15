@@ -21,13 +21,13 @@ import Tour from './scenes/Tour';
 import Home from './scenes/Home';
 import Community from './scenes/Community';
 import Marketplace from './scenes/Marketplace';
-// import MyPosts from './scenes/MyPosts';
+import MyPosts from './scenes/MyPosts';
 // import CreatePost from './scenes/CreatePost';
 import ViewPost from './scenes/ViewPost';
 import CreateQuestion from './scenes/CreateQuestion';
 // import Chat from './scenes/Chat';
 import MessageCenter from './scenes/MessageCenter';
-// import ScheduleCenter from './scenes/ScheduleCenter';
+import ScheduleCenter from './scenes/ScheduleCenter';
 import Profile from './scenes/Profile';
 import Settings from './scenes/Settings';
 // import PrivacyPolicy from './scenes/PrivacyPolicy';
@@ -107,12 +107,11 @@ const SCENES = {
         screen: Marketplace,
         path: 'marketplace',
     },
-    // myPosts: {
-    //     key: 'myPosts',
-    //     component: MyPosts,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    myPosts: {
+        key: 'myPosts',
+        screen: MyPosts,
+        path: 'myPosts',
+    },
     // createPost: {
     //     key: 'createPost',
     //     component: CreatePost,
@@ -140,12 +139,11 @@ const SCENES = {
         screen: MessageCenter,
         path: 'messageCenter',
     },
-    // scheduleCenter: {
-    //     key: 'scheduleCenter',
-    //     component: ScheduleCenter,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    scheduleCenter: {
+        key: 'scheduleCenter',
+        screen: ScheduleCenter,
+        path: 'scheduleCenter',
+    },
 };
 
 const navigationMiddleware = createReactNavigationReduxMiddleware('root', state => state.nav);
@@ -169,6 +167,8 @@ const AuthenticatedStack = createStackNavigator({
     messageCenter: SCENES.messageCenter,
     marketplace: SCENES.marketplace,
     viewPost: SCENES.viewPost,
+    scheduleCenter: SCENES.scheduleCenter,
+    myPosts: SCENES.myPosts,
     settings: SCENES.settings,
 });
 

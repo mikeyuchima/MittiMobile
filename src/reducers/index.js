@@ -6,13 +6,13 @@ import tourScene from '../scenes/Tour/tourReducer';
 import homeScene from '../scenes/Home/homeReducer';
 import communityScene from '../scenes/Community/communityReducer';
 import marketplaceScene from '../scenes/Marketplace/marketplaceReducer';
-// import myPostsScene from '../scenes/MyPosts/myPostsReducer';
+import myPostsScene from '../scenes/MyPosts/myPostsReducer';
 // import createPostScene from '../scenes/CreatePost/createPostReducer';
 import viewPostScene from '../scenes/ViewPost/viewPostReducer';
 import createQuestionScene from '../scenes/CreateQuestion/createQuestionReducer';
 // import chatScene from '../scenes/Chat/chatReducer';
 import messageCenterScene from '../scenes/MessageCenter/messageCenterReducer';
-// import scheduleCenterScene from '../scenes/ScheduleCenter/scheduleCenterReducer';
+import scheduleCenterScene from '../scenes/ScheduleCenter/scheduleCenterReducer';
 import profileScene from '../scenes/Profile/profileReducer';
 import auth from '../modules/auth/authReducer';
 import app from '../modules/app/appReducer';
@@ -41,12 +41,12 @@ export default combineReducers({
     homeScene,
     communityScene,
     marketplaceScene,
-    // myPostsScene,
+    myPostsScene,
     // createPostScene,
     viewPostScene,
     createQuestionScene,
     // chatScene,
     messageCenterScene,
-    // scheduleCenterScene,
+    scheduleCenterScene,
     profileScene,
 });

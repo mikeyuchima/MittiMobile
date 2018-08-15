@@ -40,6 +40,22 @@ class ScheduleCenterContainer extends Component {
     getMe: PropTypes.func.isRequired,
   };
 
+  // static renderNavi
+  static navigationOptions = ({ navigation }) => {
+    const navKey = navigation.state.key;
+
+    return {
+      headerTitle: (
+          <NavBar
+            title={t(dictionary.schedules)}
+            leftButton={<BackButtonContainer navKey={navKey} />} 
+            rightButton={<MessageButtonContainer />} 
+          />
+      ),
+      headerLeft: null
+    };
+  };
+
   componentDidMount() {
     this.props.getChats();
   }
@@ -73,24 +89,6 @@ class ScheduleCenterContainer extends Component {
       );
     }
   }
-
-  static renderNavigationBar = (props) => {
-    // get title
-    title = t(dictionary.schedules);
-
-    if(!props.me || !props.me.isVerified) {
-      return null;
-    }
-    else {
-      return (
-        <NavBar
-          title={title}
-          leftButton={<BackButtonContainer />} 
-          rightButton={<MessageButtonContainer />} 
-        />
-      );
-    }
-  };
 }
 
 function mapStateToProps(state) {
