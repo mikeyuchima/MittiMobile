@@ -22,7 +22,7 @@ import Home from './scenes/Home';
 import Community from './scenes/Community';
 import Marketplace from './scenes/Marketplace';
 import MyPosts from './scenes/MyPosts';
-// import CreatePost from './scenes/CreatePost';
+import CreatePost from './scenes/CreatePost';
 import ViewPost from './scenes/ViewPost';
 import CreateQuestion from './scenes/CreateQuestion';
 // import Chat from './scenes/Chat';
@@ -112,12 +112,11 @@ const SCENES = {
         screen: MyPosts,
         path: 'myPosts',
     },
-    // createPost: {
-    //     key: 'createPost',
-    //     component: CreatePost,
-    //     initial: false,
-    //     hideNavBar: true,
-    // },
+    createPost: {
+        key: 'createPost',
+        screen: CreatePost,
+        path: 'createPost',
+    },
     viewPost: {
         key: 'viewPost',
         screen: ViewPost,
@@ -159,7 +158,7 @@ const UnAuthenticatedStack = createStackNavigator(
     }
 );
 
-const AuthenticatedStack = createStackNavigator({
+const MainStack = createStackNavigator({
     home: SCENES.home,
     profile: SCENES.profile,
     createQuestion: SCENES.createQuestion,
@@ -174,8 +173,8 @@ const AuthenticatedStack = createStackNavigator({
 
 const DrawerNavigator = createDrawerNavigator(
     {
-        Authenticated: {
-            screen: AuthenticatedStack,
+        Main: {
+            screen: MainStack,
         },
     },
     {
@@ -198,6 +197,7 @@ const RootNavigator = createStackNavigator(
     {
         AuthFlowStack,
         tour: SCENES.tour,
+        createPost: SCENES.createPost,
     },
     {
         headerMode: 'none',

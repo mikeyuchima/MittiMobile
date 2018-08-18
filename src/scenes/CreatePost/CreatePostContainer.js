@@ -34,6 +34,9 @@ class CreatePostContainer extends Component {
         position: PropTypes.object,
     };
 
+    // static renderNavi
+    static navigationOptions = { title: 'Welcome', header: { visible:false } };
+
     componentDidMount() {
         this.props.setType(this.props.navigation.getParam('postType'));
     }
