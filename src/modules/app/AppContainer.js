@@ -34,16 +34,16 @@ class AppContainer extends Component {
     };
 
     componentWillMount() {
-        // OneSignal.init(ONESIGNAL_APP_ID);
-        // OneSignal.addEventListener('received', this._oneSignalOnReceived);
-        // OneSignal.addEventListener('opened', this._oneSignalOnOpened);
-        // OneSignal.addEventListener('ids', this._oneSignalOnIds);
+        OneSignal.init(ONESIGNAL_APP_ID);
+        OneSignal.addEventListener('received', this._oneSignalOnReceived);
+        OneSignal.addEventListener('opened', this._oneSignalOnOpened);
+        OneSignal.addEventListener('ids', this._oneSignalOnIds);
     }
 
     componentWillUnmount() {
-        // OneSignal.removeEventListener('received', this._oneSignalOnReceived);
-        // OneSignal.removeEventListener('opened', this._oneSignalOnOpened);
-        // OneSignal.removeEventListener('ids', this._oneSignalOnIds);
+        OneSignal.removeEventListener('received', this._oneSignalOnReceived);
+        OneSignal.removeEventListener('opened', this._oneSignalOnOpened);
+        OneSignal.removeEventListener('ids', this._oneSignalOnIds);
     }
 
     componentDidMount() {}
