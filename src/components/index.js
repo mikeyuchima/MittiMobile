@@ -5,3 +5,4 @@ export {default as VerificationRequest} from './VerificationRequest';
 export {default as CustomTextInput} from './CustomTextInput';
 export {default as CustomButton} from './CustomButton';
 export {default as CreatePostModal} from './CreatePostModal';
+export {default as ProfilePicture } from './ProfilePicture';

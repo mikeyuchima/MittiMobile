@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // components
 import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
+import { ProfilePicture } from '../../../components';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -25,7 +26,9 @@ export default (SideMenu = ({ me, sceneKey, changeScene, logout }) => (
             onPress={() => changeScene('profile', {})}
             style={styles.profileButton}
         >
-            <View style={profilePictureStyles.container}>{renderProfilePicture(me)}</View>
+            <View style={profilePictureStyles.container}>
+                <ProfilePicture me={me} />
+            </View>
             <Text style={styles.menuHeaderText}>{getUserFullName(me)}</Text>
         </TouchableOpacity>
         <View style={styles.menuContainer}>{renderMenu(sceneKey, changeScene, logout)}</View>
@@ -35,35 +38,6 @@ export default (SideMenu = ({ me, sceneKey, changeScene, logout }) => (
 SideMenu.propTypes = {
     changeScene: PropTypes.func.isRequired,
     logout: PropTypes.func.isRequired,
-};
-
-const renderProfilePicture = me => {
-    const filePath = me && me.profile && me.profile.photo;
-    const isMentor = me && me.isMentor;
-
-    // check if we have file path
-    if (filePath) {
-        return (
-            <Image
-                style={profilePictureStyles.image}
-                source={require('../../../assets/images/logo.png')}
-            />
-        );
-    } else {
-        return (
-            <View style={profilePictureStyles.content}>
-                <MCIIcon size={100} name={'account-circle'} />
-                {isMentor ? (
-                    <MCIIcon
-                        size={20}
-                        name={'star'}
-                        color={'white'}
-                        style={profilePictureStyles.starButton}
-                    />
-                ) : null}
-            </View>
-        );
-    }
 };
 
 const renderMenu = (sceneKey, changeScene, logout) => {

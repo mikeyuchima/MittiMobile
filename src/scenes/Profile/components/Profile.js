@@ -11,7 +11,7 @@ import {
     Button,
     Image,
 } from 'react-native';
-import { SpinnerOverlay } from '../../../components';
+import { SpinnerOverlay, ProfilePicture } from '../../../components';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -56,9 +56,8 @@ export default class Profile extends Component {
                     <View style={styles.profileButton}>
                         <TouchableOpacity
                             onPress={() => uploadImage(user.id, user.profile)}
-                            style={profilePictureStyles.container}
                         >
-                            {renderProfilePicture(user)}
+                            <ProfilePicture me={user} />
                         </TouchableOpacity>
                         <View style={styles.usernameContainer}>
                             <Text style={styles.menuHeaderText}>{getUserFullName(user)}</Text>
@@ -145,43 +144,6 @@ export default class Profile extends Component {
         );
     }
 }
-
-const renderProfilePicture = me => {
-    const filePath = me && me.profile && me.profile.img;
-    const isMentor = me && me.isMentor;
-    const source = { uri: filePath };
-
-    // check if we have file path
-    if (filePath) {
-        return (
-            <View style={profilePictureStyles.content}>
-                <Image style={profilePictureStyles.image} source={source} />
-                {isMentor ? (
-                    <MCIIcon
-                        size={20}
-                        name={'star'}
-                        color={'white'}
-                        style={profilePictureStyles.starButton}
-                    />
-                ) : null}
-            </View>
-        );
-    } else {
-        return (
-            <View style={profilePictureStyles.content}>
-                <MCIIcon size={100} color={colors.DARK_GREY} name={'account-circle'} />
-                {isMentor ? (
-                    <MCIIcon
-                        size={20}
-                        name={'star'}
-                        color={'white'}
-                        style={profilePictureStyles.starButton}
-                    />
-                ) : null}
-            </View>
-        );
-    }
-};
 
 const getUserFullName = me => {
     const profile = me && me.profile;
@@ -274,22 +236,5 @@ const styles = StyleSheet.create({
     badgeLabel: {
         fontSize: font.SIZE_SMALL,
         marginLeft: 3,
-    },
-});
-
-const profilePictureStyles = StyleSheet.create({
-    content: {
-        position: 'relative',
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
-    starButton: {
-        backgroundColor: '#000000',
-        position: 'absolute',
-        bottom: 15,
-        right: 15,
     },
 });
