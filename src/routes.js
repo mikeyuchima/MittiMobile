@@ -25,7 +25,7 @@ import MyPosts from './scenes/MyPosts';
 import CreatePost from './scenes/CreatePost';
 import ViewPost from './scenes/ViewPost';
 import CreateQuestion from './scenes/CreateQuestion';
-// import Chat from './scenes/Chat';
+import Chat from './scenes/Chat';
 import MessageCenter from './scenes/MessageCenter';
 import ScheduleCenter from './scenes/ScheduleCenter';
 import Profile from './scenes/Profile';
@@ -127,12 +127,11 @@ const SCENES = {
         screen: CreateQuestion,
         path: 'createQuestion',
     },
-    // chat: {
-    //     key: 'chat',
-    //     component: Chat,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    chat: {
+        key: 'chat',
+        screen: Chat,
+        path: 'chat',
+    },
     messageCenter: {
         key: 'messageCenter',
         screen: MessageCenter,
@@ -169,6 +168,7 @@ const MainStack = createStackNavigator({
     scheduleCenter: SCENES.scheduleCenter,
     myPosts: SCENES.myPosts,
     settings: SCENES.settings,
+    chat: SCENES.chat,
 });
 
 const DrawerNavigator = createDrawerNavigator(

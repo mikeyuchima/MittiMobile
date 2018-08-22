@@ -20,12 +20,12 @@ import {POST_TYPES} from '../../constants/constants';
 class NavBarContainer extends Component {
   static propTypes = {
     item: PropTypes.object.isRequired,
+    navKey: PropTypes.string.isRequired,
   };
 
   render() {
-    const postType = this.props.item &&
-                     this.props.item.type;
-    const navKey = this.props.navigation.state.key;
+    const {item, navKey} = this.props;
+    const postType = item && item.type;
     let translation = '';
     let title = '';
 

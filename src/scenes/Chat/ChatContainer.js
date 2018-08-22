@@ -62,29 +62,53 @@ class ChatContainer extends Component {
     getMe: PropTypes.func.isRequired,
   };
 
+  // static renderNavi
+  static navigationOptions = ({ navigation }) => {
+    const item = navigation.getParam('item');
+    const navKey = navigation.state.key;
+
+    // we know the item id but need to get the actual item first
+    return {
+      headerTitle: (
+        <NavBarContainer 
+          item={item}
+          navKey={navKey}
+        />
+      ),
+      headerLeft: null
+    };
+  };
+
   componentDidMount() {
     const itemId = this.props.navigation.getParam('itemId'),
           chatId = this.props.navigation.getParam('chatId');
 
     this.props.setItem(itemId);
     this.props.initializeChat(itemId, chatId);
+    this.props.navigation.setParams({
+      item: this.props.items,
+    });
   }
 
   componentWillReceiveProps(nextProps) {
     const chatId = nextProps.navigation.getParam('chatId');
     const itemId = nextProps.navigation.getParam('itemId');
     const refreshTimestamp = nextProps.navigation.getParam('refreshTimestamp');
+    const {item, chat, navigation} = this.props;
 
     // check if we have navigation params, item, and chat objects
-    if(chatId && this.props.item && this.props.chat) {
+    if(chatId && item && chat) {
       // check if new chat window
-      if(chatId != this.props.chat.id) {
+      if(chatId != chat.id) {
         this.props.setItem(itemId);
         this.props.initializeChat(itemId, chatId);
       }
       else {
         // check if the same chat object if there are any updates
         if(this.props.refreshTimestamp < refreshTimestamp) {
+          navigation.setParams({
+            item,
+          });
           // get chat data
           this.props.getMessages(itemId, chatId);
         }
@@ -174,17 +198,6 @@ class ChatContainer extends Component {
       // recursive
       reload();
     }, 5000);
-  };
-
-  static renderNavigationBar = (props) => {
-    if(!props.me || !props.me.isVerified) {
-      return null;
-    }
-    else {
-      return (
-        <NavBarContainer />
-      );
-    }
   };
 }
 

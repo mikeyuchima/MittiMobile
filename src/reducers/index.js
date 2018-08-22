@@ -10,7 +10,7 @@ import myPostsScene from '../scenes/MyPosts/myPostsReducer';
 import createPostScene from '../scenes/CreatePost/createPostReducer';
 import viewPostScene from '../scenes/ViewPost/viewPostReducer';
 import createQuestionScene from '../scenes/CreateQuestion/createQuestionReducer';
-// import chatScene from '../scenes/Chat/chatReducer';
+import chatScene from '../scenes/Chat/chatReducer';
 import messageCenterScene from '../scenes/MessageCenter/messageCenterReducer';
 import scheduleCenterScene from '../scenes/ScheduleCenter/scheduleCenterReducer';
 import profileScene from '../scenes/Profile/profileReducer';
@@ -45,7 +45,7 @@ export default combineReducers({
     createPostScene,
     viewPostScene,
     createQuestionScene,
-    // chatScene,
+    chatScene,
     messageCenterScene,
     scheduleCenterScene,
     profileScene,
