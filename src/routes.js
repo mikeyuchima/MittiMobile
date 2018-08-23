@@ -30,8 +30,8 @@ import MessageCenter from './scenes/MessageCenter';
 import ScheduleCenter from './scenes/ScheduleCenter';
 import Profile from './scenes/Profile';
 import Settings from './scenes/Settings';
-// import PrivacyPolicy from './scenes/PrivacyPolicy';
-// import TermsConditions from './scenes/TermsConditions';
+import PrivacyPolicy from './scenes/PrivacyPolicy';
+import TermsConditions from './scenes/TermsConditions';
 import Splash from './scenes/Splash';
 // import NavigationDrawerContainer from './modules/navigation/NavigationDrawerContainer';
 import SideMenuContainer from './modules/navigation/SideMenuContainer';
@@ -85,18 +85,16 @@ const SCENES = {
         screen: Settings,
         path: 'settings',
     },
-    // privacyPolicy: {
-    //     key: 'privacyPolicy',
-    //     component: PrivacyPolicy,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
-    // termsConditions: {
-    //     key: 'termsConditions',
-    //     component: TermsConditions,
-    //     initial: false,
-    //     hideNavBar: false,
-    // },
+    privacyPolicy: {
+        key: 'privacyPolicy',
+        screen: PrivacyPolicy,
+        path: 'privacyPolicy',
+    },
+    termsConditions: {
+        key: 'termsConditions',
+        screen: TermsConditions,
+        path: 'termsConditions',
+    },
     community: {
         key: 'community',
         screen: Community,
@@ -169,6 +167,8 @@ const MainStack = createStackNavigator({
     myPosts: SCENES.myPosts,
     settings: SCENES.settings,
     chat: SCENES.chat,
+    privacyPolicy: SCENES.privacyPolicy,
+    termsConditions: SCENES.termsConditions,
 });
 
 const DrawerNavigator = createDrawerNavigator(

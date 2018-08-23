@@ -28,11 +28,20 @@ class TermsConditionsContainer extends Component {
         // module actions
         updateMySettings: PropTypes.func.isRequired,
     };
+    
+    // static renderNavi
+    static navigationOptions = ({ navigation }) => {
+        const navKey = navigation.state.key;
 
-    static renderNavigationBar = props => {
-        return (
-            <NavBar title={t(dictionary.termsConditions)} leftButton={<BackButtonContainer />} />
-        );
+        return {
+            headerTitle: (
+                <NavBar
+                    title={t(dictionary.termsConditions)}
+                    leftButton={<BackButtonContainer navKey={navKey} />}
+                />
+            ),
+            headerLeft: null
+        };
     };
 
     render() {

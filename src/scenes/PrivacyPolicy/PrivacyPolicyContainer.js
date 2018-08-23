@@ -24,15 +24,26 @@ class PrivacyPolicyContainer extends Component {
         // module states
         settings: PropTypes.object.isRequired,
         isUpdatingMySettings: PropTypes.bool.isRequired,
-
+        
         // module actions
         updateMySettings: PropTypes.func.isRequired,
     };
+    
+    // static renderNavi
+    static navigationOptions = ({ navigation }) => {
+        const navKey = navigation.state.key;
 
-    static renderNavigationBar = props => {
-        return <NavBar title={t(dictionary.privacyPolicy)} leftButton={<BackButtonContainer />} />;
+        return {
+            headerTitle: (
+                <NavBar
+                    title={t(dictionary.privacyPolicy)}
+                    leftButton={<BackButtonContainer navKey={navKey} />}
+                />
+            ),
+            headerLeft: null
+        };
     };
-
+    
     render() {
         return <Policy {...this.props} />;
     }
@@ -42,7 +53,7 @@ function mapStateToProps(state) {
     return {
         // states
         settings: state.me.me.settings,
-
+        
         // module states
         isUpdatingMySettings: state.me.isUpdatingMySettings,
     };
