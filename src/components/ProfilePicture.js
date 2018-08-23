@@ -50,7 +50,7 @@ export default ProfilePicture = ({ me }) => {
 };
 
 ProfilePicture.propTypes = {
-  me: PropTypes.object.isRequired,
+  me: PropTypes.object,
 };
 
 const styles = StyleSheet.create({
