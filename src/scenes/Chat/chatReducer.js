@@ -26,6 +26,11 @@ import {
   CHAT_SCENE_SET_MAP_SNAPSHOT_SUCCESS,
 } from './chatActions';
 
+// module action types
+import {
+  AUTH_DESTROY_SESSION,
+} from '../../modules/auth/authActions';
+
 import * as colors from '../../styles/colors';
 import {POST_TYPES} from '../../constants/constants';
 
@@ -46,6 +51,11 @@ const initialState = {
 
 export default function chatScene(state = initialState, action) {
   switch (action.type) {
+    case AUTH_DESTROY_SESSION: {
+      return {
+        ...initialState,
+      };
+    }
     case CHAT_SCENE_SET_ITEM: {
       return {
         ...state,

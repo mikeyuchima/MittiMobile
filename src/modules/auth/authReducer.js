@@ -36,8 +36,7 @@ export default function auth(state = initialState, action) {
     case AUTH_DESTROY_SESSION: {
       AsyncStorage.removeItem(STORAGE_KEYS.token);
       return {
-        ...state,
-        token: null,
+        ...initialState,
       };
     }
     case AUTH_LOGIN: {

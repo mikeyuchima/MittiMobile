@@ -11,6 +11,9 @@ import {
 import {
   ME_UPDATE_MY_PROFILE_SUCCESS,
 } from '../../modules/me/meActions';
+import {
+  AUTH_DESTROY_SESSION,
+} from '../../modules/auth/authActions';
 
 const initialState = {
   user: null,
@@ -85,6 +88,11 @@ export default function profileScene(state = initialState, action) {
           }
         },
         isEditMode: false,
+      };
+    }
+    case AUTH_DESTROY_SESSION: {
+      return {
+        ...initialState,
       };
     }
     default: {

@@ -9,6 +9,11 @@ import {
   VIEW_POST_SCENE_DELETE_QUESTION_ERROR,
 } from './viewPostActions';
 
+// module action types
+import {
+  AUTH_DESTROY_SESSION,
+} from '../../modules/auth/authActions';
+
 import * as colors from '../../styles/colors';
 import {POST_TYPES} from '../../constants/constants';
 
@@ -37,6 +42,11 @@ const initialState = {
 
 export default function viewPostScene(state = initialState, action) {
   switch (action.type) {
+    case AUTH_DESTROY_SESSION: {
+      return {
+        ...initialState,
+      };
+    }
     case VIEW_POST_SCENE_SET_ITEM: {
       const currentImage = {
         index: 0,

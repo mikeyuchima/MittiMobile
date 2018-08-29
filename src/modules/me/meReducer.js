@@ -3,7 +3,6 @@ import {
   ME_GET,
   ME_GET_SUCCESS,
   ME_GET_ERROR,
-  ME_SET,
   ME_UPDATE_MY_PROFILE,
   ME_UPDATE_MY_PROFILE_SUCCESS,
   ME_UPDATE_MY_PROFILE_ERROR,
@@ -37,8 +36,7 @@ export default function app(state = initialState, action) {
   switch (action.type) {
     case AUTH_DESTROY_SESSION: {
       return {
-        ...state,
-        me: null,
+        ...initialState,
       };
     }
     case ME_GET: {

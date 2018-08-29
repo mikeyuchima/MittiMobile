@@ -6,7 +6,11 @@ import {
 
 export const changeScene = (routeName, params = {}, type = 'PUSH') => {
     return (dispatch, getState) => {
-        dispatch(NavigationActions.navigate({ routeName, params }));
+        // check type
+        switch(type) {
+        default:
+            dispatch(NavigationActions.navigate({ routeName, params }));
+        }
     };
 };
 
