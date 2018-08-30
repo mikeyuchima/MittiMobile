@@ -132,10 +132,15 @@ const _updateMyProfile = (me) => ({
   me,
 });
 
-const _updateMyProfileSuccess = me => ({
-  type: ME_UPDATE_MY_PROFILE_SUCCESS,
-  me,
-});
+const _updateMyProfileSuccess = me => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: ME_UPDATE_MY_PROFILE_SUCCESS,
+      me,
+    });
+    dispatch(appActions.clearImageUpload());
+  };
+};
 
 const _updateMyProfileError = error => ({
   type: ME_UPDATE_MY_PROFILE_ERROR,

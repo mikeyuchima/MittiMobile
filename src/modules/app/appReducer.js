@@ -10,6 +10,11 @@ import {
   APP_CLEAR_UPLOAD_IMAGE,
 } from './appActions';
 
+// other module action types
+import {
+  AUTH_DESTROY_SESSION,
+} from '../auth/authActions';
+
 const initialState = {
   isGettingCurrentPosition: false,
   currentPosition: undefined,
@@ -21,6 +26,11 @@ const initialState = {
 
 export default function app(state = initialState, action) {
   switch (action.type) {
+    case AUTH_DESTROY_SESSION: {
+      return {
+        ...initialState,
+      };
+    }
     case APP_GET_CURRENT_POSITION: {
       return {
         ...state,
