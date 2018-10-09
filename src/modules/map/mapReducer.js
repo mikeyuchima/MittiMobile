@@ -4,7 +4,6 @@ import {
   MAP_TAKE_SNAPSHOT_SUCCESS,
   MAP_SET_CURRENT_REGION,
   MAP_SAVE_REGION,
-  MAP_ON_FOCUS,
   MAP_SET_API,
 } from './mapActions';
 
@@ -68,13 +67,6 @@ export default function map(state = initialState, action) {
         ...state,
         savedRegion: action.region,
         isRegionChanged: true,
-      };
-    }
-    case MAP_ON_FOCUS: {
-      return {
-        ...state,
-        savedRadius: action.radius,
-        isRegionChanged: false,
       };
     }
     case MAP_SET_API: {

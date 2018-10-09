@@ -5,7 +5,6 @@ import {
   ScrollView,
   Text,
 } from 'react-native';
-import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // components
 import Menu from './Menu';

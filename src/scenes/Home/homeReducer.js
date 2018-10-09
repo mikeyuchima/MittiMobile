@@ -12,6 +12,9 @@ import {
   HOME_SCENE_GET_POST_ERROR,
   HOME_SCENE_REGION_CHANGE,
 } from './homeActions';
+import {
+  RADIUS_CHANGE_VALUE,
+} from '../../modules/radius/radiusActions';
 
 const initialState = {
   isCreatePostModalOpen: false,
@@ -30,6 +33,12 @@ export default function homeScene(state = initialState, action) {
     //     ...state,
     //   };
     // }
+    case RADIUS_CHANGE_VALUE: {
+      return {
+        ...state,
+        isRegionChanged: true,
+      };
+    }
     case HOME_SCENE_CREATE_POST_OPEN: {
       return {
         ...state,

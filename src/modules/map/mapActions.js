@@ -59,8 +59,12 @@ export const takeSnapshot = (params) => {
 
 export const setCurrentRegion = (region, skipTimer) => {
   return (dispatch, getState) => {
+    const hasRegion = region && 
+                      region.latitude && 
+                      region.longitude;
+
     // check if we have region
-    if(region) {
+    if(hasRegion) {
       // clear previous process
       clearTimeout(timerId);
       // check if we want to skip timer
@@ -88,9 +92,10 @@ export const saveRegion = (region) => ({
   region,
 });
 
-export const onMapFocus = (radius) => ({
+export const onMapFocus = (radius, region) => ({
   type: MAP_ON_FOCUS,
   radius,
+  region,
 });
 
 export const setMapApi = (mapApi) => ({

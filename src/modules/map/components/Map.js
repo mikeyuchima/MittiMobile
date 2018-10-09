@@ -60,7 +60,7 @@ export default class Map extends React.Component {
                     provider={useGoogleMaps ? PROVIDER_GOOGLE : PROVIDER_DEFAULT}
                     ref={ref => (this.map = ref)}
                     style={styles.map}
-                    region={region}
+                    initialRegion={region}
                     onRegionChange={setCurrentRegion}
                     showsUserLocation={true}
                 >
@@ -122,6 +122,15 @@ export default class Map extends React.Component {
         }
     };
 
+    _onMarkersChange = (markers, region) => {
+        const isMarkersChanged = JSON.stringify(this.props.markers) !== JSON.stringify(markers);
+
+        if(isMarkersChanged) {
+            console.log('markers changed', markers);
+            this._focusMap(region);
+        }
+    };
+
     _focusMap = region => {
         const { radius } = this.props.radius;
         let coords = [];
@@ -141,7 +150,6 @@ export default class Map extends React.Component {
 
             if (this.map) {
                 this.map.fitToCoordinates(coords, false);
-                // this.props.onMapFocus(radius);
             }
         }
     };

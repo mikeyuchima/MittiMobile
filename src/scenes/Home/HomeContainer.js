@@ -87,6 +87,7 @@ class HomeContainer extends Component {
             if (currentPosition) {
                 const { latitude: lat, longitude: lng } = currentPosition.coords;
 
+                // this sets currentRegion
                 this.props.onRegionChange({
                     latitude: lat,
                     longitude: lng,
@@ -113,10 +114,14 @@ class HomeContainer extends Component {
     render() {
         const { me, items, currentRegion } = this.props;
         const markers = this._toMarkers(items);
+        const hasRegion = currentRegion && 
+                          currentRegion.latitude && 
+                          currentRegion.longitude;
 
-        if (!me || !currentRegion) {
+        if (!me || !hasRegion) {
             return <SpinnerOverlay show={true} />;
-        } else if (!me.isVerified) {
+        } 
+        else if (!me.isVerified) {
             return (
                 <VerificationRequest
                     username={me.username}
@@ -125,7 +130,8 @@ class HomeContainer extends Component {
                     isOpen={true}
                 />
             );
-        } else {
+        } 
+        else {
             return (
                 <View style={commonStyles.fullScreen}>
                     <CreatePostModal
