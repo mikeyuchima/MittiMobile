@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { ENVIRONMENT, ONESIGNAL_APP_ID } from '../../../config';
+import { ENVIRONMENT, ONESIGNAL_APP_ID, DEBUG_MODE } from '../../../config';
 
 // constants
 import { DEFAULT_LOCALE } from '../../constants/constants';
@@ -34,7 +34,9 @@ class AppContainer extends Component {
         OneSignal.enableVibrate(true); // Android only
         OneSignal.enableSound(true); // Android only
         OneSignal.inFocusDisplaying(1); // No (0), Show alert (1), Show notification (2)
-        OneSignal.setLogLevel(6, 0);
+        if (DEBUG_MODE) {
+            OneSignal.setLogLevel(6, 0);
+        }
 
         OneSignal.addEventListener('received', this._oneSignalOnReceived);
         OneSignal.addEventListener('opened', this._oneSignalOnOpened);
@@ -52,7 +54,7 @@ class AppContainer extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.me === null && nextProps.me && nextProps.me.settings) {
             this.props.findUnreadMessages();
-            // this._oneSignalSetup(nextProps);
+            this._oneSignalSetup(nextProps);
             setLocale(nextProps.me.settings.locale || DEFAULT_LOCALE);
             this.props.setDefaultRadius(
                 nextProps.me.settings.defaultRadius,
@@ -82,7 +84,7 @@ class AppContainer extends Component {
         console.log('isActive: ', openResult.notification.isAppInFocus);
         console.log('openResult: ', openResult);
 
-        this._openNotification(notification, false);
+        this._openNotification(openResult.notification, false);
     };
 
     _oneSignalOnIds = device => {
