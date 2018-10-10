@@ -21,11 +21,6 @@ import OneSignal from 'react-native-onesignal';
 import moment from 'moment';
 import { NOTIFICATION_TYPES } from '../../constants/constants';
 
-// OneSignal config
-OneSignal.enableVibrate(true); // Android only
-OneSignal.enableSound(true); // Android only
-OneSignal.inFocusDisplaying(0); // No (0), Show alert (1), Show notification (2)
-
 class AppContainer extends Component {
     static propTypes = {
         // other module states
@@ -34,7 +29,13 @@ class AppContainer extends Component {
     };
 
     componentWillMount() {
+        // OneSignal config
         OneSignal.init(ONESIGNAL_APP_ID);
+        OneSignal.enableVibrate(true); // Android only
+        OneSignal.enableSound(true); // Android only
+        OneSignal.inFocusDisplaying(1); // No (0), Show alert (1), Show notification (2)
+        OneSignal.setLogLevel(6, 0);
+
         OneSignal.addEventListener('received', this._oneSignalOnReceived);
         OneSignal.addEventListener('opened', this._oneSignalOnOpened);
         OneSignal.addEventListener('ids', this._oneSignalOnIds);
@@ -101,7 +102,10 @@ class AppContainer extends Component {
         //     silentNotification: false // BOOLEAN : Wether the received notification was a silent one
         // }
 
-        if (notification.payload.additionalData.hasOwnProperty('type')) {
+        if (
+            notification.payload.additionalData &&
+            notification.payload.additionalData.hasOwnProperty('type')
+        ) {
             switch (notification.payload.additionalData.type) {
                 case NOTIFICATION_TYPES.chatMessage:
                 case NOTIFICATION_TYPES.chatSchedule:
