@@ -126,12 +126,8 @@ class CommunityContainer extends Component {
   componentWillReceiveProps(nextProps) {
     const {
       isFetchingQuestions, 
-      isTogglingAnswerList, 
-      isAnswerListOpen, 
       findQuestions, 
       navigation,
-      question,
-      me,
     } = this.props;
     const questionId = navigation && 
                        navigation.getParam('questionId');
@@ -177,14 +173,11 @@ class CommunityContainer extends Component {
       answerText, 
       changeTextValue, 
       changeScene, 
-      question,
       isOptionDropdownOpen,
       setFocusFlag,
       resetFocusFlag,
       isAnswerInputOnFocus,
       createAnswer,
-      findAnswers,
-      answers,
       navigation,
       markCloseQuestion,
     } = this.props;

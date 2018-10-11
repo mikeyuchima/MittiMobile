@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import QuestionHeader from './QuestionHeader';
 import QuestionInfo from './QuestionInfo';
-import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // styles
 import mittiStyles from '../../../styles/mitti';

@@ -204,6 +204,15 @@ export default function communityScene(state = initialState, action) {
     }
     case COMMUNITY_SCENE_CREATE_ANSWER_SUCCESS: {
       const {answer} = action;
+      const question = state.questions.find((aQuestion) => {
+        return aQuestion.obj._id == answer.question;
+      });
+
+      question.obj.answers = [
+        ...question.obj.answers,
+        answer._id,
+      ];
+
       return {
         ...state,
         isCreatingAnswer: false,
