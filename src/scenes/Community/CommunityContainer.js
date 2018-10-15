@@ -75,6 +75,7 @@ class CommunityContainer extends Component {
   // static renderNavi
   static navigationOptions = ({ navigation }) => {
     const isOwnQuestion = navigation.getParam('isOwnQuestion', false),
+          isQuestionActive = navigation.getParam('isQuestionActive', false),
           isAnswerListOpen = navigation.getParam('isAnswerListOpen'),
           timestamp = navigation.getParam('timestamp');
     const navKey = navigation.state.key;
@@ -86,7 +87,7 @@ class CommunityContainer extends Component {
               leftButton={<LeftButtonContainer navKey={navKey} />} 
               rightButton={
                 isAnswerListOpen
-                ? isOwnQuestion
+                ? isOwnQuestion && isQuestionActive
                   ? <OptionButtonContainer /> 
                   : <TimestampContainer timestamp={moment(timestamp).fromNow()} /> 
                 : null
@@ -134,7 +135,9 @@ class CommunityContainer extends Component {
                        navigation.getParam('questionId');
     const nextQuestionId = nextProps.navigation && 
                            nextProps.navigation.getParam('questionId');
-    const nextQuestion = nextProps.question;
+    const hasCurrentRegion = nextProps.currentRegion &&
+                             nextProps.currentRegion.latitude &&
+                             nextProps.currentRegion.longitude;
 
     // check if fetching questions
     if(!isFetchingQuestions && !nextProps.isFetchingQuestions) {
@@ -146,13 +149,13 @@ class CommunityContainer extends Component {
         }
       }
       else {
+        // nextProps.currentPosition.coords.latitude, longitude
         // check if we have position
-        if(nextProps.currentRegion) {
+        if(hasCurrentRegion) {
           const {latitude: lat, longitude: lng} = nextProps.currentRegion;
 
           // check if region changed
           if(nextProps.isRegionChanged) {
-            // @TODO - we need to changed this based on region
             findQuestions(null, lat, lng);
           }
         }
@@ -216,9 +219,14 @@ class CommunityContainer extends Component {
             resetFocusFlag={resetFocusFlag}
             isOnFocus={isAnswerInputOnFocus}
             isAnswerListOpen={isAnswerListOpen} />
-          <OptionDropdown
-            onMarkClose={() => markCloseQuestion(navigation.state.key)}
-            isOptionDropdownOpen={isOptionDropdownOpen} />
+          {
+            this.props.question.isActive
+            ? <OptionDropdown
+                question={this.props.question}
+                onMarkClose={() => markCloseQuestion(navigation.state.key)}
+                isOptionDropdownOpen={isOptionDropdownOpen} />
+            : null
+          }
           <CreatePostModal
             changeScene={changeScene}
             isOpen={this.props.isCreatePostModalOpen}

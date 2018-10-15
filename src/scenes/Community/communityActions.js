@@ -118,6 +118,7 @@ export const openAnswerList = (question, navKey) => {
         // dispatch(navigationActions.refreshScene('community', params));
         dispatch(navigationActions.setParams(navKey, {
             isOwnQuestion, 
+            isQuestionActive: question.isActive,
             isAnswerListOpen: true, 
             timestamp: question.createdAt,
         }));
