@@ -238,12 +238,10 @@ export const createAnswer = () => {
     };
 };
 
-export const markCloseQuestion = (navKey) => {
+export const markCloseQuestion = (questionId, navKey) => {
     return (dispatch, getState) => {
-        const { question } = getState().communityScene;
         const { token } = getState().auth;
 
-        const questionId = question.id;
         const data = {
             isActive: false,
         };

@@ -211,19 +211,23 @@ class CommunityContainer extends Component {
               buttonColor={themeColor}
             />
           }
-          <AnswerInput
-            createAnswer={createAnswer}
-            answerText={answerText}
-            changeTextValue={changeTextValue}
-            setFocusFlag={setFocusFlag}
-            resetFocusFlag={resetFocusFlag}
-            isOnFocus={isAnswerInputOnFocus}
-            isAnswerListOpen={isAnswerListOpen} />
+          {
+            this.props.question.isActive
+            ? <AnswerInput
+                createAnswer={createAnswer}
+                answerText={answerText}
+                changeTextValue={changeTextValue}
+                setFocusFlag={setFocusFlag}
+                resetFocusFlag={resetFocusFlag}
+                isOnFocus={isAnswerInputOnFocus}
+                isAnswerListOpen={isAnswerListOpen} />
+            : null
+          }
           {
             this.props.question.isActive
             ? <OptionDropdown
                 question={this.props.question}
-                onMarkClose={() => markCloseQuestion(navigation.state.key)}
+                onMarkClose={() => markCloseQuestion(this.props.question._id, navigation.state.key)}
                 isOptionDropdownOpen={isOptionDropdownOpen} />
             : null
           }
