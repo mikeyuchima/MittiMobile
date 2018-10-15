@@ -106,7 +106,7 @@ class CommunityContainer extends Component {
     if(!isFetchingQuestions) {
       // check if we have question id
       if(questionId) {
-        findQuestions(questionId, navigation.state.key);
+        findQuestions(questionId, null, null, navigation.state.key);
       }
       else {
         this.props
@@ -114,9 +114,10 @@ class CommunityContainer extends Component {
           .then((currentPosition) => {
               // check if we have position
               if(currentPosition) {
-                // const {latitude: lat, longitude: lng} = currentPosition.coords;
+                const {latitude: lat, longitude: lng} = currentPosition.coords;
+
                 // this.props.getItems(lat, lng);
-                findQuestions(null, navigation.state.key);
+                findQuestions(null, lat, lng, navigation.state.key);
             }
           });
       }
@@ -141,7 +142,7 @@ class CommunityContainer extends Component {
       if(nextQuestionId) {
         // check if we already fetched
         if(questionId != nextQuestionId) {
-          findQuestions(nextQuestionId, navigation.state.key);
+          findQuestions(nextQuestionId, null, null, navigation.state.key);
         }
       }
       else {
@@ -152,7 +153,7 @@ class CommunityContainer extends Component {
           // check if region changed
           if(nextProps.isRegionChanged) {
             // @TODO - we need to changed this based on region
-            findQuestions();
+            findQuestions(null, lat, lng);
           }
         }
       }

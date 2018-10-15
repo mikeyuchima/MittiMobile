@@ -33,7 +33,7 @@ export const COMMUNITY_SCENE_MARK_CLOSE_QUESTION_ERROR =
     'COMMUNITY_SCENE_MARK_CLOSE_QUESTION_ERROR';
 export const COMMUNITY_SCENE_REGION_CHANGE = 'COMMUNITY_SCENE_REGION_CHANGE';
 
-export const findQuestions = (questionId, navKey) => {
+export const findQuestions = (questionId, lat, lng, navKey) => {
     return (dispatch, getState) => {
         const { token } = getState().auth;
 
@@ -65,11 +65,6 @@ export const findQuestions = (questionId, navKey) => {
                     return error;
                 });
         } else {
-            const {
-                currentPosition: {
-                    coords: { latitude: lat, longitude: lng },
-                },
-            } = getState().app;
             const { radius, radiusUnit } = getState().radius;
 
             dispatch({

@@ -6,8 +6,6 @@ import {
     getMarkers,
     openCreatePostModal,
     closeCreatePostModal,
-    activateMap,
-    deactivateMap,
     getItems,
     getPost,
     onRegionChange,

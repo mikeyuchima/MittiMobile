@@ -74,6 +74,7 @@ export default function communityScene(state = initialState, action) {
         isAnswerListOpen: false,
         isAnswerInputOnFocus: false,
         isOptionDropdownOpen: false,
+        isRegionChanged: true,
         question: {},
       };
     }
