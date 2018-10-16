@@ -12,7 +12,6 @@ import moment from 'moment';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 // components
-import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // styles
@@ -188,10 +187,17 @@ const MessageReceived = ({partner, message}) => {
             {message.message}
           </Text>
         </View>
-        <View style={styles.msgTimeContainer}>
-          <Text style={styles.msgTimestamp}>
-            {message.createdAt && moment(message.createdAt).fromNow(true)}
-          </Text>
+        <View style={styles.msgInfoContainer}>
+          <View style={styles.msgUsernameContainer}>
+            <Text style={styles.msgInfo}>
+              {partner.profile.firstName}
+            </Text>
+          </View>
+          <View style={styles.msgTimeContainer}>
+            <Text style={styles.msgInfo}>
+              {message.createdAt && moment(message.createdAt).fromNow(true)}
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -207,10 +213,17 @@ const MessageSent = ({user, message}) => {
             {message.message}
           </Text>
         </View>
-        <View style={styles.msgTimeContainer}>
-          <Text style={styles.msgTimestamp}>
-            {message.createdAt && moment(message.createdAt).fromNow(true)}
-          </Text>
+        <View style={styles.msgInfoContainer}>
+          <View style={styles.msgUsernameContainer}>
+            <Text style={styles.msgInfo}>
+              {user.profile.firstName}
+            </Text>
+          </View>
+          <View style={styles.msgTimeContainer}>
+            <Text style={styles.msgInfo}>
+              {message.createdAt && moment(message.createdAt).fromNow(true)}
+            </Text>
+          </View>
         </View>
       </View>
       <View style={styles.userPhotoContainer}>
@@ -350,10 +363,18 @@ const styles = StyleSheet.create({
     color: colors.DARK_GREY,
     fontSize: font.SIZE_NORMAL,
   },
+  msgInfoContainer: {
+    flexDirection: 'row',
+  },
+  msgUsernameContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+  },
   msgTimeContainer: {
+    flex: 1,
     alignItems: 'flex-end',
   },
-  msgTimestamp: {
+  msgInfo: {
     fontSize: font.SIZE_TINY,
     color: colors.GREY,
   },
