@@ -186,27 +186,27 @@ class MarketplaceContainer extends Component {
                     foundData = data.find(info => {
                         return info.adminArea !== null;
                     });
-                    processedData.adminArea = foundData.adminArea;
+                    processedData.adminArea = foundData && foundData.adminArea;
                     foundData = data.find(info => {
                         return info.country !== null;
                     });
-                    processedData.country = foundData.country;
+                    processedData.country = foundData && foundData.country;
                     foundData = data.find(info => {
                         return info.countryCode !== null;
                     });
-                    processedData.countryCode = foundData.countryCode;
+                    processedData.countryCode = foundData && foundData.countryCode;
                     foundData = data.find(info => {
                         return info.formattedAddress !== null;
                     });
-                    processedData.formattedAddress = foundData.formattedAddress;
+                    processedData.formattedAddress = foundData && foundData.formattedAddress;
                     foundData = data.find(info => {
                         return info.locality !== null;
                     });
-                    processedData.locality = foundData.locality;
+                    processedData.locality = foundData && foundData.locality;
                     foundData = data.find(info => {
                         return info.position && info.position.lat && info.position.lng;
                     });
-                    processedData.position = foundData.position;
+                    processedData.position = foundData && foundData.position;
                     // proceed
                     callback(processedData);
                 } else {

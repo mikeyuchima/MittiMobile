@@ -11,6 +11,10 @@ import {
   MARKETPLACE_SCENE_GET_POST_ERROR,
   MARKETPLACE_SCENE_REGION_CHANGE,
 } from './marketplaceActions';
+import {
+  VIEW_POST_SCENE_DELETE_QUESTION_SUCCESS,
+  VIEW_POST_SCENE_MARK_CLOSE_QUESTION_SUCCESS,
+} from '../ViewPost/viewPostActions';
 
 const initialState = {
   item: {},
@@ -25,6 +29,13 @@ const initialState = {
 
 export default function marketplaceScene(state = initialState, action) {
   switch (action.type) {
+    case VIEW_POST_SCENE_DELETE_QUESTION_SUCCESS:
+    case VIEW_POST_SCENE_MARK_CLOSE_QUESTION_SUCCESS: {
+      return {
+        ...state,
+        isRegionChanged: true,
+      };
+    }
     case MARKETPLACE_SCENE_SET_TYPE: {
       return {
         ...state,
