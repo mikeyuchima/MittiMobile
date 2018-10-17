@@ -138,6 +138,10 @@ class CommunityContainer extends Component {
     const hasCurrentRegion = nextProps.currentRegion &&
                              nextProps.currentRegion.latitude &&
                              nextProps.currentRegion.longitude;
+    const hasCurrentPosition = nextProps.currentPosition &&
+                               nextProps.currentPosition.coords &&
+                               nextProps.currentPosition.coords.latitude &&
+                               nextProps.currentPosition.coords.longitude;
 
     // check if fetching questions
     if(!isFetchingQuestions && !nextProps.isFetchingQuestions) {
@@ -153,6 +157,14 @@ class CommunityContainer extends Component {
         // check if we have position
         if(hasCurrentRegion) {
           const {latitude: lat, longitude: lng} = nextProps.currentRegion;
+
+          // check if region changed
+          if(nextProps.isRegionChanged) {
+            findQuestions(null, lat, lng);
+          }
+        }
+        else if(hasCurrentPosition) {
+          const {latitude: lat, longitude: lng} = nextProps.currentPosition.coords;
 
           // check if region changed
           if(nextProps.isRegionChanged) {

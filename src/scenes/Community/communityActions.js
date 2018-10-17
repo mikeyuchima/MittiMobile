@@ -133,6 +133,7 @@ export const closeAnswerList = (navKey) => {
         });
         dispatch(navigationActions.setParams(navKey, {
             isAnswerListOpen: false, 
+            questionId: null,
         }));
     };
 };
