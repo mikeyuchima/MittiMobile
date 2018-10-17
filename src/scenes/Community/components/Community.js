@@ -104,7 +104,6 @@ export default class Community extends Component {
     const question = this.props.questions.find((aQuestion) => {
       return aQuestion.obj._id == questionId;
     });
-    const navKey = this.props.navigation.state.key;
 
     // check if we have question
     if(question) {
@@ -112,7 +111,7 @@ export default class Community extends Component {
       if(!question.obj.id) {
         question.obj.id = question.obj._id;
       }
-      this.props.openAnswerList(question.obj, navKey);
+      this.props.openAnswerList(question.obj);
     }
   }
 }

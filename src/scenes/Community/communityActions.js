@@ -33,7 +33,9 @@ export const COMMUNITY_SCENE_MARK_CLOSE_QUESTION_ERROR =
     'COMMUNITY_SCENE_MARK_CLOSE_QUESTION_ERROR';
 export const COMMUNITY_SCENE_REGION_CHANGE = 'COMMUNITY_SCENE_REGION_CHANGE';
 
-export const findQuestions = (questionId, lat, lng, navKey) => {
+const SCENE_KEY = 'community';
+
+export const findQuestions = (questionId, lat, lng) => {
     return (dispatch, getState) => {
         const { token } = getState().auth;
 
@@ -53,7 +55,7 @@ export const findQuestions = (questionId, lat, lng, navKey) => {
                         question,
                     });
                     // open answer list
-                    dispatch(openAnswerList(question, navKey));
+                    dispatch(openAnswerList(question));
 
                     return question;
                 })
@@ -99,7 +101,7 @@ export const findQuestions = (questionId, lat, lng, navKey) => {
     };
 };
 
-export const openAnswerList = (question, navKey) => {
+export const openAnswerList = (question) => {
     return (dispatch, getState) => {
         const state = getState();
         const me = state &&
@@ -116,7 +118,7 @@ export const openAnswerList = (question, navKey) => {
             me,
         });
         // dispatch(navigationActions.refreshScene('community', params));
-        dispatch(navigationActions.setParams(navKey, {
+        dispatch(navigationActions.setParams(SCENE_KEY, {
             isOwnQuestion, 
             isQuestionActive: question.isActive,
             isAnswerListOpen: true, 
@@ -126,12 +128,12 @@ export const openAnswerList = (question, navKey) => {
     };
 };
 
-export const closeAnswerList = (navKey) => {
+export const closeAnswerList = () => {
     return (dispatch, getState) => {
         dispatch({
             type: COMMUNITY_SCENE_CLOSE_ANSWER_LIST,
         });
-        dispatch(navigationActions.setParams(navKey, {
+        dispatch(navigationActions.setParams(SCENE_KEY, {
             isAnswerListOpen: false, 
             questionId: null,
         }));
@@ -239,7 +241,7 @@ export const createAnswer = () => {
     };
 };
 
-export const markCloseQuestion = (questionId, navKey) => {
+export const markCloseQuestion = (questionId) => {
     return (dispatch, getState) => {
         const { token } = getState().auth;
 
@@ -262,7 +264,7 @@ export const markCloseQuestion = (questionId, navKey) => {
                     type: COMMUNITY_SCENE_MARK_CLOSE_QUESTION_SUCCESS,
                     question,
                 });
-                dispatch(closeAnswerList(navKey));
+                dispatch(closeAnswerList());
 
                 return question;
             })
