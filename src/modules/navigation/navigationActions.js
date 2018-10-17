@@ -9,7 +9,11 @@ export const changeScene = (routeName, params = {}, type = 'PUSH') => {
         // check type
         switch(type) {
         default:
-            dispatch(NavigationActions.navigate({ routeName, params }));
+            dispatch(NavigationActions.navigate({ 
+                routeName, 
+                params,
+                key: routeName
+            }));
         }
     };
 };
@@ -59,8 +63,14 @@ export const closeDrawer = () => {
     };
 };
 
-export const toggleDrawer = () => {
+export const toggleDrawer = (navigation) => {
     return (dispatch, getState) => {
+        dispatch(NavigationActions.setParams({
+            key: 'authenticated',
+            params: {
+                sceneKey: navigation.routeName,
+            },
+        }));
         dispatch(DrawerActions.toggleDrawer());
     };
 };

@@ -18,6 +18,11 @@ class LeftButtonContainer extends Component {
   };
 
   render(){
+    const navState = {
+      routeName: 'community',
+      key: this.props.navKey,
+    };
+
     if(this.props.isAnswerListOpen) {
       return (
         <NavBackButton back={this.props.closeAnswerList} 
@@ -25,7 +30,7 @@ class LeftButtonContainer extends Component {
       );
     }
     else {
-      return <OpenDrawerButtonContainer />;
+      return <OpenDrawerButtonContainer navigation={navState} />;
     }
   }
 }

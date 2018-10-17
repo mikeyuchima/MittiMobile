@@ -65,16 +65,20 @@ class HomeContainer extends Component {
     //     );
     // };
 
-    static navigationOptions = {
-        // headerTitle instead of title
-        headerTitle: (
-            <NavBar
-                title={t(dictionary.home)}
-                leftButton={<OpenDrawerButtonContainer />}
-                rightButton={<OpenDropdownButtonContainer />}
-            />
-        ),
-        headerLeft: null,
+    static navigationOptions = ({navigation}) => {
+        const navState = navigation.state;
+
+        return {
+            // headerTitle instead of title
+            headerTitle: (
+                <NavBar
+                    title={t(dictionary.home)}
+                    leftButton={<OpenDrawerButtonContainer navigation={navState} />}
+                    rightButton={<OpenDropdownButtonContainer />}
+                />
+            ),
+            headerLeft: null,
+        }
     };
 
     componentDidMount() {

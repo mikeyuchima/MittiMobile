@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import SideMenu from './components/SideMenu';
 
 // actions
-import { openDrawer, closeDrawer, changeScene } from './navigationActions';
+import { changeScene } from './navigationActions';
 
 // other module actions
 import { logout } from '../auth/authActions';
@@ -17,8 +17,6 @@ class SideMenuContainer extends Component {
         me: PropTypes.object,
 
         // actions
-        openDrawer: PropTypes.func.isRequired,
-        closeDrawer: PropTypes.func.isRequired,
         changeScene: PropTypes.func.isRequired,
 
         // other module actions
@@ -26,10 +24,8 @@ class SideMenuContainer extends Component {
     };
 
     render() {
-        const {me, navigation, changeScene, logout} = this.props;
-        const sceneKey = navigation &&
-                         navigation.state &&
-                         navigation.state.routeName;
+        const {me, changeScene, navigation, logout} = this.props;
+        const sceneKey = navigation.getParam('sceneKey');
 
         return (
             <SideMenu
@@ -53,8 +49,6 @@ export default connect(
     mapStateToProps,
     {
         // actions
-        openDrawer,
-        closeDrawer,
         changeScene,
 
         // other module actions

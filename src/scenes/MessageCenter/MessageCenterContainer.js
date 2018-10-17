@@ -52,12 +52,13 @@ class MessageCenterContainer extends Component {
   // static renderNavi
   static navigationOptions = ({ navigation }) => {
     const item = navigation && navigation.getParam('item');
+    const navState = navigation.state;
 
     return {
       headerTitle: (
           <NavBar
               title={t(dictionary.messages)}
-              leftButton={<OpenDrawerButtonContainer />} 
+              leftButton={<OpenDrawerButtonContainer navigation={navState} />} 
               rightButton={!item ? <AppointmentButtonContainer /> : null} 
           />
       ),

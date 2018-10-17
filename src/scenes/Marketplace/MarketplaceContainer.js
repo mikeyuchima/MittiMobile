@@ -50,14 +50,16 @@ class MarketplaceContainer extends Component {
 
     // static renderNavi
     static navigationOptions = ({ navigation }) => {
+        const navState = navigation.state;
+
         return {
-        headerTitle: (
-            <NavBar
-                title={t(dictionary.freeShare)}
-                leftButton={<OpenDrawerButtonContainer />}
-            />
-        ),
-        headerLeft: null
+            headerTitle: (
+                <NavBar
+                    title={t(dictionary.freeShare)}
+                    leftButton={<OpenDrawerButtonContainer navigation={navState} />}
+                />
+            ),
+            headerLeft: null
         };
     };
 

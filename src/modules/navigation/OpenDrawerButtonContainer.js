@@ -15,20 +15,23 @@ import * as font from '../../styles/font';
 
 class OpenDrawerButtonContainer extends Component {
     static propTypes = {
-        // states
-
-        // actions
+        navigation: PropTypes.object.isRequired,
         toggleDrawer: PropTypes.func.isRequired,
     };
 
     render() {
-        const { toggleDrawer } = this.props;
         return (
-            <TouchableOpacity style={{ padding: 8 }} onPress={toggleDrawer}>
+            <TouchableOpacity style={{ padding: 8 }} onPress={this._toggleDrawer}>
                 <Icon name="navicon" size={font.SIZE_H1} color={colors.WHITE} />
             </TouchableOpacity>
         );
     }
+
+    _toggleDrawer = () => {
+        const { toggleDrawer, navigation } = this.props;
+
+        toggleDrawer(navigation);
+    };
 }
 
 function mapStateToProps(state) {
