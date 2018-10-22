@@ -33,7 +33,7 @@ class AppContainer extends Component {
         OneSignal.init(ONESIGNAL_APP_ID);
         OneSignal.enableVibrate(true); // Android only
         OneSignal.enableSound(true); // Android only
-        OneSignal.inFocusDisplaying(1); // No (0), Show alert (1), Show notification (2)
+        OneSignal.inFocusDisplaying(0); // No (0), Show alert (1), Show notification (2)
         if (DEBUG_MODE) {
             OneSignal.setLogLevel(6, 0);
         }
@@ -92,6 +92,8 @@ class AppContainer extends Component {
     };
 
     _openNotification = (notification, insideApp) => {
+        console.log('props', this.props);
+
         const { findUnreadMessages, refreshScene, changeScene, onMessage } = this.props;
 
         console.log('Notification received: ', notification);
@@ -120,7 +122,8 @@ class AppContainer extends Component {
                             chatId: notification.payload.additionalData.chatId,
                             refreshTimestamp: new Date().getTime(),
                         };
-                        if (this.props.navigation.state.routeName === 'chat') {
+                        if (this.props.nav.routeName === 'chat') {
+                            // @TOFIX
                             refreshScene('chat', params);
                         } else {
                             if (insideApp) {
@@ -164,6 +167,7 @@ function mapStateToProps(state) {
 
         // other module states
         me: state.me.me,
+        nav: state.nav,
     };
 }
 

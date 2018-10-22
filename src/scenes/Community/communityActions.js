@@ -101,12 +101,10 @@ export const findQuestions = (questionId, lat, lng) => {
     };
 };
 
-export const openAnswerList = (question) => {
+export const openAnswerList = question => {
     return (dispatch, getState) => {
         const state = getState();
-        const me = state &&
-                   state.me &&
-                   state.me.me;
+        const me = state && state.me && state.me.me;
         const isOwnQuestion = question.creator.id == me.id;
         // const params = {
         //     question,
@@ -118,12 +116,14 @@ export const openAnswerList = (question) => {
             me,
         });
         // dispatch(navigationActions.refreshScene('community', params));
-        dispatch(navigationActions.setParams(SCENE_KEY, {
-            isOwnQuestion, 
-            isQuestionActive: question.isActive,
-            isAnswerListOpen: true, 
-            timestamp: question.createdAt,
-        }));
+        dispatch(
+            navigationActions.setParams(SCENE_KEY, {
+                isOwnQuestion,
+                isQuestionActive: question.isActive,
+                isAnswerListOpen: true,
+                timestamp: question.createdAt,
+            })
+        );
         dispatch(findAnswers());
     };
 };
@@ -133,10 +133,12 @@ export const closeAnswerList = () => {
         dispatch({
             type: COMMUNITY_SCENE_CLOSE_ANSWER_LIST,
         });
-        dispatch(navigationActions.setParams(SCENE_KEY, {
-            isAnswerListOpen: false, 
-            questionId: null,
-        }));
+        dispatch(
+            navigationActions.setParams(SCENE_KEY, {
+                isAnswerListOpen: false,
+                questionId: null,
+            })
+        );
     };
 };
 
@@ -241,7 +243,7 @@ export const createAnswer = () => {
     };
 };
 
-export const markCloseQuestion = (questionId) => {
+export const markCloseQuestion = questionId => {
     return (dispatch, getState) => {
         const { token } = getState().auth;
 

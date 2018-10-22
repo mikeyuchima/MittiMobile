@@ -206,6 +206,7 @@ export const getLastSession = () => {
             type: AUTH_GET_LAST_SESSION,
         });
         return AsyncStorage.getItem(STORAGE_KEYS.token, (error, token) => {
+            console.log('asyncStorage', error, token);
             if (!error && token) {
                 dispatch(createSession(token));
                 dispatch(meActions.getMe());

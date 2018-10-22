@@ -94,6 +94,7 @@ export const onError = error => {
 
 export const onMessage = (message, onPress) => {
     return (dispatch, getState) => {
+        console.log('onMessage', message);
         dispatch({
             type: APP_ON_MESSAGE,
             message,
