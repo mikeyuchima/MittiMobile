@@ -31,22 +31,37 @@ export default class ItemList extends Component {
     };
 
     render() {
-        const { changeScene, items, chats, isFetchingItems, marketType, themeColor } = this.props;
+        const { 
+            changeScene, 
+            items, 
+            chats, 
+            isFetchingItems, 
+            marketType, 
+            themeColor 
+        } = this.props;
 
         let currentItemList =
             items.rows &&
             items.rows.map(anItem => {
+                const _item = Object.assign({}, anItem);
                 const inquiries =
                     chats.rows &&
                     chats.rows.filter(aChat => {
                         return aChat._id == anItem._id;
                     });
+                
+                // check if _item is empty
+                if(anItem.creator) {
+                    _item.creator = {
+                        id: anItem.creator
+                    };
+                }
 
                 // make sure it is the correct type
-                if (anItem.type == marketType) {
+                if (_item.type == marketType) {
                     return {
-                        ...anItem,
-                        id: anItem._id,
+                        ..._item,
+                        id: _item._id,
                         inquiries,
                     };
                 }
@@ -61,12 +76,11 @@ export default class ItemList extends Component {
                 ]}
             >
                 {currentItemList &&
-                    currentItemList.map(anItem => (
+                    currentItemList.map(_item => (
                         <ListItem
-                            key={anItem._id}
+                            key={_item._id}
                             changeScene={changeScene}
-                            marketType={marketType}
-                            item={anItem}
+                            item={_item}
                             themeColor={themeColor}
                         />
                     ))}
@@ -91,7 +105,7 @@ const ItemImage = ({ images }) => {
     }
 };
 
-const ListItem = ({ changeScene, marketType, item, themeColor }) => {
+const ListItem = ({ changeScene, item, themeColor }) => {
     return (
         <View style={styles.itemContainer}>
             <View style={styles.contentContainer}>
