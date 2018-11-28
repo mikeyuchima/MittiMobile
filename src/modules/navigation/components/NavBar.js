@@ -72,7 +72,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     rightButton: {
-        height: 37,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
         position: 'absolute',
         ...Platform.select({
             ios: {
@@ -86,7 +87,6 @@ const styles = StyleSheet.create({
             },
         }),
         right: 2,
-        padding: 8,
     },
     leftButton: {
         height: 37,

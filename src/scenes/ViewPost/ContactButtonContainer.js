@@ -28,7 +28,7 @@ class ContactButtonContainer extends Component {
     };
 
     render() {
-        const { item, marketType, themeColor, changeScene, openChatWindow } = this.props;
+        const { item, themeColor, openChatWindow } = this.props;
 
         return (
             <TouchableOpacity onPress={() => openChatWindow(item)} style={[styles.button]}>
