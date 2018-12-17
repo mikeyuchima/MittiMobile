@@ -39,36 +39,51 @@ export const APP_CLEAR_UPLOAD_IMAGE = 'APP_CLEAR_UPLOAD_IMAGE';
  */
 export const getCurrentPosition = () => {
     return (dispatch, getState) => {
+        const {
+            currentPosition
+        } = getState().app;
+
         dispatch({
             type: APP_GET_CURRENT_POSITION,
         });
 
         return new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-                currentPosition => {
-                    dispatch({
-                        type: APP_GET_CURRENT_POSITION_SUCCESS,
-                        currentPosition,
-                    });
+            // check if we have current position
+            if(currentPosition) {
+                dispatch({
+                    type: APP_GET_CURRENT_POSITION_SUCCESS,
+                    currentPosition,
+                });
 
-                    resolve(currentPosition);
-                },
-                error => {
-                    dispatch({
-                        type: APP_GET_CURRENT_POSITION_ERROR,
-                        error,
-                    });
+                resolve(currentPosition);
+            }
+            else {
+                navigator.geolocation.getCurrentPosition(
+                    _currentPosition => {
+                        dispatch({
+                            type: APP_GET_CURRENT_POSITION_SUCCESS,
+                            currentPosition: _currentPosition,
+                        });
 
-                    dispatch(onError('Unable to get current position'));
+                        resolve(_currentPosition);
+                    },
+                    error => {
+                        dispatch({
+                            type: APP_GET_CURRENT_POSITION_ERROR,
+                            error,
+                        });
 
-                    reject(error);
-                },
-                {
-                    // enableHighAccuracy: true,
-                    timeout: 20000,
-                    maximumAge: 1000,
-                }
-            );
+                        dispatch(onError('Unable to get current position'));
+
+                        reject(error);
+                    },
+                    {
+                        // enableHighAccuracy: true,
+                        timeout: 20000,
+                        maximumAge: 1000,
+                    }
+                );
+            }
         });
     };
 };

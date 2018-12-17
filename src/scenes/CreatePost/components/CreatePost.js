@@ -193,10 +193,6 @@ export default class CreatePost extends Component {
         });
     };
 
-    _changeCondition = value => {
-        this.props.changeFormValue('condition', value);
-    };
-
     _getButtonLabelColor = isSelected => {
         let color = colors.BLACK;
 
