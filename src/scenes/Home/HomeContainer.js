@@ -26,7 +26,6 @@ import AddPostButton from '../../components/AddPostButton';
 import { SpinnerOverlay, VerificationRequest, CreatePostModal } from '../../components';
 import NavBar from '../../modules/navigation/components/NavBar';
 
-import { DISTANT_CONVERSION } from '../../constants/constants';
 import commonStyles from '../../styles/common';
 import { t } from '../../i18n';
 import dictionary from './dictionary';
@@ -52,18 +51,6 @@ class HomeContainer extends Component {
         item: PropTypes.object,
         items: PropTypes.array,
     };
-
-    // static renderNavigationBar = props => {
-    //     const isVerified = props.me && props.me.isVerified;
-
-    //     return (
-    //         <NavBar
-    //             title={t(dictionary.home)}
-    //             leftButton={<OpenDrawerButtonContainer />}
-    //             rightButton={<OpenDropdownButtonContainer />}
-    //         />
-    //     );
-    // };
 
     static navigationOptions = ({navigation}) => {
         const navState = navigation.state;
@@ -142,7 +129,9 @@ class HomeContainer extends Component {
                         onClose={this.props.closeCreatePostModal}
                     />
                     <Home markers={markers} {...this.props} />
-                    <AddPostButton onCreatePost={this.props.openCreatePostModal} />
+                    <AddPostButton 
+                        changeScene={this.props.changeScene}
+                    />
                     <RadiusDropdownContainer />
                 </View>
             );

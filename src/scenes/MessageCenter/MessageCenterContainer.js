@@ -125,8 +125,8 @@ class MessageCenterContainer extends Component {
             isOpen={this.props.isCreatePostModalOpen}
             onClose={this.props.closeCreatePostModal} />
           <AddPostButton
-            onCreatePost={this.props.openCreatePostModal}
             buttonColor={colors.ORANGE}
+            changeScene={this.props.changeScene}
           />
         </View>
       );

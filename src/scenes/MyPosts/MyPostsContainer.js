@@ -107,8 +107,8 @@ class MyPostsContainer extends Component {
                     themeColor={themeColor}
                 />
                 <AddPostButton
-                    onCreatePost={this.props.openCreatePostModal}
                     buttonColor={themeColor}
+                    changeScene={changeScene}
                 />
                 <CreatePostModal
                     changeScene={changeScene}

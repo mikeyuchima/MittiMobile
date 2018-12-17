@@ -60,10 +60,7 @@ export default class Home extends Component {
               me={this.props.me} 
               unreadMessages={this.props.unreadMessages} 
               changeScene={this.props.changeScene}/>
-            <QuestionList 
-              questions={this.props.myQuestions} 
-              isFetching={this.props.isFetchingMyQuestions}
-              changeScene={this.props.changeScene} />
+            { this._getQuestionList() }
           </View>
         </ScrollView>
       );
@@ -71,6 +68,13 @@ export default class Home extends Component {
     else {
       return null;
     }
+  }
+
+  _getQuestionList = () => {
+    // return <QuestionList 
+    //         questions={this.props.myQuestions} 
+    //         isFetching={this.props.isFetchingMyQuestions}
+    //         changeScene={this.props.changeScene} />
   }
 }
 

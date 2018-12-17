@@ -56,13 +56,13 @@ const renderMenu = (sceneKey, changeScene, logout) => {
             iconName: 'message-processing',
             label: t(dictionary.messages),
         },
-        {
-            id: 'community',
-            onPress: () => changeScene('community', {}, 'REPLACE'),
-            icon: 'MCI',
-            iconName: 'vector-circle',
-            label: t(dictionary.community),
-        },
+        // {
+        //     id: 'community',
+        //     onPress: () => changeScene('community', {}, 'REPLACE'),
+        //     icon: 'MCI',
+        //     iconName: 'vector-circle',
+        //     label: t(dictionary.community),
+        // },
         {
             id: 'marketplace',
             onPress: () =>

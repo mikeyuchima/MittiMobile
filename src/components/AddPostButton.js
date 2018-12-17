@@ -6,12 +6,13 @@ import {
 } from 'react-native';
 import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import mittiStyles from '../styles/mitti';
 import * as colors from '../styles/colors';
+import { POST_TYPES } from '../constants/constants';
 
 export default class AddPostButton extends Component {
   static propTypes = {
-    onCreatePost: PropTypes.func.isRequired,
+    onCreatePost: PropTypes.func,
+    changeScene: PropTypes.func,
     buttonColor: PropTypes.string,
   };
 
@@ -22,7 +23,7 @@ export default class AddPostButton extends Component {
   render() {
     return (
       <TouchableOpacity 
-        onPress={this.props.onCreatePost}
+        onPress={ this._createPost }
         style={[
           styles.buttonContainer,
           {backgroundColor: this.props.buttonColor}
@@ -35,6 +36,13 @@ export default class AddPostButton extends Component {
         />
       </TouchableOpacity>
     );
+  }
+
+  _createPost = () => {
+    this.props.changeScene('createPost', params = {
+      postType: POST_TYPES.free.id,
+    });
+    // @TODO look at CommunityContainer when we are enabling Community scene!
   }
 }
 
