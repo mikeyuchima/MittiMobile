@@ -48,7 +48,7 @@ export const markCloseItem = () => {
         const { item } = getState().viewPostScene;
         const { token } = getState().auth;
 
-        const itemId = item.id;
+        const itemId = item._id;
         const data = {
             isActive: false,
         };
@@ -91,7 +91,7 @@ export const deleteItem = () => {
         const { item } = getState().viewPostScene;
         const { token } = getState().auth;
 
-        const itemId = item.id;
+        const itemId = item._id;
         const data = {
             isActive: false,
         };
@@ -132,7 +132,7 @@ export const deleteItem = () => {
 export const openChatWindow = item => {
     return (dispatch, getState) => {
         // check if we have item
-        if (item && item.id) {
+        if (item && item._id) {
             const { token } = getState().auth;
 
             dispatch({
@@ -140,12 +140,12 @@ export const openChatWindow = item => {
             });
 
             return postApi
-                .createChat(token, item.id, {})
+                .createChat(token, item._id, {})
                 .then(resp => dispatch(appActions.processApiResponse(resp)))
                 .then(chat => {
                     const params = {
                         chatId: chat._id,
-                        itemId: item.id,
+                        itemId: item._id,
                     };
 
                     dispatch({
