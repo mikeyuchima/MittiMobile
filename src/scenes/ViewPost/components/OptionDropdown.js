@@ -38,7 +38,7 @@ export default class OptionDropDown extends Component {
             mittiStyles.darkBody,
           ]}>
             {/*<MenuItem label={t(dictionary.edit)} onPress={this.props.onEdit} />*/}
-            <MenuItem label={t(dictionary.markClose)} onPress={this.props.onMarkClose} />
+            {/*<MenuItem label={t(dictionary.markClose)} onPress={this.props.onMarkClose} />*/}
             <MenuItem label={t(dictionary.delete)} onPress={this.props.onDelete} />
           </View>
         </View>

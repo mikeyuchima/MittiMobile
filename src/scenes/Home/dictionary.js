@@ -24,7 +24,7 @@ export default dictionary = {
     'en_US': 'Confirmed Schedules',
   },
   myFreeshares: {
-    'en_US': 'My Free Share Ads',
+    'en_US': 'My Free Share',
   },
   myQuestions: {
     'en_US': 'My Questions',
