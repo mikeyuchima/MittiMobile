@@ -172,7 +172,7 @@ const getUserFullName = me => {
 };
 
 const openMailApp = (subject) => {
-    Linking.openURL('mailto:info@digitaldip.ca&subject=' + subject + '&body=');
+    Linking.openURL('mailto:info@digitaldip.ca?subject=' + subject + '&body=');
 };
 
 const styles = StyleSheet.create({

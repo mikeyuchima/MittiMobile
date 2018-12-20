@@ -181,7 +181,7 @@ export default class Profile extends Component {
     };
 
     _openMailApp = () => {
-        Linking.openURL('mailto:info@digitaldip.ca&subject=&body=');
+        Linking.openURL('mailto:info@digitaldip.ca?subject=&body=');
     };
 }
 
