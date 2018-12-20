@@ -32,4 +32,7 @@ export default dictionary = {
   settings: {
     'en_US': 'Settings',
   },
+  reportBug: {
+    'en_US': 'Report a Bug',
+  },
 };

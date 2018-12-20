@@ -220,7 +220,7 @@ export default class Profile extends Component {
                     </TouchableOpacity>
 
                     <View style={styles.version}>
-                        <Text style={styles.versionText}>Mitti App V1.0</Text>
+                        <Text style={styles.versionText}>Mitti V1.0</Text>
                     </View>
 
                     {/* <View style={styles.actions}>

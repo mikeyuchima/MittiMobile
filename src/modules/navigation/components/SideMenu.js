@@ -2,13 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 // components
-import { StyleSheet, View, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    View,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    Linking
+} from 'react-native';
 import { ProfilePicture } from '../../../components';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // styles
-import commonStyles from '../../../styles/common';
 import * as font from '../../../styles/font';
 import * as colors from '../../../styles/colors';
 
@@ -86,6 +92,14 @@ const renderMenu = (sceneKey, changeScene, logout) => {
             hasTopGap: true,
         },
         {
+            id: 'reportBug',
+            onPress: () => openMailApp(t(dictionary.reportBug)),
+            icon: 'FA',
+            iconName: 'bug',
+            label: t(dictionary.reportBug),
+            hasTopGap: false,
+        },
+        {
             id: 'logout',
             onPress: logout,
             icon: 'FA',
@@ -155,6 +169,10 @@ const getUserFullName = me => {
     const fullName = profile && profile.fullName;
 
     return fullName;
+};
+
+const openMailApp = (subject) => {
+    Linking.openURL('mailto:info@digitaldip.ca&subject=' + subject + '&body=');
 };
 
 const styles = StyleSheet.create({
