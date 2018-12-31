@@ -71,6 +71,9 @@ export default (dictionary = {
   playSoundsWithinTheApp: {
     en_US: 'Play sounds within the app',
   },
+  reportBug: {
+    'en_US': 'Report a Bug',
+  },
   policyContent0001: {
     en_US: 'Digitial Dip Inc. built the Mitti app as a Free app. This SERVICE is provided by Digitial Dip Inc. at no cost and is intended for use as is.',
   },

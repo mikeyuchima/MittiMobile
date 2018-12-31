@@ -23,8 +23,7 @@ import { t } from '../../../i18n';
 import dictionary from '../dictionary';
 
 // other
-
-import { POST_TYPES } from '../../../constants/constants';
+import { APP_NAME, POST_TYPES } from '../../../constants/constants';
 
 export default (SideMenu = ({ me, sceneKey, changeScene, logout }) => (
     <ScrollView style={styles.container}>
@@ -84,19 +83,19 @@ const renderMenu = (sceneKey, changeScene, logout) => {
             label: t(dictionary.freeShare),
         },
         {
+            id: 'shareApp',
+            onPress: () => shareApp(),
+            icon: 'FA',
+            iconName: 'share-alt',
+            label: t(dictionary.shareApp),
+            hasTopGap: true,
+        },
+        {
             id: 'settings',
             onPress: () => changeScene('settings', {}),
             icon: 'FA',
             iconName: 'gear',
             label: t(dictionary.settings),
-            hasTopGap: true,
-        },
-        {
-            id: 'reportBug',
-            onPress: () => openMailApp(t(dictionary.reportBug)),
-            icon: 'FA',
-            iconName: 'bug',
-            label: t(dictionary.reportBug),
             hasTopGap: false,
         },
         {
@@ -171,8 +170,21 @@ const getUserFullName = me => {
     return fullName;
 };
 
-const openMailApp = (subject) => {
-    Linking.openURL('mailto:info@digitaldip.ca?subject=' + subject + '&body=');
+const shareApp = () => {
+    const url = 'http://play.google.com/store/apps/details?id=' + APP_NAME;
+    const message = 'Hey, check out this app!\n\n' + url;
+
+    openMailApp('', 
+                t(dictionary.shareApp), 
+                message)
+};
+
+const openMailApp = (recipient, subject, body) => {
+    const recipientParam = 'mailto:' + recipient + '?',
+          subjectParam = 'subject=' + subject,
+          bodyParam = '&body=' + body;
+
+    Linking.openURL(recipientParam + subjectParam + bodyParam);
 };
 
 const styles = StyleSheet.create({

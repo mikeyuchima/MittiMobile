@@ -8,9 +8,9 @@ import {
     ScrollView,
     Picker,
     Switch,
-    Button,
     Text,
     TouchableOpacity,
+    Linking
 } from 'react-native';
 import { SpinnerOverlay } from '../../../components';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
@@ -213,6 +213,21 @@ export default class Profile extends Component {
 
                     <View style={styles.divider} />
 
+                    <TouchableOpacity
+                        onPress={() => this._openMailApp(t(dictionary.reportBug), '')}
+                    >
+                        <View style={styles.link}>
+                            <View style={styles.linkLabel}>
+                                <Text style={styles.label}>{t(dictionary.reportBug)}</Text>
+                            </View>
+                            <View style={styles.linkArrow}>
+                                <FAIcon size={30} color={colors.BLACK} name={'angle-right'} />
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+
+                    <View style={styles.divider} />
+
                     <TouchableOpacity onPress={this.props.logout}>
                         <View style={styles.logout}>
                             <Text style={styles.logoutText}>Sign Out</Text>
@@ -236,6 +251,14 @@ export default class Profile extends Component {
             </ScrollView>
         );
     }
+
+    _openMailApp = (subject, body) => {
+        const url = 'mailto:info@digitaldip.ca?',
+            subjectParam = 'subject=' + subject,
+            bodyParam = '&body=' + body;
+
+        Linking.openURL(url + subjectParam + bodyParam);
+    };
 }
 
 const styles = StyleSheet.create({

@@ -3,6 +3,8 @@ export const STORAGE_KEYS = {
   token: '@app:token',
 };
 
+export const APP_NAME = 'com.mittimobile.mitti';
+
 export const NOTIFICATION_TYPES = {
   chatMessage: 'chatMessage',
   chatSchedule: 'chatSchedule',

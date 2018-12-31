@@ -32,6 +32,9 @@ export default dictionary = {
   settings: {
     'en_US': 'Settings',
   },
+  shareApp: {
+    'en_US': 'Share to Friends',
+  },
   reportBug: {
     'en_US': 'Report a Bug',
   },
