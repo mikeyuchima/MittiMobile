@@ -12,8 +12,6 @@ import {
 } from 'react-native';
 import {SpinnerOverlay} from '../../../components';
 import {CustomButton} from '../../../components';
-import FAIcon from 'react-native-vector-icons/FontAwesome';
-import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 // styles
 import commonStyles from '../../../styles/common';
@@ -125,7 +123,10 @@ export default class Form extends Component {
             </View>
           </View>
 
-          <View style={styles.fieldContainer}>
+          <View style={[
+            styles.fieldContainer,
+            styles.textFieldContainer,
+          ]}>
             <View style={styles.inputContainer}>
               <Text style={styles.text}>
                 {t(dictionary.numberIsPrivate)}
@@ -136,6 +137,36 @@ export default class Form extends Component {
                 style={styles.input}
                 onValueChange={(value) => changeFormValue('isPhonePrivate', value)}
                 value={form.isPhonePrivate} />
+            </View>
+          </View>
+
+          <View style={[
+            styles.fieldContainer,
+            styles.textFieldContainer,
+          ]}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                value={form.changePassword}
+                onChangeText={(value) => changeFormValue('changePassword', value)}
+                style={styles.textInput}
+                placeholder={t(dictionary.changePassword)}
+                underlineColorAndroid={'rgba(0,0,0,0)'}
+              />
+            </View>
+          </View>
+
+          <View style={[
+            styles.fieldContainer,
+            styles.textFieldContainer,
+          ]}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                value={form.confirmNewPassword}
+                onChangeText={(value) => changeFormValue('confirmNewPassword', value)}
+                style={styles.textInput}
+                placeholder={t(dictionary.confirmNewPassword)}
+                underlineColorAndroid={'rgba(0,0,0,0)'}
+              />
             </View>
           </View>
 
@@ -214,5 +245,8 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     marginBottom: 10,
+  },
+  anchorText: {
+      color: '#3695ED',
   },
 });

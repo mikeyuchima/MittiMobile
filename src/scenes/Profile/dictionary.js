@@ -53,6 +53,21 @@ export default dictionary = {
   removeAccountConfirmation: {
     'en_US': 'Do you really want to delete your account?',
   },
+  changePassword: {
+    'en_US': 'Change Password',
+  },
+  newPassword: {
+    'en_US': 'New Password',
+  },
+  confirmNewPassword: {
+    'en_US': 'Confirm New Password',
+  },
+  currentPassword: {
+    'en_US': 'Current Password',
+  },
+  passwordNotMatched: {
+    'en_US': 'New password must match with the confirmation password.',
+  },
   cancel: {
     'en_US': 'Cancel',
   },

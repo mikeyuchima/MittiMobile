@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 // components
 import {
   StyleSheet,
-  View,
+  Alert,
   TouchableOpacity,
   Text,
 } from 'react-native';
@@ -49,7 +49,7 @@ class SaveButtonContainer extends Component {
       isUpdatingMyProfile,
       updateMyProfile,
     } = this.props;
-    const data = {
+    let data = {
       profile: {
         firstName: form.firstName,
         lastName: form.lastName,
@@ -64,10 +64,13 @@ class SaveButtonContainer extends Component {
       data.profile.img = user.profile.img;
     }
     // check if edit mode
-    if(isEditMode && isEditable && !isUpdatingMyProfile && !isFetchingProfile) {
+    if(isEditMode && 
+       isEditable && 
+       !isUpdatingMyProfile && 
+       !isFetchingProfile) {
       return (
         <TouchableOpacity
-          onPress={() => updateMyProfile(data)}
+          onPress={() => this._onSaveButtonPress(form, data)}
           style={styles.button}>
           <Text style={styles.buttonLabel}>
             {t(dictionary.saveChanges)}
@@ -79,6 +82,41 @@ class SaveButtonContainer extends Component {
       return null;
     }
   }
+
+  _onSaveButtonPress = (form, data) => {
+    let isDataValid = true;
+
+    // check if changing password
+    if(form.changePassword || form.confirmNewPassword) {
+      // check if new password is valid
+      if(form.changePassword === form.confirmNewPassword) {
+        data.password = form.changePassword;
+      }
+      else {
+        isDataValid = false;
+      }
+    }
+    // check if valid
+    if(isDataValid) {
+      this.props.updateMyProfile(data);
+    }
+    else {
+      this._alertInvalidPassword();
+    }
+  };
+
+  _alertInvalidPassword = () => {
+    Alert.alert(
+      t(dictionary.changePassword),
+      t(dictionary.passwordNotMatched),
+      [
+        {
+          text: t(dictionary.ok),
+        },
+      ],
+      { cancelable: true }
+    );
+  };
 }
 
 function mapStateToProps(state) {
