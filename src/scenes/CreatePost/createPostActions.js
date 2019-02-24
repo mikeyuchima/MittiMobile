@@ -12,7 +12,6 @@ import { t } from '../../i18n';
 
 // others
 
-import { ActionConst } from 'react-native-router-flux';
 import Geocoder from 'react-native-geocoder';
 
 export const CREATE_POST_SCENE_CHANGE_FORM_VALUE = 'CREATE_POST_SCENE_CHANGE_FORM_VALUE';
@@ -89,7 +88,7 @@ export const createPost = address => {
                     post,
                 });
 
-                dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
+                // @TODO: reset home scene
                 dispatch(appActions.onMessage(t(dictionary.createSuccess)));
                 dispatch(appActions.clearImageUpload());
                 return post;

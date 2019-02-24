@@ -66,57 +66,15 @@ For production release key, ask Alex
 
 2.  Update `android/gradle.properties`
 
+N/A
+
 3.  Update `android/build.gradle`
 
-```
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
-buildscript {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1' // <---- UPDATE GRADLE
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        mavenLocal()
-        google() // <----- ADD THIS
-        jcenter()
-        maven {
-            // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
-            url "$rootDir/../node_modules/react-native/android"
-        }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
-    }
-}
-
-ext {
-    buildToolsVersion = "27.0.2"
-    minSdkVersion = 16
-    compileSdkVersion = 27
-    targetSdkVersion = 27
-    supportLibVersion = "27.0.2"
-}
-```
+N/A
 
 4.  Update `android/gradle/wrapper/gradle-wrapper.properties`
 
-```
-distributionUrl=https\://services.gradle.org/distributions/gradle-4.1-all.zip
-```
+N/A
 
 5.  Update `android/app/src/main/AndroidManifest.xml`
 
@@ -142,7 +100,9 @@ For react-native-onesignal and react-image-picker, add this:
 <application ....>
   <activity
     android:name=".MainActivity"
-    android:label="OneSignal Example"
+    android:label="@string/app_name"
+    android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+    android:windowSoftInputMode="adjustResize"
     android:launchMode="singleTop"> <!-- Add this attribute to your main activity -->
   </activity>
     .....
