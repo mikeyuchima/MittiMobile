@@ -11,7 +11,7 @@ $ git clone git@gitlab.com:cujo/MittiMobileSrc.git MyMittiMobile
 2.  Create React Native Container Project
 
 ```sh
-$ react-native init --version="0.58.5" Mitti
+$ react-native init --version="0.58.5" MittiMobile
 ```
 
 3.  Copy over all the container files into the project directory
