@@ -22,6 +22,7 @@ import Splash from "./scenes/Splash";
 // import NavigationDrawerContainer from './modules/navigation/NavigationDrawerContainer';
 import SideMenuContainer from "./modules/navigation/SideMenuContainer";
 
+
 const SCENES = {
     /*
     boilerplate: {
