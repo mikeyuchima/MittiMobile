@@ -1,21 +1,30 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import { createLogger } from 'redux-logger';
-import rootReducer from '../reducers';
-import { DEBUG_MODE } from '../../config';
-import { navigationMiddleware } from '../routes';
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import { createLogger } from "redux-logger";
+import rootReducer from "../reducers";
+import { DEBUG_MODE } from "../../config";
+// import { navigationMiddleware } from '../routes';
+import { createReactNavigationReduxMiddleware } from "react-navigation-redux-helpers";
+import appReducer from "../index";
 
 export default function configureStore(initialState) {
-    let middlewares = [thunk, navigationMiddleware];
+  const navigationMiddleware = createReactNavigationReduxMiddleware(
+    "root",
+    state => state.nav
+  );
 
-    if (DEBUG_MODE) {
-        const loggerMiddleware = createLogger();
-        middlewares = [...middlewares, loggerMiddleware];
-    }
+  let middlewares = [thunk, navigationMiddleware];
 
-    const finalCreateStore = compose(applyMiddleware(...middlewares))(createStore);
+  if (DEBUG_MODE) {
+    const loggerMiddleware = createLogger();
+    middlewares = [...middlewares, loggerMiddleware];
+  }
 
-    const store = finalCreateStore(rootReducer, initialState);
+  const finalCreateStore = compose(applyMiddleware(...middlewares))(
+    createStore(appReducer, applyMiddleware(navigationMiddleware))
+  );
 
-    return store;
+  const store = finalCreateStore(rootReducer, initialState);
+
+  return store;
 }
