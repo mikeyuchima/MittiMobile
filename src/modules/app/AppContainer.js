@@ -161,12 +161,13 @@ class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(`THIS IS STATE`, state);
     return {
         // states
         ...state.app,
 
         // other module states
-        me: state.me.me,
+        me: state.me,
         nav: state.nav,
     };
 }

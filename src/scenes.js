@@ -1,17 +1,3 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import {
-    createStackNavigator,
-    createSwitchNavigator,
-    createDrawerNavigator,
-} from 'react-navigation';
-import {
-    reduxifyNavigator,
-    createNavigationReducer,
-    createReactNavigationReduxMiddleware,
-} from 'react-navigation-redux-helpers';
-import { connect } from 'react-redux';
-
 // components
 // import Boilerplate from './scenes/Boilerplate';
 import Login from './scenes/Login';
@@ -34,17 +20,16 @@ import PrivacyPolicy from './scenes/PrivacyPolicy';
 import TermsConditions from './scenes/TermsConditions';
 import Splash from './scenes/Splash';
 // import NavigationDrawerContainer from './modules/navigation/NavigationDrawerContainer';
-import SideMenuContainer from './modules/navigation/SideMenuContainer';
 
 const SCENES = {
     /*
-	boilerplate: {
-	  key: 'boilerplate',
-	  component: Boilerplate,
-	  initial: false,
-	  hideNavBar: false,
-	},
-	*/
+    boilerplate: {
+      key: 'boilerplate',
+      component: Boilerplate,
+      initial: false,
+      hideNavBar: false,
+    },
+    */
     splash: {
         key: 'splash',
         screen: Splash,
@@ -142,74 +127,4 @@ const SCENES = {
     },
 };
 
-const navigationMiddleware = createReactNavigationReduxMiddleware('root', state => state.nav);
-
-const UnAuthenticatedStack = createStackNavigator(
-    {
-        login: SCENES.login,
-        createAccount: SCENES.createAccount,
-        forgotPassword: SCENES.forgotPassword,
-    },
-    {
-        headerMode: 'none',
-    }
-);
-
-const MainStack = createStackNavigator({
-    home: SCENES.home,
-    profile: SCENES.profile,
-    createQuestion: SCENES.createQuestion,
-    // community: SCENES.community,
-    messageCenter: SCENES.messageCenter,
-    marketplace: SCENES.marketplace,
-    viewPost: SCENES.viewPost,
-    scheduleCenter: SCENES.scheduleCenter,
-    myPosts: SCENES.myPosts,
-    settings: SCENES.settings,
-    chat: SCENES.chat,
-    privacyPolicy: SCENES.privacyPolicy,
-    termsConditions: SCENES.termsConditions,
-});
-
-const DrawerNavigator = createDrawerNavigator(
-    {
-        Main: {
-            screen: MainStack,
-        },
-    },
-    {
-        contentComponent: SideMenuContainer,
-    }
-);
-
-const AuthFlowStack = createSwitchNavigator(
-    {
-        splash: SCENES.splash,
-        authenticated: DrawerNavigator,
-        unauthenticated: UnAuthenticatedStack,
-    },
-    {
-        initialRouteName: 'splash',
-    }
-);
-
-const RootNavigator = createStackNavigator(
-    {
-        AuthFlowStack,
-        tour: SCENES.tour,
-        createPost: SCENES.createPost,
-    },
-    {
-        headerMode: 'none',
-    }
-);
-
-const navReducer = createNavigationReducer(RootNavigator);
-
-const RootWithNavigationState = reduxifyNavigator(RootNavigator, 'root');
-const mapStateToProps = state => ({
-    state: state.nav,
-});
-const AppNavigator = connect(mapStateToProps)(RootWithNavigationState);
-
-export { navReducer, navigationMiddleware, AppNavigator };
+export default SCENES;
