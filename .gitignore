@@ -71,4 +71,4 @@ package.json
 
 # configuration file
 config.js
-.vscode/.prettierrc
+.prettierrc

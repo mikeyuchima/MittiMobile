@@ -1,27 +1,25 @@
 // components
 // import Boilerplate from './scenes/Boilerplate';
-import Login from "./scenes/Login";
-import ForgotPassword from "./scenes/ForgotPassword";
-import CreateAccount from "./scenes/CreateAccount";
-import Tour from "./scenes/Tour";
-import Home from "./scenes/Home";
+import Login from './scenes/Login';
+import ForgotPassword from './scenes/ForgotPassword';
+import CreateAccount from './scenes/CreateAccount';
+import Tour from './scenes/Tour';
+import Home from './scenes/Home';
 // import Community from './scenes/Community';
-import Marketplace from "./scenes/Marketplace";
-import MyPosts from "./scenes/MyPosts";
-import CreatePost from "./scenes/CreatePost";
-import ViewPost from "./scenes/ViewPost";
-import CreateQuestion from "./scenes/CreateQuestion";
-import Chat from "./scenes/Chat";
-import MessageCenter from "./scenes/MessageCenter";
-import ScheduleCenter from "./scenes/ScheduleCenter";
-import Profile from "./scenes/Profile";
-import Settings from "./scenes/Settings";
-import PrivacyPolicy from "./scenes/PrivacyPolicy";
-import TermsConditions from "./scenes/TermsConditions";
-import Splash from "./scenes/Splash";
+import Marketplace from './scenes/Marketplace';
+import MyPosts from './scenes/MyPosts';
+import CreatePost from './scenes/CreatePost';
+import ViewPost from './scenes/ViewPost';
+import CreateQuestion from './scenes/CreateQuestion';
+import Chat from './scenes/Chat';
+import MessageCenter from './scenes/MessageCenter';
+import ScheduleCenter from './scenes/ScheduleCenter';
+import Profile from './scenes/Profile';
+import Settings from './scenes/Settings';
+import PrivacyPolicy from './scenes/PrivacyPolicy';
+import TermsConditions from './scenes/TermsConditions';
+import Splash from './scenes/Splash';
 // import NavigationDrawerContainer from './modules/navigation/NavigationDrawerContainer';
-import SideMenuContainer from "./modules/navigation/SideMenuContainer";
-
 
 const SCENES = {
     /*
@@ -33,54 +31,54 @@ const SCENES = {
     },
     */
     splash: {
-        key: "splash",
+        key: 'splash',
         screen: Splash,
-        path: "splash"
+        path: 'splash',
     },
     login: {
-        key: "login",
+        key: 'login',
         screen: Login,
-        path: "login"
+        path: 'login',
     },
     forgotPassword: {
-        key: "forgotPassword",
+        key: 'forgotPassword',
         screen: ForgotPassword,
-        path: "forgotPassword"
+        path: 'forgotPassword',
     },
     createAccount: {
-        key: "createAccount",
+        key: 'createAccount',
         screen: CreateAccount,
-        path: "createAccount"
+        path: 'createAccount',
     },
     tour: {
-        key: "tour",
+        key: 'tour',
         screen: Tour,
-        path: "tour"
+        path: 'tour',
     },
     home: {
-        key: "home",
+        key: 'home',
         screen: Home,
-        path: "home"
+        path: 'home',
     },
     profile: {
-        key: "profile",
+        key: 'profile',
         screen: Profile,
-        path: "profile"
+        path: 'profile',
     },
     settings: {
-        key: "settings",
+        key: 'settings',
         screen: Settings,
-        path: "settings"
+        path: 'settings',
     },
     privacyPolicy: {
-        key: "privacyPolicy",
+        key: 'privacyPolicy',
         screen: PrivacyPolicy,
-        path: "privacyPolicy"
+        path: 'privacyPolicy',
     },
     termsConditions: {
-        key: "termsConditions",
+        key: 'termsConditions',
         screen: TermsConditions,
-        path: "termsConditions"
+        path: 'termsConditions',
     },
     // community: {
     //     key: 'community',
@@ -88,45 +86,45 @@ const SCENES = {
     //     path: 'community',
     // },
     marketplace: {
-        key: "marketplace",
+        key: 'marketplace',
         screen: Marketplace,
-        path: "marketplace"
+        path: 'marketplace',
     },
     myPosts: {
-        key: "myPosts",
+        key: 'myPosts',
         screen: MyPosts,
-        path: "myPosts"
+        path: 'myPosts',
     },
     createPost: {
-        key: "createPost",
+        key: 'createPost',
         screen: CreatePost,
-        path: "createPost"
+        path: 'createPost',
     },
     viewPost: {
-        key: "viewPost",
+        key: 'viewPost',
         screen: ViewPost,
-        path: "viewPost"
+        path: 'viewPost',
     },
     createQuestion: {
-        key: "createQuestion",
+        key: 'createQuestion',
         screen: CreateQuestion,
-        path: "createQuestion"
+        path: 'createQuestion',
     },
     chat: {
-        key: "chat",
+        key: 'chat',
         screen: Chat,
-        path: "chat"
+        path: 'chat',
     },
     messageCenter: {
-        key: "messageCenter",
+        key: 'messageCenter',
         screen: MessageCenter,
-        path: "messageCenter"
+        path: 'messageCenter',
     },
     scheduleCenter: {
-        key: "scheduleCenter",
+        key: 'scheduleCenter',
         screen: ScheduleCenter,
-        path: "scheduleCenter"
-    }
+        path: 'scheduleCenter',
+    },
 };
 
-export default SCENES
+export default SCENES;
