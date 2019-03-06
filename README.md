@@ -70,7 +70,20 @@ N/A
 
 3.  Update `android/build.gradle`
 
-N/A
+```
+subprojects {
+  project.configurations.all {
+      afterEvaluate {project ->
+        if (project.hasProperty("android")) {
+            android {
+                compileSdkVersion 28
+                buildToolsVersion '28.0.3'
+            }
+        }
+    }
+  }
+}
+```
 
 4.  Update `android/gradle/wrapper/gradle-wrapper.properties`
 
