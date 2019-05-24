@@ -5,7 +5,7 @@ import ForgotPassword from './scenes/ForgotPassword';
 import CreateAccount from './scenes/CreateAccount';
 import Tour from './scenes/Tour';
 import Home from './scenes/Home';
-// import Community from './scenes/Community';
+import Community from './scenes/Community';
 import Marketplace from './scenes/Marketplace';
 import MyPosts from './scenes/MyPosts';
 import CreatePost from './scenes/CreatePost';
@@ -80,11 +80,11 @@ const SCENES = {
         screen: TermsConditions,
         path: 'termsConditions',
     },
-    // community: {
-    //     key: 'community',
-    //     screen: Community,
-    //     path: 'community',
-    // },
+    community: {
+        key: 'community',
+        screen: Community,
+        path: 'community',
+    },
     marketplace: {
         key: 'marketplace',
         screen: Marketplace,

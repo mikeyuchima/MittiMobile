@@ -102,3 +102,12 @@ export const setMapApi = (mapApi) => ({
   type: MAP_SET_API,
   mapApi,
 });
+
+export const getUpdatedPosition = () => {
+  return (dispatch, getState) => {
+      return  {
+        latitude: getState().app.currentPosition.coords.latitude,
+        longitude: getState().app.currentPosition.coords.longitude
+      }
+  };
+};

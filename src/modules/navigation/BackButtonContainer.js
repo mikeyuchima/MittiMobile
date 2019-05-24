@@ -23,7 +23,6 @@ class BackButtonContainer extends Component {
 
     render() {
         const { back, navKey } = this.props;
-
         return <NavBackButton back={back} navKey={navKey} />;
     }
 }

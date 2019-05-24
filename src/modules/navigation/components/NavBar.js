@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
                 height: 54,
             },
         }),
+        height: 60,
         right: 0,
         left: 0,
         borderBottomWidth: 0.5,

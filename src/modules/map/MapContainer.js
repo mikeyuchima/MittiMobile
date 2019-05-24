@@ -13,6 +13,7 @@ import {
   saveRegion,
   onMapFocus,
   setMapApi,
+  getUpdatedPosition
 } from './mapActions';
 import {changeScene} from '../navigation/navigationActions.js';
 
@@ -29,6 +30,7 @@ class MapContainer extends React.Component {
     item: PropTypes.object,
     snapshotUri: PropTypes.string,
     setCurrentRegion: PropTypes.func.isRequired,
+    getUpdatedPosition: PropTypes.func.isRequired,
     saveRegion: PropTypes.func.isRequired,
     onMapFocus: PropTypes.func.isRequired,
     setMapApi: PropTypes.func.isRequired,
@@ -75,6 +77,8 @@ class MapContainer extends React.Component {
       changeScene,
       onRegionChange,
       onCalloutPress,
+      nav,
+      getUpdatedPosition,
     } = this.props;
 
     return (
@@ -99,6 +103,8 @@ class MapContainer extends React.Component {
         changeScene={changeScene}
         onRegionChange={onRegionChange}
         onCalloutPress={onCalloutPress}
+        nav={nav}
+        getUpdatedPosition={getUpdatedPosition}
       />
     );
   }
@@ -109,6 +115,8 @@ function mapStateToProps(state) {
     // states
     ...state.map,
     radius: state.radius,
+    nav: state.nav,
+
   };
 }
 
@@ -121,5 +129,6 @@ export default connect(
     onMapFocus,
     setMapApi,
     changeScene,
+    getUpdatedPosition,
   }
 )(MapContainer);

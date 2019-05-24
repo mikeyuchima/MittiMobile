@@ -1,38 +1,40 @@
-import { 
-    NavigationActions, 
-    StackActions,
-    DrawerActions 
-} from 'react-navigation';
+import { NavigationActions, StackActions, DrawerActions } from 'react-navigation';
 
 export const changeScene = (routeName, params = {}, type = 'PUSH') => {
     return (dispatch, getState) => {
         // check type
-        switch(type) {
-        default:
-            dispatch(NavigationActions.navigate({ 
-                routeName, 
-                params,
-                key: routeName
-            }));
+        switch (type) {
+            default:
+                dispatch(
+                    NavigationActions.navigate({
+                        routeName,
+                        params,
+                        key: routeName,
+                    })
+                );
         }
     };
 };
 
 export const refreshScene = (routeName, params = {}) => {
     return (dispatch, getState) => {
-        dispatch(StackActions.reset({
-            index: 0,
-            actions: [NavigationActions.navigate({ routeName, params })],
-        }));
+        dispatch(
+            StackActions.reset({
+                index: 0,
+                actions: [NavigationActions.navigate({ routeName, params })],
+            })
+        );
     };
 };
 
 export const setParams = (key, params = {}) => {
     return (dispatch, getState) => {
-        dispatch(NavigationActions.setParams({
-            key,
-            params,
-        }));
+        dispatch(
+            NavigationActions.setParams({
+                key,
+                params,
+            })
+        );
     };
 };
 
@@ -63,14 +65,16 @@ export const closeDrawer = () => {
     };
 };
 
-export const toggleDrawer = (navigation) => {
+export const toggleDrawer = navigation => {
     return (dispatch, getState) => {
-        dispatch(NavigationActions.setParams({
-            key: 'authenticated',
-            params: {
-                sceneKey: navigation.routeName,
-            },
-        }));
+        dispatch(
+            NavigationActions.setParams({
+                key: 'authenticated',
+                params: {
+                    sceneKey: navigation.routeName,
+                },
+            })
+        );
         dispatch(DrawerActions.toggleDrawer());
     };
 };

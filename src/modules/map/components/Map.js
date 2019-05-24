@@ -13,6 +13,12 @@ import {
 let timer = 0;
 
 export default class Map extends React.Component {
+    constructor (props) {
+      super(props)
+      this.state = {
+        focus: false
+      }
+    }
     static propTypes = {
         // internal
         useGoogleMaps: PropTypes.bool.isRequired,
@@ -40,16 +46,35 @@ export default class Map extends React.Component {
         this.props.setCurrentRegion(this.props.currentRegion, true);
     }
 
-    componentWillReceiveProps(nextProps) {
+    shouldComponentUpdate(nextProps) {
+        const { nav, radius, getUpdatedPosition } = this.props
+        const updatedRegion = getUpdatedPosition()
+        const currentPath = nav.routes['0'].routes[1].routes['0'].index
+        const currentScreen = nav.routes["0"].routes[1].routes["0"].routes[currentPath].key
         clearTimeout(timer);
-        timer = setTimeout(() => {
-            this._onRegionChange(nextProps.region);
-            this._focusMap(nextProps.region);
-        }, MAP_UPDATE_WAIT);
-    }
 
-    componentWillUnmount() {
-        clearTimeout(timer);
+        timer = setTimeout(() => {
+            if(radius.radius !== nextProps.radius.radius) {
+                this._focusMap(updatedRegion);
+                return true
+            }
+        }, MAP_UPDATE_WAIT/2)
+
+        timer = setTimeout(() => {
+            if (currentScreen !== 'home' && this.state.focus) {
+                console.log('nothome')
+                this.setState({ focus: false })
+                return true;
+            } else if (currentScreen === 'home' && !this.state.focus) {
+                console.log('home')
+                this.setState({ focus: true })
+                this._onRegionChange(nextProps.region);
+                this._focusMap(updatedRegion);
+                return true;
+            }
+            }, MAP_UPDATE_WAIT/2);
+
+        return true;
     }
 
     render() {
@@ -134,7 +159,7 @@ export default class Map extends React.Component {
     _focusMap = region => {
         const { radius } = this.props.radius;
         let coords = [];
-
+        console.log('focus')
         // check if we have region
         if (region && region.latitude && region.longitude) {
             coords = [

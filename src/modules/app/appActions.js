@@ -15,6 +15,7 @@ import ImagePicker from 'react-native-image-picker';
 
 // api
 import * as imageApi from '../../api/imageApi';
+import { changeScene } from '../navigation/navigationActions';
 
 // action types
 export const APP_ON_ERROR = 'APP_ON_ERROR';
@@ -39,9 +40,7 @@ export const APP_CLEAR_UPLOAD_IMAGE = 'APP_CLEAR_UPLOAD_IMAGE';
  */
 export const getCurrentPosition = () => {
     return (dispatch, getState) => {
-        const {
-            currentPosition
-        } = getState().app;
+        const { currentPosition } = getState().app;
 
         dispatch({
             type: APP_GET_CURRENT_POSITION,
@@ -49,15 +48,14 @@ export const getCurrentPosition = () => {
 
         return new Promise((resolve, reject) => {
             // check if we have current position
-            if(currentPosition) {
+            if (currentPosition) {
                 dispatch({
                     type: APP_GET_CURRENT_POSITION_SUCCESS,
                     currentPosition,
                 });
 
                 resolve(currentPosition);
-            }
-            else {
+            } else {
                 navigator.geolocation.getCurrentPosition(
                     _currentPosition => {
                         dispatch({
@@ -87,6 +85,30 @@ export const getCurrentPosition = () => {
         });
     };
 };
+const getActiveRouteName = navigationState => {
+    if (!navigationState) {
+        return null;
+    }
+    const route = navigationState.routes[navigationState.index];
+    console.log('route', route);
+    // dive into nested navigators
+    if (route.routes) {
+        return getActiveRouteName(route);
+    }
+    return route.routeName;
+};
+export const onNavigationStateChange = (prevState, currentState) => {
+    const currentScreen = getActiveRouteName(currentState);
+    const prevScreen = getActiveRouteName(prevState);
+    console.log(currentScreen);
+    console.log(prevScreen);
+    if (prevScreen !== currentScreen) {
+        emitActiveScreen(currentScreen);
+        {
+            console.log('onNavigationStateChange', currentScreen);
+        }
+    }
+};
 
 export const onError = error => {
     return (dispatch, getState) => {
@@ -107,26 +129,27 @@ export const onError = error => {
     };
 };
 
+export const inChat = () => {
+    return (dispatch, getState) => {
+        console.log('getState', getState())
+        return getState().chatScene.scene;
+    };
+};
+
 export const onMessage = (message, onPress) => {
     return (dispatch, getState) => {
-        console.log('onMessage', message);
+        console.log('onMessage', message, 'onPress', onPress, 'getState', getState());
         dispatch({
             type: APP_ON_MESSAGE,
             message,
         });
         Snackbar.show({
-            backgroundColor: colors.PRIMARY,
             title: message,
-            duration: Snackbar.LENGTH_LONG, // LENGTH_SHORT, LENGTH_LONG, LENGTH_INDEFINITE
+            duration: Snackbar.LENGTH_LONG,
             action: {
-                title: onPress ? 'VIEW' : 'DISMISS',
-                color: colors.WHITE,
-                onPress: () => {
-                    // check if function
-                    if (typeof onPress == 'function') {
-                        onPress();
-                    }
-                },
+                title: 'VIEW',
+                color: 'green',
+                onPress: onPress,
             },
         });
     };

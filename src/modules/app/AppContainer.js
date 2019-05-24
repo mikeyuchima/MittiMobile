@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { BackHandler } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { ENVIRONMENT, ONESIGNAL_APP_ID, DEBUG_MODE } from '../../../config';
 
 // constants
@@ -8,9 +10,9 @@ import { DEFAULT_LOCALE } from '../../constants/constants';
 
 // actions
 import { setDefaultRadius } from '../radius/radiusActions';
-import { changeScene, refreshScene } from '../../modules/navigation/navigationActions.js';
+import { changeScene, refreshScene, back } from '../../modules/navigation/navigationActions.js';
 import { findUnreadMessages } from '../../modules/unreadMessages/unreadMessagesActions.js';
-import { onMessage } from './appActions';
+import { onMessage, inChat } from './appActions';
 
 // i18n
 import { setLocale } from '../../i18n';
@@ -26,6 +28,8 @@ class AppContainer extends Component {
         // other module states
         me: PropTypes.object,
         onMessage: PropTypes.func.isRequired,
+        inChat: PropTypes.func.isRequired,
+        back: PropTypes.func.isRequired,
     };
 
     componentWillMount() {
@@ -47,9 +51,13 @@ class AppContainer extends Component {
         OneSignal.removeEventListener('received', this._oneSignalOnReceived);
         OneSignal.removeEventListener('opened', this._oneSignalOnOpened);
         OneSignal.removeEventListener('ids', this._oneSignalOnIds);
+
+        BackHandler.removeEventListener('hardwareBackPress', this.onBackPress);
     }
 
-    componentDidMount() {}
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this.onBackPress);
+    }
 
     componentWillReceiveProps(nextProps) {
         if (this.props.me === null && nextProps.me && nextProps.me.settings) {
@@ -62,6 +70,16 @@ class AppContainer extends Component {
             );
         }
     }
+
+    onBackPress = () => {
+        const { nav } = this.props;
+        const currentIndex = nav.routes['0'].routes[1].routes['0'].index;
+        // const routes = nav.routes['0'].routes[1].routes['0'].routes; routeNames
+        if (currentIndex === 0) return false;
+
+        this.props.back();
+        return true;
+    };
 
     render() {
         return this.props.children;
@@ -94,10 +112,16 @@ class AppContainer extends Component {
     _openNotification = (notification, insideApp) => {
         console.log('props', this.props);
 
-        const { findUnreadMessages, refreshScene, changeScene, onMessage } = this.props;
+        const {
+            findUnreadMessages,
+            refreshScene,
+            changeScene,
+            onMessage,
+            inChat,
+            nav,
+        } = this.props;
 
-        console.log('Notification received: ', notification);
-
+        console.log('Notification received: ', notification, '\n', 'insideApp:', insideApp);
         // @NOTE: notification example
         // {
         //     shown: true, // BOOLEAN: If the notification was displayed to the user or not
@@ -105,11 +129,15 @@ class AppContainer extends Component {
         //     displayType: 1, //The display method of a received notification
         //     silentNotification: false // BOOLEAN : Wether the received notification was a silent one
         // }
+        const inChatScene = inChat();
 
         if (
             notification.payload.additionalData &&
             notification.payload.additionalData.hasOwnProperty('type')
         ) {
+            const currentIndex = nav.routes['0'].routes[1].routes['0'].index;
+            const routes = nav.routes['0'].routes[1].routes['0'].routes;
+
             switch (notification.payload.additionalData.type) {
                 case NOTIFICATION_TYPES.chatMessage:
                 case NOTIFICATION_TYPES.chatSchedule:
@@ -122,8 +150,7 @@ class AppContainer extends Component {
                             chatId: notification.payload.additionalData.chatId,
                             refreshTimestamp: new Date().getTime(),
                         };
-                        if (this.props.nav.routeName === 'chat') {
-                            // @TOFIX
+                        if (routes[currentIndex] === 'chat') {
                             refreshScene('chat', params);
                         } else {
                             if (insideApp) {
@@ -145,9 +172,12 @@ class AppContainer extends Component {
                         };
 
                         if (insideApp) {
-                            onMessage('You just received a new answer', () => {
-                                changeScene('community', params);
-                            });
+                            onMessage(
+                                'NOTIFICATION_TYPES.answer: You just received a new answer',
+                                () => {
+                                    changeScene('community', params);
+                                }
+                            );
                         } else {
                             changeScene('community', params);
                         }
@@ -161,13 +191,12 @@ class AppContainer extends Component {
 }
 
 function mapStateToProps(state) {
-    console.log(`THIS IS STATE`, state);
     return {
         // states
         ...state.app,
 
         // other module states
-        me: state.me,
+        me: state.me.me,
         nav: state.nav,
     };
 }
@@ -180,5 +209,7 @@ export default connect(
         refreshScene,
         setDefaultRadius,
         onMessage,
+        inChat,
+        back,
     }
 )(AppContainer);
