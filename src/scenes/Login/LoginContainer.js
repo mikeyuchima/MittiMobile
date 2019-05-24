@@ -10,7 +10,7 @@ import { changeFormValue } from './loginActions';
 
 // module actions
 import { login } from '../../modules/auth/authActions';
-import {changeScene} from '../../modules/navigation/navigationActions.js';
+import { changeScene } from '../../modules/navigation/navigationActions.js';
 
 class LoginContainer extends Component {
     static propTypes = {
@@ -29,7 +29,6 @@ class LoginContainer extends Component {
         // module actions
         login: PropTypes.func.isRequired,
         changeScene: PropTypes.func.isRequired,
-
     };
 
     render() {
@@ -56,6 +55,5 @@ export default connect(
         // module actions
         login,
         changeScene,
-
     }
 )(LoginContainer);

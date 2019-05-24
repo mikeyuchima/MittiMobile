@@ -12,7 +12,6 @@ import dictionary from '../dictionary';
 
 // other
 
-
 export default class Menu extends Component {
     static propTypes = {
         me: PropTypes.object.isRequired,
@@ -38,7 +37,7 @@ const _renderMenu = (me, unreadMessages, changeScene) => {
             id: 'newMessage',
             label: t(dictionary.newMessage),
             count: newMessagesCount,
-            color: '#3CAE0F',
+            color: '#AAF255',
             iconName: 'commenting',
             onPress: () => changeScene('messageCenter'),
         },
@@ -49,6 +48,13 @@ const _renderMenu = (me, unreadMessages, changeScene) => {
             color: '#30B4EA',
             iconName: 'calendar',
             onPress: () => changeScene('scheduleCenter'),
+        },
+        {
+            id: 'myCommunity',
+            label: t(dictionary.community),
+            color: '#FFDE03',
+            iconName: 'users',
+            onPress: () => changeScene('community'),
         },
         {
             id: 'myFreeshares',

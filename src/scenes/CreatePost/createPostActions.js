@@ -205,6 +205,6 @@ export const cancelPost = () => {
             type: CREATE_POST_SCENE_CANCEL_POST,
         });
         dispatch(appActions.clearImageUpload());
-        dispatch(navigationActions.changeScene('home', {}, ActionConst.RESET));
+        dispatch(navigationActions.changeScene('home', {}));
     };
 };
