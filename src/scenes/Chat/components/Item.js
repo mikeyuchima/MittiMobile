@@ -1,4 +1,5 @@
-import React, {Component} from 'react'; import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 // components
 import {
   StyleSheet,
@@ -7,27 +8,27 @@ import {
   Image,
   View,
   Text,
-  Dimensions
-} from 'react-native';
-import moment from 'moment';
-import DateTimePicker from 'react-native-modal-datetime-picker';
+  Dimensions,
+} from "react-native";
+import moment from "moment";
+import DateTimePicker from "react-native-modal-datetime-picker";
 
 // components
-import FAIcon from 'react-native-vector-icons/FontAwesome';
-import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FAIcon from "react-native-vector-icons/FontAwesome";
+import MCIIcon from "react-native-vector-icons/MaterialCommunityIcons";
 
 // styles
-import commonStyles from '../../../styles/common';
-import mittiStyles from '../../../styles/mitti';
-import * as colors from '../../../styles/colors';
-import * as font from '../../../styles/font';
+import commonStyles from "../../../styles/common";
+import mittiStyles from "../../../styles/mitti";
+import * as colors from "../../../styles/colors";
+import * as font from "../../../styles/font";
 
 // i18n
-import {t} from '../../../i18n';
-import dictionary from '../dictionary';
+import { t } from "../../../i18n";
+import dictionary from "../dictionary";
 
 // other
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 export default class Item extends Component {
   static propTypes = {
@@ -38,63 +39,49 @@ export default class Item extends Component {
   };
 
   render() {
-    const {
-      item,
-      chat,
-      currentImage,
-      themeColor,
-    } = this.props;
-    const isScheduled = chat &&
-                        chat.scheduleConfirmation &&
-                        chat.scheduleConfirmation != 'none';
-    const coordinates = item &&
-                        item.location &&
-                        item.location.coordinates;
-    const latitude = coordinates &&
-                     coordinates[0];
-    const longitude = coordinates &&
-                      coordinates[1];
+    const { item, chat, currentImage, themeColor } = this.props;
+    const isScheduled =
+      chat && chat.scheduleConfirmation && chat.scheduleConfirmation != "none";
+    const coordinates = item && item.location && item.location.coordinates;
+    const latitude = coordinates && coordinates[0];
+    const longitude = coordinates && coordinates[1];
     const mapWidth = Math.floor(width);
     const zoomLevel = 16;
 
-    let mapSnapshot = '',
-        markerLabel = '';
+    let mapSnapshot = "",
+      markerLabel = "";
 
     // check if we have coordinates
-    if(latitude && longitude) {
-      markerLabel = latitude + ',' + longitude;
-      mapSnapshot = 'https://maps.googleapis.com/maps/api/staticmap?center=' + markerLabel + '&zoom=' + zoomLevel + '&scale=1&size=' + mapWidth + 'x100&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C' + markerLabel;
+    if (latitude && longitude) {
+      markerLabel = latitude + "," + longitude;
+      mapSnapshot =
+        "https://maps.googleapis.com/maps/api/staticmap?center=" +
+        markerLabel +
+        "&zoom=" +
+        zoomLevel +
+        "&scale=1&size=" +
+        mapWidth +
+        "x100&maptype=roadmap&format=png&visual_refresh=true&markers=size:mid%7Ccolor:0xff0000%7Clabel:%7C" +
+        markerLabel;
     }
 
     return (
       <View>
         <View style={mapStyles.mapContainer}>
-          {
-            mapSnapshot
-            ? <Image 
-                style={styles.mapSnapshot}
-                source={{ uri: mapSnapshot }} />
-            : null
-          }
-          
+          {mapSnapshot ? (
+            <Image style={styles.mapSnapshot} source={{ uri: mapSnapshot }} />
+          ) : null}
         </View>
-        <ItemRow 
-          item={item} 
-          themeColor={themeColor} 
-        />
-        {
-          isScheduled
-          ? <ScheduleRow item={item} chat={chat} />
-          : null
-        }
+        <ItemRow item={item} themeColor={themeColor} />
+        {isScheduled ? <ScheduleRow item={item} chat={chat} /> : null}
       </View>
     );
   }
 }
 
-const ItemRow = ({item, themeColor}) => {
+const ItemRow = ({ item, themeColor }) => {
   // check if we have item
-  if(item) {
+  if (item) {
     return (
       <View style={styles.itemContainer}>
         <TouchableOpacity style={styles.contentContainer}>
@@ -103,16 +90,16 @@ const ItemRow = ({item, themeColor}) => {
           </View>
           <View style={styles.infoContainer}>
             <View style={styles.titleContainer}>
-              <Text style={mittiStyles.whiteFontStrong}>
-                {item.title}
-              </Text>
+              <Text style={mittiStyles.whiteFontStrong}>{item.title}</Text>
             </View>
             <View style={styles.priceContainer}>
-              <Text style={[
-                mittiStyles.darkFontStrong,
-                styles.price,
-                {backgroundColor: themeColor}
-              ]}>
+              <Text
+                style={[
+                  mittiStyles.darkFontStrong,
+                  styles.price,
+                  { backgroundColor: themeColor },
+                ]}
+              >
                 {t(dictionary.free).toUpperCase()}
               </Text>
             </View>
@@ -120,103 +107,87 @@ const ItemRow = ({item, themeColor}) => {
         </TouchableOpacity>
       </View>
     );
-  }
-  else {
+  } else {
     return null;
   }
 };
 
-const ItemImage = ({images}) => {
-  let imageSource = images &&
-                    images.length &&
-                    images[0];
+const ItemImage = ({ images }) => {
+  let imageSource = images && images.length && images[0];
 
   // check if we have an image
-  if(imageSource) {
-    return (
-      <Image
-        style={styles.image}
-        source={{ uri: imageSource }} />
-    );
-  }
-  else {
+  if (imageSource) {
+    return <Image style={styles.image} source={{ uri: imageSource }} />;
+  } else {
     return (
       <FAIcon
         size={font.SIZE_MENU_ICON}
         color={colors.GREY}
-        name={'picture-o'} />
+        name={"picture-o"}
+      />
     );
   }
 };
 
-const ScheduleRow = ({item, chat}) => {
+const ScheduleRow = ({ item, chat }) => {
   let displayTime = null;
 
   // check if we have item
-  if(chat) {
+  if (chat) {
     displayTime = chat.scheduledAt || null;
-    displayTime = displayTime && moment(displayTime).format('dddd MMM, D @ ha');
+    displayTime = displayTime && moment(displayTime).format("dddd MMM, D @ ha");
 
     return (
-      <View style={[
-        mittiStyles.darkBody,
-        styles.scheduleContainer,
-      ]}>
+      <View style={[mittiStyles.darkBody, styles.scheduleContainer]}>
         <View style={styles.buttonContainer}>
           <MCIIcon
-            size={font.SIZE_MENU_ICON} 
+            size={font.SIZE_MENU_ICON}
             color={colors.DARK_GREY}
-            name={'timetable'} />
+            name={"timetable"}
+          />
         </View>
         <View style={styles.scheduleTimeContainer}>
-          <Text style={mittiStyles.darkFontStrong}>
-            {displayTime}
-          </Text>
+          <Text style={mittiStyles.darkFontStrong}>{displayTime}</Text>
         </View>
         <View style={styles.statusContainer}>
-          {
-            chat.scheduleConfirmation == 'accepted'
-            ? <Text style={styles.status}>
-                {t(dictionary.confirmed)}
-              </Text>
-            : null
-          }
+          {chat.scheduleConfirmation == "accepted" ? (
+            <Text style={styles.status}>{t(dictionary.confirmed)}</Text>
+          ) : null}
         </View>
       </View>
     );
-  }
-  else {
+  } else {
     return null;
   }
 };
 
 const styles = StyleSheet.create({
   itemContainer: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
   },
   contentContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingTop: 30,
     paddingBottom: 20,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#F1F1F1',
+    borderBottomColor: "#F1F1F1",
   },
   thumbnailContainer: {
     width: 50,
     height: 50,
     marginRight: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   titleContainer: {
     marginBottom: 5,
   },
   priceContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   price: {
     paddingVertical: 2,
@@ -226,8 +197,8 @@ const styles = StyleSheet.create({
     height: 100,
   },
   scheduleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingVertical: 15,
   },
@@ -237,14 +208,19 @@ const styles = StyleSheet.create({
   scheduleTimeContainer: {
     marginRight: 10,
   },
-  statusContainer: {
-  },
+  statusContainer: {},
   status: {
     fontSize: font.SIZE_TINY,
     color: colors.WHITE,
     backgroundColor: colors.GREEN,
     paddingVertical: 5,
     paddingHorizontal: 10,
+  },
+  image: {
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    borderColor: colors.GREY,
   },
 });
 
