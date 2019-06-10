@@ -83,7 +83,6 @@ const DrawerNavigator = createDrawerNavigator(
   },
   {
     contentComponent: SideMenuContainer,
-    // drawerWidth: 50,
   },
 );
 
