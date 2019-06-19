@@ -167,7 +167,7 @@ buildTypes:
     }
 ```
 
-7. Update android/app/src/main/java/com/mittimobile/MainActivity.java
+7. Update `android/app/src/main/java/com/mittimobile/MainActivity.java`
 
 ```
 package com.mittimobile;
