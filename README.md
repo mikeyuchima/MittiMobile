@@ -35,7 +35,7 @@ cd MyMittiMobile
 ```
 
 ```sh
-yarn add moment@2.5.1 react-native-animatable@1.3.1 react-native-aws3@0.0.8 react-native-drawer@2.5.1 react-native-geocoder@0.5.0 react-native-image-picker@0.28.0 react-native-maps@0.23.0 react-native-modal-datetime-picker@6.0.0 react-native-onesignal@3.2.12 react-native-snackbar@0.5.5 react-native-swiper@1.5.14 react-native-vector-icons@6.3.0 react-redux@6.0.1 redux@4.0.1 redux-logger@3.0.6 redux-thunk@2.3.0 react-navigation@3.3.0 react-navigation-redux-helpers@3.0.0 react-native-gesture-handler
+yarn add moment@2.5.1 react-native-animatable@1.3.1 react-native-aws3@0.0.8 react-native-drawer@2.5.1 react-native-geocoder@0.5.0 react-native-image-picker@0.28.0 react-native-maps@0.23.0 react-native-modal-datetime-picker@6.0.0 react-native-onesignal@3.2.13 react-native-snackbar@1.0.0 react-native-swiper@1.5.14 react-native-vector-icons@6.3.0 react-redux@6.0.1 redux@4.0.1 redux-logger@3.0.6 redux-thunk@2.3.0 react-navigation@3.3.0 react-navigation-redux-helpers@3.0.0 react-native-gesture-handler
 ```
 
 5.  Link
@@ -105,6 +105,8 @@ For react-native-maps, add this to child of application
 For react-native-onesignal and react-image-picker, add this:
 
 ```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/> <!-- Approximate location - If you want to use promptLocation for letting OneSignal know the user location. -->
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/> <!--  Precise location If you want to use promptLocation for letting OneSignal know the user location. -->
 <uses-permission android:name="android.permission.CAMERA"/>
@@ -165,7 +167,40 @@ buildTypes:
     }
 ```
 
-7.  Create `~/.gradle/gradle.properties`
+7. Update android/app/src/main/java/com/mittimobile/MainActivity.java
+
+```
+package com.mittimobile;
+
+import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView;
+
+
+public class MainActivity extends ReactActivity {
+
+    /**
+     * Returns the name of the main component registered from JavaScript.
+     * This is used to schedule rendering of the component.
+     */
+    @Override
+    protected String getMainComponentName() {
+        return "MittiMobile";
+    }
+
+    @Override
+    protected ReactActivityDelegate createReactActivityDelegate() {
+    return new ReactActivityDelegate(this, getMainComponentName()) {
+      @Override
+      protected ReactRootView createRootView() {
+       return new RNGestureHandlerEnabledRootView(MainActivity.this);
+      }
+    };
+  }
+}
+```
+8.  Create `~/.gradle/gradle.properties`
 
 ```
 MITTI_MOBILE_RELEASE_STORE_FILE=mitti-mobile-release-key.keystore
@@ -174,7 +209,7 @@ MITTI_MOBILE_RELEASE_STORE_PASSWORD=password
 MITTI_MOBILE_RELEASE_KEY_PASSWORD=password
 ```
 
-8.  Run build
+9.  Run build
 
 ```sh
 $ react-native run-android
