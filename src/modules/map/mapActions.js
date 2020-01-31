@@ -105,9 +105,17 @@ export const setMapApi = (mapApi) => ({
 
 export const getUpdatedPosition = () => {
   return (dispatch, getState) => {
+    if(getState().app.currentPosition) {
       return  {
         latitude: getState().app.currentPosition.coords.latitude,
         longitude: getState().app.currentPosition.coords.longitude
       }
+    }
+    else {
+      return {
+        latitude: 0,
+        longitude: 0
+      }
+    }
   };
 };

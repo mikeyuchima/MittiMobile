@@ -1,6 +1,7 @@
 import React, {Component} from 'react'; import PropTypes from 'prop-types';
 // components
 import {
+  Platform,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
@@ -50,6 +51,7 @@ export default class Chat extends Component {
       chat,
     } = this.props;
 
+    console.log('MEEE', this.props)
     return (
       <ScrollView 
         ref={(ref) => { this.scrollView = ref; }}
@@ -116,10 +118,16 @@ const ChatWindow = ({
   if(chat && chat.buyer && chat.seller && chat.messages) {
     // check who is seller
     if(me._id == chat.buyer.id) {
+      chat.buyer.profile.photo = me.profile.img
+      chat.seller.profile.photo = chat.buyer.profile.img
+      
       user = chat.buyer;
       partner = chat.seller;
     }
     else {
+      chat.seller.profile.photo = me.profile.img
+      chat.buyer.profile.photo = chat.buyer.profile.img
+
       partner = chat.buyer;
       user = chat.seller;
     }
@@ -296,7 +304,8 @@ const AppointmentCreator = ({itemId, chatId, isOpen, sendRequest, cancelRequest}
 const UserPhoto = ({user}) => {
   var filePath = user &&
                  user.profile &&
-                 user.profile.photo;
+                 user.profile.photo ||
+                 user.profile.img;
 
   // check if we have file path
   if(filePath) {
@@ -306,7 +315,8 @@ const UserPhoto = ({user}) => {
           styles.image,
           styles.userPhoto,
         ]}
-        source={require('../../../assets/images/logo.png')}
+        // source={require('../../../assets/images/logo.png')}
+        source={{uri: filePath}}
       />
     );
   }
@@ -379,7 +389,7 @@ const styles = StyleSheet.create({
     color: colors.GREY,
   },
   userPhoto: {
-    borderRadius: 50,
+    borderRadius: (Platform.OS === 'ios') ? 25 : 50,
   },
   details: {
     color: colors.WHITE,

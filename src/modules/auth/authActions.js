@@ -49,7 +49,7 @@ const _loginError = error => ({
     error,
 });
 
-export const login = (username, password) => {
+export const login = (username, password, checked) => {
     return (dispatch, getState) => {
         dispatch(_login());
 
@@ -65,6 +65,13 @@ export const login = (username, password) => {
                 dispatch(meActions.getMe());
                 dispatch(navigationActions.changeScene('home', {}, 'RESET'));
                 dispatch(appActions.onMessage(t(dictionary.loginSuccess)));
+                if (checked) {
+                    AsyncStorage.setItem('storePassword', password)
+                    AsyncStorage.setItem('checked', 'true')
+                } else {
+                    AsyncStorage.removeItem('checked')
+                    AsyncStorage.removeItem('storePassword')
+                }
                 return resp;
             })
             .catch(error => {

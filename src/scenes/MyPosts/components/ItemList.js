@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import { Platform, StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 
 // components
@@ -183,6 +183,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderTopColor: colors.LIGHT_GREY,
         borderBottomColor: colors.LIGHT_GREY,
+        marginTop: Platform.OS === 'ios' ? 15 : '',
     },
     thumbnailContainer: {
         width: 120,

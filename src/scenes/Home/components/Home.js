@@ -4,6 +4,8 @@ import {
   View,
   ScrollView,
   Text,
+  Platform,
+  Dimensions
 } from 'react-native';
 
 // components
@@ -24,7 +26,7 @@ export default class Home extends Component {
     me: PropTypes.object.isRequired,
     getMarkers: PropTypes.func.isRequired,
     markers: PropTypes.array.isRequired,
-    unreadMessages: PropTypes.array.isRequired,
+    unreadMessages: PropTypes.number.isRequired,
     myQuestions: PropTypes.array.isRequired,
     isFetchingMyQuestions: PropTypes.bool.isRequired,
     changeScene: PropTypes.func.isRequired,
@@ -45,7 +47,6 @@ export default class Home extends Component {
           commonStyles.fullScreen, 
           mittiStyles.darkBody,
         ]}>
-
           <View style={mittiStyles.bottomScrollExtra}>
             <View style={mapStyles.mapContainer}>
               <Map 
@@ -54,7 +55,8 @@ export default class Home extends Component {
                 onRegionChange={this.props.onRegionChange}
                 currentRegion={this.props.currentRegion}
                 radius={this.props.radius}
-                markers={this.props.markers} />
+                markers={this.props.markers} 
+                />
             </View>
             <Menu 
               me={this.props.me} 
@@ -66,7 +68,31 @@ export default class Home extends Component {
       );
     }
     else {
-      return null;
+      return (
+        <ScrollView style={[
+          commonStyles.fullScreen, 
+          mittiStyles.darkBody,
+        ]}>
+
+          <View style={mittiStyles.bottomScrollExtra}>
+            <View style={mapStyles.mapContainer}>
+              <Map 
+                item={this.props.item}
+                getItem={this.props.getPost}
+                onRegionChange={this.props.onRegionChange}
+                currentRegion={this.props.currentRegion}
+                radius={this.props.radius}
+                markers={this.props.markers} 
+                />
+            </View>
+            <Menu 
+              me={this.props.me} 
+              unreadMessages={this.props.unreadMessages} 
+              changeScene={this.props.changeScene}/>
+            { this._getQuestionList() }
+          </View>
+        </ScrollView>
+      );
     }
   }
 
@@ -81,9 +107,11 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
 });
 
+const screenHeight = Math.round(Dimensions.get('window').height);
+
 const mapStyles = StyleSheet.create({
   mapContainer: {
-    height: 400,
+    height: screenHeight > 750 ? '100%' : '95%',
     marginBottom: 20,
   },
 });

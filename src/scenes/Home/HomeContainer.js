@@ -13,7 +13,7 @@ import {
 import { getMe, getMyStats, getMyQuestions } from "../../modules/me/meActions";
 import { getCurrentPosition } from "../../modules/app/appActions";
 import { requestVerification } from "../../modules/auth/authActions";
-import { changeScene } from "../../modules/navigation/navigationActions.js";
+import { changeScene, refreshScene } from "../../modules/navigation/navigationActions.js";
 
 // containers
 import OpenDrawerButtonContainer from "../../modules/navigation/OpenDrawerButtonContainer";
@@ -48,13 +48,39 @@ class HomeContainer extends Component {
     isFetchingMyQuestions: PropTypes.bool.isRequired,
     myQuestions: PropTypes.array.isRequired,
     getMyQuestions: PropTypes.func.isRequired,
-    unreadMessages: PropTypes.array.isRequired,
+    unreadMessages: PropTypes.number.isRequired,
     getCurrentPosition: PropTypes.func.isRequired,
     requestVerification: PropTypes.func.isRequired,
     getMe: PropTypes.func.isRequired,
     item: PropTypes.object,
     items: PropTypes.array
   };
+  
+  componentWillMount() {
+    this.props.getMyStats();
+    this.props.getMyQuestions();
+    this._getCurrentPositionAndItems();
+  }
+
+  componentDidMount() {
+    this._getItemInterval()
+  }
+
+  componentWillUnmount() {
+    clearInterval(this._getItemInterval)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // check if we have position
+    if (nextProps.currentRegion) {
+      const { latitude: lat, longitude: lng } = nextProps.currentRegion;
+
+      // check if region changed
+      if (nextProps.isRegionChanged) {
+        this.props.getItems(lat, lng);
+      }
+    }
+  }
 
   static navigationOptions = ({ navigation }) => {
     const navState = navigation.state;
@@ -72,37 +98,6 @@ class HomeContainer extends Component {
     };
   };
 
-  componentDidMount() {
-    this.props.getMyStats();
-    this.props.getMyQuestions();
-    this.props.getCurrentPosition().then(currentPosition => {
-      // check if we have position
-      if (currentPosition) {
-        const { latitude: lat, longitude: lng } = currentPosition.coords;
-
-        // this sets currentRegion
-        this.props.onRegionChange({
-          latitude: lat,
-          longitude: lng,
-          latitudeDelta: 1,
-          longitudeDelta: 1
-        });
-        this.props.getItems(lat, lng);
-      }
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    // check if we have position
-    if (nextProps.currentRegion) {
-      const { latitude: lat, longitude: lng } = nextProps.currentRegion;
-
-      // check if region changed
-      if (nextProps.isRegionChanged) {
-        this.props.getItems(lat, lng);
-      }
-    }
-  }
 
   render() {
     const { me, items, currentRegion } = this.props;
@@ -110,9 +105,11 @@ class HomeContainer extends Component {
     const hasRegion =
       currentRegion && currentRegion.latitude && currentRegion.longitude;
 
-    if (!me || !hasRegion) {
+    if (!me) {
       return <SpinnerOverlay show={true} />;
-    } else if (!me.isVerified) {
+    } 
+    else 
+    if (!me.isVerified) {
       return (
         <VerificationRequest
           username={me.username}
@@ -121,7 +118,8 @@ class HomeContainer extends Component {
           isOpen={true}
         />
       );
-    } else {
+    } 
+    else {
       return (
         <View style={commonStyles.fullScreen}>
           <CreatePostModal
@@ -135,6 +133,26 @@ class HomeContainer extends Component {
         </View>
       );
     }
+  }
+  _getItemInterval = () => {
+    setInterval(this._getCurrentPositionAndItems, 45000);
+  }
+  _getCurrentPositionAndItems = () => {
+    this.props.getCurrentPosition().then(currentPosition => {
+      // check if we have position
+      if (currentPosition.coords) {
+        const { latitude: lat, longitude: lng } = currentPosition.coords;
+
+        // this sets currentRegion
+        this.props.onRegionChange({
+          latitude: lat,
+          longitude: lng,
+          latitudeDelta: 1,
+          longitudeDelta: 1
+        });
+        this.props.getItems(lat, lng);
+      }
+    });
   }
 
   _toMarkers = items => {
@@ -164,7 +182,7 @@ function mapStateToProps(state) {
     myQuestions: state.me.myQuestions,
     isFetchingMyQuestions: state.me.isFetchingMyQuestions,
     radius: state.radius,
-    unreadMessages: state.unreadMessages.unreadMessages,
+    unreadMessages: state.unreadMessages.unreadMessages.length,
     currentPosition: state.app.currentPosition
   };
 }

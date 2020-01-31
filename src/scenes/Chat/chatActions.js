@@ -94,6 +94,7 @@ export const changeTextValue = messageText => ({
 });
 
 export const getMessages = (itemId, chatId) => {
+    console.log('getMessages', itemId, chatId)
     return (dispatch, getState) => {
         const { token } = getState().auth;
 
@@ -107,6 +108,7 @@ export const getMessages = (itemId, chatId) => {
             .getChat(token, itemId, chatId)
             .then(resp => dispatch(appActions.processApiResponse(resp)))
             .then(chat => {
+                console.log('chat', chat)
                 dispatch({
                     type: CHAT_SCENE_GET_MESSAGES_SUCCESS,
                     chat,
@@ -117,6 +119,7 @@ export const getMessages = (itemId, chatId) => {
                 return chat;
             })
             .catch(error => {
+                console.log('error', error)
                 dispatch({
                     type: CHAT_SCENE_GET_MESSAGES_ERROR,
                     error,

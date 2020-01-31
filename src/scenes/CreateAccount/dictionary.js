@@ -20,4 +20,7 @@ export default dictionary = {
   signup: {
     'en_US': 'Sign Up',
   },
+  guest: {
+    'en_US': 'Guest',
+  },
 };

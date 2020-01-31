@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { AsyncStorage } from 'react-native';
+import { storeToken, getToken } from '/Users/michael/Documents/MyMittiMobile/src/modules/auth/authActions.js';
+
 // components
-import { StyleSheet, View, ScrollView, Text, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TouchableOpacity, Image, CheckBox, Platform, Switch } from 'react-native';
 import { SpinnerOverlay } from '../../../components';
 import { CustomTextInput } from '../../../components';
 import { CustomButton } from '../../../components';
@@ -19,6 +22,12 @@ import dictionary from '../dictionary';
 
 
 export default class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { checked: false };
+      }
+    
+
     static propTypes = {
         // states
         form: PropTypes.shape({
@@ -36,6 +45,53 @@ export default class Login extends Component {
         login: PropTypes.func.isRequired,
         changeScene: PropTypes.func.isRequired,
     };
+
+    componentWillMount() {
+        AsyncStorage.getItem('checked', (error, res) => {
+            console.log('checked', res);
+            if (res === 'true') {
+                this.setState({ checked: true })
+                AsyncStorage.getItem('storePassword', (error, res) => {
+                    console.log('password', res);
+                    this.props.changeFormValue('password', res)
+                });
+            }
+        });
+    }
+
+    _onValueChage = () => {
+        if (this.state.checked === false ) this.setState({ checked: true })
+        if (this.state.checked === true ) this.setState({ checked: false })
+    }
+
+    _login = () => {
+        this.props.login(this.props.form.username, this.props.form.password, this.state.checked)
+    }
+    _guestLogin = (username, password) => {
+        this.props.login(username, password, this.state.checked)
+    }
+
+    Checkbox = () => {
+        switch (Platform.OS) {
+            case 'ios':
+                return (
+                    <Switch
+                    value={this.state.checked}
+                    onValueChange={this._onValueChage}
+                    />
+                )
+            case 'android':
+                return (
+                    <CheckBox
+                    value={this.state.checked}
+                    onValueChange={this._onValueChage}
+                    />
+                )
+        
+            default:
+                break;
+        }
+    }
 
     render() {
         return (
@@ -79,12 +135,16 @@ export default class Login extends Component {
                             placeholder={t(dictionary.password)}
                         />
                     </View>
+                    <View style={{ flexDirection: 'column'}}>
+                        <View style={{ flexDirection: 'row' }}>
+                            <this.Checkbox />
+                            <Text style={{marginTop: 5, color: 'white'}}> Remember Me</Text>
+                        </View>
+                    </View>
                     <View style={mittiStyles.button}>
                         <CustomButton
                             style={styles.button}
-                            onPress={() =>
-                                this.props.login(this.props.form.username, this.props.form.password)
-                            }
+                            onPress={this._login}
                             disabled={
                                 this.props.isLoggingIn ||
                                 !this.props.form.username ||
@@ -92,6 +152,14 @@ export default class Login extends Component {
                             }
                             label={t(dictionary.login)}
                         />
+                    </View>
+                    <View>
+                        <TouchableOpacity
+                            style={styles.anchor}
+                            onPress={() => this.props.changeScene('createAccount')}
+                        >
+                            <Text style={[mittiStyles.darkFont,{fontSize: 20}]}>{t(dictionary.createAccount)}</Text>
+                        </TouchableOpacity>
                     </View>
                     <View>
                         <TouchableOpacity
@@ -104,9 +172,9 @@ export default class Login extends Component {
                     <View>
                         <TouchableOpacity
                             style={styles.anchor}
-                            onPress={() => this.props.changeScene('createAccount')}
+                            onPress={() => this._guestLogin('mittiguest@outlook.com', 'guest', this.state.checked)}
                         >
-                            <Text style={mittiStyles.darkFont}>{t(dictionary.createAccount)}</Text>
+                            <Text style={mittiStyles.darkFont}>{t(dictionary.guest)}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

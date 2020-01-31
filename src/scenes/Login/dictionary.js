@@ -14,4 +14,7 @@ export default dictionary = {
   login: {
     'en_US': 'Log In',
   },
+  guest: {
+    'en_US': 'Guest',
+  }
 };

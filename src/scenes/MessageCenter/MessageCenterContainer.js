@@ -79,7 +79,20 @@ class MessageCenterContainer extends Component {
     }
   }
 
-  componentWillReceiveProps(props) {
+//   shouldComponentUpdate(props) {
+//     const {getMessages, navigation} = props;
+//     const item = navigation && navigation.getParam('item');
+
+//     // check if we have item id
+//     if(item && (this.itemId != item._id)) {
+//       getMessages(item);
+//       this.itemId = item._id;
+//       return true;
+//     } else {
+//       return true;
+//     }
+//   }
+componentWillReceiveProps(props) {
     const {getMessages, navigation} = props;
     const item = navigation && navigation.getParam('item');
 
@@ -90,12 +103,14 @@ class MessageCenterContainer extends Component {
     }
   }
 
+
   render() {
     const {
       me,
       chats,
       navigation,
       unreadMessages,
+      unreadMessageCount,
       gotoChat,
     } = this.props;
     const item = navigation && navigation.getParam('item');
@@ -118,6 +133,7 @@ class MessageCenterContainer extends Component {
             chats={chats}
             item={item}
             unreadMessages={unreadMessages}
+            unreadMessageCount={unreadMessageCount}
             gotoChat={gotoChat}
           />
           <CreatePostModal
@@ -140,6 +156,7 @@ function mapStateToProps(state) {
     ...state.messageCenterScene,
     me: state.me.me,
     unreadMessages: state.unreadMessages.unreadMessages,
+    unreadMessageCount: state.unreadMessages.unreadMessages.length,
   };
 }
 

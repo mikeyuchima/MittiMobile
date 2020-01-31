@@ -10,7 +10,10 @@ import {
     Switch,
     Text,
     TouchableOpacity,
-    Linking
+    Linking,
+    ActionSheetIOS,
+    Button,
+    Platform
 } from 'react-native';
 import { SpinnerOverlay } from '../../../components';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
@@ -47,6 +50,44 @@ export default class Profile extends Component {
     render() {
         const { isUpdatingMySettings, updateMySettings, settings } = this.props;
 
+        toggleActionSheetUnit = () => {
+            // choice is either radius or unit
+            ActionSheetIOS.showActionSheetWithOptions(
+                {
+                  options: ['KM', 'Mile', 'Cancel'],
+                //   destructiveButtonIndex: 1,
+                  cancelButtonIndex: 2,
+                },
+                (buttonIndex) => {
+                  const options = ['km', 'mile', 'Cancel']
+                  const { updateMySettings } = this.props;
+    
+                  if (buttonIndex !== 2) {
+                    updateMySettings({ radiusUnit: options[buttonIndex]});
+                  }
+                },
+            );
+        }
+
+        toggleActionSheetRadius = () => {
+            // choice is either radius or unit
+            ActionSheetIOS.showActionSheetWithOptions(
+                {
+                  options: ['10','20','30','40','50','Cancel'],
+                //   destructiveButtonIndex: 1,
+                  cancelButtonIndex: 5,
+                },
+                (buttonIndex) => {
+                  const options = ['10','20','30','40','50','Cancel']
+                  const { updateMySettings } = this.props;
+    
+                  if (buttonIndex !== 5) {
+                    updateMySettings({ defaultRadius: options[buttonIndex]});
+                  }
+                },
+            );
+        }
+
         return (
             <ScrollView style={[commonStyles.fullScreen, styles.container]}>
                 <View>
@@ -82,14 +123,18 @@ export default class Profile extends Component {
                             <Text style={styles.label}>{t(dictionary.measureDistanceBy)}</Text>
                         </View>
                         <View style={[styles.inputContainer, styles.inputContainerFixedWidth]}>
+                            {Platform.OS === 'ios' ? 
+                            <Button title={settings.radiusUnit.toString().toUpperCase()} onPress={toggleActionSheetUnit}/>
+                            :
                             <Picker
                                 style={styles.input}
-                                selectedValue={settings.radiusUnit}
+                                selectedValue={settings.radiusUnit.toUpperCase()}
                                 onValueChange={radiusUnit => updateMySettings({ radiusUnit })}
                             >
                                 <Picker.Item key="km" label={t(dictionary.km)} value={'km'} />
                                 <Picker.Item key="mile" label={t(dictionary.mile)} value={'mile'} />
                             </Picker>
+                            }
                         </View>
                     </View>
 
@@ -98,6 +143,10 @@ export default class Profile extends Component {
                             <Text style={styles.label}>{t(dictionary.showMeThingsWithin)}</Text>
                         </View>
                         <View style={[styles.inputContainer, styles.inputContainerFixedWidth]}>
+                            {
+                            Platform.OS === 'ios' ?
+                            <Button title={settings.defaultRadius.toString()} onPress={toggleActionSheetRadius}/>
+                            :
                             <Picker
                                 style={styles.input}
                                 selectedValue={settings.defaultRadius}
@@ -124,6 +173,7 @@ export default class Profile extends Component {
                                     value={50}
                                 />
                             </Picker>
+                            }
                         </View>
                     </View>
 

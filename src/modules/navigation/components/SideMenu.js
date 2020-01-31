@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // components
 import {
+    Platform,
     StyleSheet,
     View,
     ScrollView,
@@ -171,7 +172,7 @@ const getUserFullName = me => {
 };
 
 const shareApp = () => {
-    const url = 'http://play.google.com/store/apps/details?id=' + APP_NAME;
+    const url = Platform.OS === 'ios' ? 'https://apps.apple.com/us/app/mittimobile' : 'http://play.google.com/store/apps/details?id=' + APP_NAME;
     const message = 'Hey, check out this app!\n\n' + url;
 
     openMailApp('', 
@@ -184,7 +185,18 @@ const openMailApp = (recipient, subject, body) => {
           subjectParam = 'subject=' + subject,
           bodyParam = '&body=' + body;
 
-    Linking.openURL(recipientParam + subjectParam + bodyParam);
+    Linking.openURL(recipientParam + subjectParam + bodyParam)
+    .catch((err) => console.error('An error occurred', err));
+    
+    // Linking.canOpenURL(recipientParam + subjectParam + bodyParam)
+    //     .then((supported) => {
+    //         if (!supported) {
+    //         console.log("Can't handle url: " + recipientParam + subjectParam + bodyParam);
+    //         } else {
+    //         return Linking.openURL(recipientParam + subjectParam + bodyParam);
+    //         }
+    //     })
+    //     .catch((err) => console.error('An error occurred', err));
 };
 
 const styles = StyleSheet.create({

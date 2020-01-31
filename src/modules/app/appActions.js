@@ -1,34 +1,35 @@
 // other module actions
-import * as authActions from '../auth/authActions';
+import * as authActions from "../auth/authActions";
 
 // i18n
-import dictionary from './dictionary';
-import { t } from '../../i18n';
+import dictionary from "./dictionary";
+import { t } from "../../i18n";
 
 // styles
-import * as colors from '../../styles/colors';
+import * as colors from "../../styles/colors";
 
 // other
 
-import Snackbar from 'react-native-snackbar';
-import ImagePicker from 'react-native-image-picker';
+import Snackbar from "react-native-snackbar";
+import ImagePicker from "react-native-image-picker";
 
 // api
-import * as imageApi from '../../api/imageApi';
-import { changeScene } from '../navigation/navigationActions';
+import * as imageApi from "../../api/imageApi";
+import { changeScene } from "../navigation/navigationActions";
 
 // action types
-export const APP_ON_ERROR = 'APP_ON_ERROR';
-export const APP_ON_MESSAGE = 'APP_ON_MESSAGE';
-export const APP_PROCESS_HTTP_RESPONSE = 'APP_PROCESS_HTTP_RESPONSE';
-export const APP_GET_CURRENT_POSITION = 'APP_GET_CURRENT_POSITION';
-export const APP_GET_CURRENT_POSITION_SUCCESS = 'APP_GET_CURRENT_POSITION_SUCCESS';
-export const APP_GET_CURRENT_POSITION_ERROR = 'APP_GET_CURRENT_POSITION_ERROR';
-export const APP_UPLOAD_IMAGE = 'APP_UPLOAD_IMAGE';
-export const APP_UPLOAD_IMAGE_SUCCESS = 'APP_UPLOAD_IMAGE_SUCCESS';
-export const APP_UPLOAD_IMAGE_ERROR = 'APP_UPLOAD_IMAGE_ERROR';
-export const APP_REMOVE_IMAGE = 'APP_REMOVE_IMAGE';
-export const APP_CLEAR_UPLOAD_IMAGE = 'APP_CLEAR_UPLOAD_IMAGE';
+export const APP_ON_ERROR = "APP_ON_ERROR";
+export const APP_ON_MESSAGE = "APP_ON_MESSAGE";
+export const APP_PROCESS_HTTP_RESPONSE = "APP_PROCESS_HTTP_RESPONSE";
+export const APP_GET_CURRENT_POSITION = "APP_GET_CURRENT_POSITION";
+export const APP_GET_CURRENT_POSITION_SUCCESS =
+    "APP_GET_CURRENT_POSITION_SUCCESS";
+export const APP_GET_CURRENT_POSITION_ERROR = "APP_GET_CURRENT_POSITION_ERROR";
+export const APP_UPLOAD_IMAGE = "APP_UPLOAD_IMAGE";
+export const APP_UPLOAD_IMAGE_SUCCESS = "APP_UPLOAD_IMAGE_SUCCESS";
+export const APP_UPLOAD_IMAGE_ERROR = "APP_UPLOAD_IMAGE_ERROR";
+export const APP_REMOVE_IMAGE = "APP_REMOVE_IMAGE";
+export const APP_CLEAR_UPLOAD_IMAGE = "APP_CLEAR_UPLOAD_IMAGE";
 
 /**
  * @NOTE: To make this work on android emulator
@@ -43,7 +44,7 @@ export const getCurrentPosition = () => {
         const { currentPosition } = getState().app;
 
         dispatch({
-            type: APP_GET_CURRENT_POSITION,
+            type: APP_GET_CURRENT_POSITION
         });
 
         return new Promise((resolve, reject) => {
@@ -51,7 +52,7 @@ export const getCurrentPosition = () => {
             if (currentPosition) {
                 dispatch({
                     type: APP_GET_CURRENT_POSITION_SUCCESS,
-                    currentPosition,
+                    currentPosition
                 });
 
                 resolve(currentPosition);
@@ -60,7 +61,7 @@ export const getCurrentPosition = () => {
                     _currentPosition => {
                         dispatch({
                             type: APP_GET_CURRENT_POSITION_SUCCESS,
-                            currentPosition: _currentPosition,
+                            currentPosition: _currentPosition
                         });
 
                         resolve(_currentPosition);
@@ -68,17 +69,17 @@ export const getCurrentPosition = () => {
                     error => {
                         dispatch({
                             type: APP_GET_CURRENT_POSITION_ERROR,
-                            error,
+                            error
                         });
 
-                        dispatch(onError('Unable to get current position'));
+                        dispatch(onError("Unable to get current position"));
 
                         reject(error);
                     },
                     {
                         // enableHighAccuracy: true,
-                        timeout: 20000,
-                        maximumAge: 1000,
+                        timeout: 20000
+                        // maximumAge: 1000,
                     }
                 );
             }
@@ -90,7 +91,7 @@ const getActiveRouteName = navigationState => {
         return null;
     }
     const route = navigationState.routes[navigationState.index];
-    console.log('route', route);
+    console.log("route", route);
     // dive into nested navigators
     if (route.routes) {
         return getActiveRouteName(route);
@@ -105,7 +106,7 @@ export const onNavigationStateChange = (prevState, currentState) => {
     if (prevScreen !== currentScreen) {
         emitActiveScreen(currentScreen);
         {
-            console.log('onNavigationStateChange', currentScreen);
+            console.log("onNavigationStateChange", currentScreen);
         }
     }
 };
@@ -114,43 +115,37 @@ export const onError = error => {
     return (dispatch, getState) => {
         dispatch({
             type: APP_ON_ERROR,
-            error,
+            error
         });
         Snackbar.show({
             backgroundColor: colors.ERROR,
             title: error,
             duration: Snackbar.LENGTH_LONG, // LENGTH_SHORT, LENGTH_LONG, LENGTH_INDEFINITE
             action: {
-                title: 'DISMISS',
+                title: "DISMISS",
                 color: colors.WHITE,
-                onPress: () => {},
-            },
+                onPress: () => {}
+            }
         });
     };
 };
 
-export const inChat = () => {
+export const onMessage = (message, onPress, title) => {
+    title = title ? title : "";
     return (dispatch, getState) => {
-        console.log('getState', getState())
-        return getState().chatScene.scene;
-    };
-};
-
-export const onMessage = (message, onPress) => {
-    return (dispatch, getState) => {
-        console.log('onMessage', message, 'onPress', onPress, 'getState', getState());
-        dispatch({
-            type: APP_ON_MESSAGE,
-            message,
-        });
+        // console.log('onMessage', message, 'onPress', onPress, 'getState', getState());
+        // dispatch({
+        //     type: APP_ON_MESSAGE,
+        //     message,
+        // });
         Snackbar.show({
             title: message,
             duration: Snackbar.LENGTH_LONG,
             action: {
-                title: 'VIEW',
-                color: 'green',
-                onPress: onPress,
-            },
+                title: title,
+                color: "white",
+                onPress: onPress
+            }
         });
     };
 };
@@ -159,7 +154,7 @@ export const processApiResponse = resp => {
     return (dispatch, getState) => {
         dispatch({
             type: APP_PROCESS_HTTP_RESPONSE,
-            resp,
+            resp
         });
 
         if (resp.ok) {
@@ -199,8 +194,8 @@ export const uploadImage = (userId, imageDataList = []) => {
             title: t(dictionary.selectImages),
             storageOptions: {
                 skipBackup: true,
-                path: 'images',
-            },
+                path: "images"
+            }
         };
 
         return new Promise((resolve, reject) => {
@@ -210,16 +205,18 @@ export const uploadImage = (userId, imageDataList = []) => {
                 if (imageData.didCancel) {
                     // reject('User cancelled image picker'); // we dont need this warning
                 } else if (imageData.error) {
-                    reject('ImagePicker Error: ' + imageData.error);
+                    reject("ImagePicker Error: " + imageData.error);
                 } else if (imageData.customButton) {
-                    reject('User tapped custom button: ' + imageData.customButton);
+                    reject(
+                        "User tapped custom button: " + imageData.customButton
+                    );
                 } else {
                     // add image data
                     newImageDataList = [...imageDataList, imageData];
                     // add to form
                     dispatch({
                         type: APP_UPLOAD_IMAGE,
-                        imageDataList: newImageDataList,
+                        imageDataList: newImageDataList
                     });
                     // upload to server
                     imageApi.upload(userId, imageData).then(response => {
@@ -233,7 +230,7 @@ export const uploadImage = (userId, imageDataList = []) => {
                         if (response.status !== 201 || !imageUrl) {
                             dispatch({
                                 type: APP_UPLOAD_IMAGE_ERROR,
-                                imageDataList,
+                                imageDataList
                             });
                             dispatch(onMessage(t(dictionary.uploadFailed)));
                             reject(t(dictionary.uploadFailed));
@@ -244,7 +241,7 @@ export const uploadImage = (userId, imageDataList = []) => {
                             newImageDataList = [...imageDataList, imageData];
                             dispatch({
                                 type: APP_UPLOAD_IMAGE_SUCCESS,
-                                imageDataList: newImageDataList,
+                                imageDataList: newImageDataList
                             });
                             resolve(imageUrl);
                         }
@@ -258,11 +255,11 @@ export const uploadImage = (userId, imageDataList = []) => {
 export const removeImage = listIndex => {
     return (dispatch, getState) => {
         const {
-            imageUpload: { images, imageDataList },
+            imageUpload: { images, imageDataList }
         } = getState().app;
         const newImageDataList = [
             ...imageDataList.slice(0, listIndex),
-            ...imageDataList.slice(listIndex + 1),
+            ...imageDataList.slice(listIndex + 1)
         ];
         const newImageUrls = newImageDataList.map(anImageData => {
             return anImageData.cloudUrl;
@@ -270,7 +267,7 @@ export const removeImage = listIndex => {
 
         dispatch({
             type: APP_REMOVE_IMAGE,
-            imageDataList: newImageDataList,
+            imageDataList: newImageDataList
         });
     };
 };
@@ -278,7 +275,7 @@ export const removeImage = listIndex => {
 export const clearImageUpload = () => {
     return (dispatch, getState) => {
         dispatch({
-            type: APP_CLEAR_UPLOAD_IMAGE,
+            type: APP_CLEAR_UPLOAD_IMAGE
         });
     };
 };

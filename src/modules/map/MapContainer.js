@@ -47,7 +47,7 @@ class MapContainer extends React.Component {
   };
 
   static defaultProps = {
-    useGoogleMaps: ANDROID,
+    useGoogleMaps: true,
     isMarketplace: true,
     isGotoDetailsEnabled: true,
     markers: [],

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 // components
-import { StyleSheet, ScrollView, TouchableOpacity, Image, View, Text } from 'react-native';
+import { StyleSheet, ScrollView, TouchableOpacity, Image, View, Text, Platform } from 'react-native';
 import moment from 'moment';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
@@ -26,6 +26,7 @@ export default class MessageCenter extends Component {
         item: PropTypes.object,
         chats: PropTypes.array.isRequired,
         unreadMessages: PropTypes.array.isRequired,
+        unreadMessageCount: PropTypes.number.isRequired,
         gotoChat: PropTypes.func.isRequired,
     };
 
@@ -40,7 +41,7 @@ export default class MessageCenter extends Component {
                 style={[mittiStyles.whiteBody]}
             >
                 <View style={[commonStyles.fullScreen, mittiStyles.bottomScrollExtra]}>
-                    <View style={styles.titleContainer}>
+                    {/* <View style={styles.titleContainer}>
                         <Text style={styles.chatTitle}>
                             {!item
                                 ? t(dictionary.buyingSelling)
@@ -48,15 +49,16 @@ export default class MessageCenter extends Component {
                                 ? t(dictionary.inquiry, chats.length)
                                 : t(dictionary.inquiries, chats.length)}
                         </Text>
-                    </View>
-                    <View style={styles.messageListContainer}>{this._renderMessageList()}</View>
+                    </View> */}
+                    {/* <View style={styles.messageListContainer}>{this._renderMessageList()}</View> */}
+                    <View style={{paddingTop: 20}}>{this._renderMessageList()}</View>
                 </View>
             </ScrollView>
         );
     }
 
     _renderMessageList = () => {
-        const { me, chats, unreadMessages } = this.props;
+        const { me, chats, unreadMessages, gotoChat } = this.props;
 
         // check if we have message groups
         if (chats && chats.length) {
@@ -67,7 +69,7 @@ export default class MessageCenter extends Component {
                         key={aChat.id}
                         me={me}
                         unreadMessages={unreadMessages.filter(m => aChat.messages.includes(m._id))}
-                        gotoChat={this.props.gotoChat}
+                        gotoChat={gotoChat}
                         chat={aChat}
                     />
                 );
@@ -83,8 +85,10 @@ const ChatItem = ({ me, chat, gotoChat, unreadMessages }) => {
     let chatPartner = {};
 
     if (me._id == chat.buyer._id) {
+        chat.seller.profile.photo = chat.buyer.profile.img
         chatPartner = chat.seller && chat.seller.profile;
     } else {
+        chat.buyer.profile.photo = chat.buyer.profile.img
         chatPartner = chat.buyer && chat.buyer.profile;
     }
     // check if we have a post
@@ -133,14 +137,13 @@ const ChatItem = ({ me, chat, gotoChat, unreadMessages }) => {
 };
 
 const UserPhoto = ({ user }) => {
-    var filePath = user && user.profile && user.profile.photo;
-
+    var filePath = user && user.photo || user.img;
     // check if we have file path
     if (filePath) {
         return (
             <Image
                 style={[styles.image, styles.userPhoto]}
-                source={require('../../../assets/images/logo.png')}
+                source={{uri: filePath}}
             />
         );
     } else {
@@ -171,6 +174,7 @@ const styles = StyleSheet.create({
     titleContainer: {
         alignItems: 'center',
         paddingVertical: 15,
+        marginVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#F1F1F1',
     },
@@ -221,7 +225,7 @@ const styles = StyleSheet.create({
         borderColor: colors.GREY,
     },
     userPhoto: {
-        borderRadius: 50,
+        borderRadius: (Platform.OS === 'ios') ? 25 : 50,
     },
     postImageContainer: {
         position: 'absolute',

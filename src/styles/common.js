@@ -1,11 +1,16 @@
 import {
   StyleSheet,
+  Platform
 } from 'react-native';
 import * as colors from './colors';
 
 export default styles = StyleSheet.create({
   fullScreen: {
     flex: 1,
+  },
+  fullScreenIos: {
+    flex: 1,
+    paddingTop: 35,
   },
   rowChilds: {
     flexDirection: 'row',

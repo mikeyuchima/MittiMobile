@@ -78,9 +78,7 @@ class ChatContainer extends Component {
     componentDidMount() {
         const itemId = this.props.navigation.getParam('itemId'),
             chatId = this.props.navigation.getParam('chatId');
-
-        console.log('CHAAT', this.props);
-
+        console.log(itemId, chatId)
         this.props.setItem(itemId);
         this.props.initializeChat(itemId, chatId);
         this.props.navigation.setParams({
@@ -88,14 +86,24 @@ class ChatContainer extends Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
+    shouldComponentUpdate(nextProps) {
         const chatId = nextProps.navigation.getParam('chatId');
         const itemId = nextProps.navigation.getParam('itemId');
         const refreshTimestamp = nextProps.navigation.getParam('refreshTimestamp');
         const { item, chat, navigation } = this.props;
 
-        if (navigation.isFocused()) this.props.saveState();
-        if (!navigation.isFocused()) this.props.removeState();
+        if (this.props !== nextProps) {
+            return true;
+        }
+
+        if (navigation.isFocused()) {
+            this.props.saveState();
+            return true;
+        }
+        if (!navigation.isFocused()) {
+            this.props.removeState();
+            return true;
+        }
 
         // check if we have navigation params, item, and chat objects
         if (chatId && item && chat) {
@@ -103,16 +111,17 @@ class ChatContainer extends Component {
             if (chatId != chat.id) {
                 this.props.setItem(itemId);
                 this.props.initializeChat(itemId, chatId);
-            } else {
-                // check if the same chat object if there are any updates
-                if (this.props.refreshTimestamp < refreshTimestamp) {
+                return true;
+            } else if (this.props.refreshTimestamp < refreshTimestamp) { // check if the same chat object if there are any updates
                     navigation.setParams({
                         item,
                     });
                     // get chat data
                     this.props.getMessages(itemId, chatId);
-                }
+                    return true;
             }
+        } else {
+            return false;
         }
     }
 
@@ -211,6 +220,7 @@ function mapStateToProps(state) {
         // states
         ...state.chatScene,
         me: state.me.me,
+        messageCount: state.chatScene.messages.length
     };
 }
 

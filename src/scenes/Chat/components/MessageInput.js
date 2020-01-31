@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
+  Platform,
   StyleSheet,
   View,
   TouchableOpacity,
   TextInput,
   Keyboard,
+  KeyboardAvoidingView,
 } from "react-native";
 import FAIcon from "react-native-vector-icons/FontAwesome";
 import MCIIcon from "react-native-vector-icons/MaterialCommunityIcons";
@@ -46,6 +48,34 @@ export default class MessageInput extends Component {
     } = this.props;
 
     return (
+      Platform.OS === 'ios' ?
+      <KeyboardAvoidingView style={[styles.inputContainer]} behavior="padding" keyboardVerticalOffset={100} enabled>
+        <View style={[styles.textContainer]}>
+          <TextInput
+            value={messageText}
+            onChangeText={changeTextValue}
+            onSubmitEditing={this._submit}
+            style={styles.textInput}
+            placeholder={t(dictionary.writeMessage)}
+            placeholderTextColor={"#575D70"}
+            multiline={true}
+          />
+        </View>
+        <View style={styles.buttonContainer}>
+          <ScheduleButton
+            hasAppointment={hasAppointment}
+            setSchedule={setSchedule}
+          />
+          <TouchableOpacity onPress={this._submit} style={[styles.sendButton]}>
+            <FAIcon
+              size={font.SIZE_ICON}
+              color={colors.WHITE}
+              name={"paper-plane"}
+            />
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
+      :
       <View style={[styles.inputContainer]}>
         <View style={[styles.textContainer]}>
           <TextInput
@@ -55,6 +85,7 @@ export default class MessageInput extends Component {
             style={styles.textInput}
             placeholder={t(dictionary.writeMessage)}
             placeholderTextColor={"#575D70"}
+            multiline={true}
           />
         </View>
         <View style={styles.buttonContainer}>
@@ -100,6 +131,7 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "row",
     padding: 5,
+    marginBottom: (Platform.OS === 'ios') ? 25 : 0,
     borderTopColor: colors.LIGHT_GREY,
     borderTopWidth: 1,
     borderStyle: "solid",
@@ -109,6 +141,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     color: colors.BLACK,
+    fontSize: 20
   },
   buttonContainer: {
     flexDirection: "row",

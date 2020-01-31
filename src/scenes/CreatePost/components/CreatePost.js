@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
+    Platform,
     StyleSheet,
     View,
     ScrollView,
@@ -218,7 +219,7 @@ export default class CreatePost extends Component {
         const { scrollTo } = this.scrollView;
 
         // wait keyboard to appear
-        setTimeout(() => {
+        (Platform.OS === 'ios') ? null : setTimeout(() => {
             // make sure we still have el - user not navigates away while timer is active
             if (el) {
                 // get element offset

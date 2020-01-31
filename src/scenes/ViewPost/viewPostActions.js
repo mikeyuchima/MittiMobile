@@ -112,9 +112,10 @@ export const deleteItem = () => {
                     item,
                 });
                 dispatch(
-                    navigationActions.changeScene('marketplace', {
-                        marketType: POST_TYPES.free.id,
-                    })
+                    // navigationActions.changeScene('marketplace', {
+                    //     marketType: POST_TYPES.free.id,
+                    // })
+                    navigationActions.resetScene('home', {})
                 );
 
                 return item;

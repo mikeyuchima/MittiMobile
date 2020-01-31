@@ -33,7 +33,7 @@ export default dictionary = {
     'en_US': 'Settings',
   },
   shareApp: {
-    'en_US': 'Share to Friends',
+    'en_US': 'Share with Friends',
   },
   reportBug: {
     'en_US': 'Report a Bug',
