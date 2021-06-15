@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 20,
     paddingHorizontal: 20,
-    borderBottomWidth: 1,
+    borderBottomWidth: 3,
     borderBottomColor: "#F1F1F1",
   },
   thumbnailContainer: {

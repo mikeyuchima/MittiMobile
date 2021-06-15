@@ -78,19 +78,25 @@ class ChatContainer extends Component {
     componentDidMount() {
         const itemId = this.props.navigation.getParam('itemId'),
             chatId = this.props.navigation.getParam('chatId');
-        console.log(itemId, chatId)
         this.props.setItem(itemId);
         this.props.initializeChat(itemId, chatId);
         this.props.navigation.setParams({
             item: this.props.items,
         });
+        console.log('componentMount', this.props)
     }
 
     shouldComponentUpdate(nextProps) {
         const chatId = nextProps.navigation.getParam('chatId');
         const itemId = nextProps.navigation.getParam('itemId');
         const refreshTimestamp = nextProps.navigation.getParam('refreshTimestamp');
-        const { item, chat, navigation } = this.props;
+        const { item, chat, navigation, messages, getMessages, isReloadingChat } = this.props;
+
+        if (item && item.id && chat && chat.id && isReloadingChat) {
+            getMessages(item.id, chat.id);
+            if (messages.length !== nextProps.messages.length) return true
+            else false
+        }
 
         if (this.props !== nextProps) {
             return true;
@@ -105,6 +111,7 @@ class ChatContainer extends Component {
             return true;
         }
 
+
         // check if we have navigation params, item, and chat objects
         if (chatId && item && chat) {
             // check if new chat window
@@ -112,13 +119,14 @@ class ChatContainer extends Component {
                 this.props.setItem(itemId);
                 this.props.initializeChat(itemId, chatId);
                 return true;
+
             } else if (this.props.refreshTimestamp < refreshTimestamp) { // check if the same chat object if there are any updates
-                    navigation.setParams({
-                        item,
-                    });
-                    // get chat data
-                    this.props.getMessages(itemId, chatId);
-                    return true;
+                navigation.setParams({
+                    item,
+                });
+                // get chat data
+                this.props.getMessages(itemId, chatId);
+                return true;
             }
         } else {
             return false;
@@ -128,6 +136,16 @@ class ChatContainer extends Component {
     componentWillUnmount() {
         this.props.removeState();
     }
+
+    reload = () => {
+        var { item, chat, getMessages } = this.props;
+
+            // check if we have item and chat
+            if (item && item.id && chat && chat.id) {
+                // get chat data
+                getMessages(item.id, chat.id);
+            }
+    };
 
     render() {
         const {
@@ -195,24 +213,6 @@ class ChatContainer extends Component {
             );
         }
     }
-
-    _reloadChat = () => {
-        var reload = this._reloadChat;
-        var { item, chat, getMessages } = this.props;
-
-        // clear pooling
-        window.clearTimeout(this.poolingTimerId);
-        // set pooling
-        this.poolingTimerId = window.setTimeout(function() {
-            // check if we have item and chat
-            if (item && item.id && chat && chat.id) {
-                // get chat data
-                getMessages(item.id, chat.id);
-            }
-            // recursive
-            reload();
-        }, 5000);
-    };
 }
 
 function mapStateToProps(state) {
@@ -220,7 +220,6 @@ function mapStateToProps(state) {
         // states
         ...state.chatScene,
         me: state.me.me,
-        messageCount: state.chatScene.messages.length
     };
 }
 

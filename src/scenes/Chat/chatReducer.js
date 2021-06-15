@@ -26,6 +26,7 @@ import {
     CHAT_SCENE_SET_MAP_SNAPSHOT_SUCCESS,
     CHAT_SCENE_SAVE_STATE,
     CHAT_SCENE_REMOVE_STATE,
+    CHAT_SCENE_SET_FETCH_MESSAGE,
 } from './chatActions';
 
 // module action types
@@ -122,10 +123,16 @@ export default function chatScene(state = initialState, action) {
                 messageText: action.messageText,
             };
         }
-        case CHAT_SCENE_GET_MESSAGES: {
+        case CHAT_SCENE_SET_FETCH_MESSAGE: {
             return {
                 ...state,
                 isReloadingChat: true,
+            }
+        }
+        case CHAT_SCENE_GET_MESSAGES: {
+            return {
+                ...state,
+                isReloadingChat: false,
                 refreshTimestamp: new Date().getTime(),
             };
         }

@@ -17,7 +17,6 @@ export const changeScene = (routeName, params = {}, type = 'PUSH') => {
 };
 
 export const resetScene = (routeName, params = {}) => {
-    console.log('resetting scene')
     return (dispatch, getState) => {
         dispatch(
             StackActions.reset({
@@ -29,7 +28,6 @@ export const resetScene = (routeName, params = {}) => {
 };
 
 export const refreshScene = (routeName, params = {}, redirectRoute) => {
-    console.log('refreshing scene')
     return (dispatch, getState) => {
         dispatch(
             StackActions.replace({

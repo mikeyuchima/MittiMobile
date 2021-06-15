@@ -60,14 +60,14 @@ export default class Map extends React.Component {
         const currentScreen = nav.routes["0"].routes[1].routes["0"].routes[currentPath].key;
 
         this.props.setCurrentRegion(this.props.currentRegion, true);
-        setTimeout(() => {
-            const updatedRegion = getUpdatedPosition();
-            navigator.geolocation.getCurrentPosition(
-                (
-                    () => this._focusMap(updatedRegion, this.props.radius.radius)),
-                    () => navigator.geolocation.requestAuthorization()
-                );
-        }, 2000);
+        // setTimeout(() => {
+        //     const updatedRegion = getUpdatedPosition();
+        //     navigator.geolocation.getCurrentPosition(
+        //         (
+        //             () => this._focusMap(updatedRegion, this.props.radius.radius)),
+        //             () => navigator.geolocation.requestAuthorization()
+        //         );
+        // }, 2000);
 
         if (
             (isMapReady && markers.length !== prevPros.markers.length) ||

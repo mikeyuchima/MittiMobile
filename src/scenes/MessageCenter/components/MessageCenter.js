@@ -26,7 +26,6 @@ export default class MessageCenter extends Component {
         item: PropTypes.object,
         chats: PropTypes.array.isRequired,
         unreadMessages: PropTypes.array.isRequired,
-        unreadMessageCount: PropTypes.number.isRequired,
         gotoChat: PropTypes.func.isRequired,
     };
 

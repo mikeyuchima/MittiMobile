@@ -63,11 +63,11 @@ class HomeContainer extends Component {
   }
 
   componentDidMount() {
-    this._getItemInterval()
+    // this._getItemInterval()
   }
 
   componentWillUnmount() {
-    clearInterval(this._getItemInterval)
+    // clearInterval(this._getItemInterval)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -193,6 +193,7 @@ export default connect(
     openCreatePostModal,
     closeCreatePostModal,
     changeScene,
+    refreshScene,
     onRegionChange,
     getPost,
     getMarkers,

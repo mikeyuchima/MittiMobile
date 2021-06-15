@@ -5,7 +5,8 @@ import {
   ScrollView,
   Text,
   Platform,
-  Dimensions
+  Dimensions,
+  RefreshControl
 } from 'react-native';
 
 // components
@@ -22,6 +23,12 @@ import {t} from '../../../i18n';
 import dictionary from '../dictionary';
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isRefresing: false,
+    };
+  }
   static propTypes = {
     me: PropTypes.object.isRequired,
     getMarkers: PropTypes.func.isRequired,
@@ -39,6 +46,13 @@ export default class Home extends Component {
     markers: [],
   };
 
+  onRefresh = () => {
+    const { refreshScene } = this.props
+    this.setState({isRefresing: true})
+    refreshScene('home')
+    this.setState({isRefresing: false})
+  }
+
   render() {
     // check if you have current region
     if(this.props.currentRegion) {
@@ -46,7 +60,9 @@ export default class Home extends Component {
         <ScrollView style={[
           commonStyles.fullScreen, 
           mittiStyles.darkBody,
-        ]}>
+        ]}
+        refreshControl={<RefreshControl refreshing={this.state.isRefresing} onRefresh={this.onRefresh} />}
+        >
           <View style={mittiStyles.bottomScrollExtra}>
             <View style={mapStyles.mapContainer}>
               <Map 

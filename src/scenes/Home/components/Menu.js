@@ -36,7 +36,7 @@ const _renderMenu = (me, unreadMessages, changeScene) => {
         {
             id: 'newMessage',
             label: t(dictionary.newMessage),
-            count: unreadMessages,
+            count: newMessagesCount,
             color: '#AAF255',
             iconName: 'commenting',
             onPress: () => changeScene('messageCenter'),

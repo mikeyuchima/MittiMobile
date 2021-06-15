@@ -17,7 +17,8 @@ import {
 } from "../../modules/navigation/navigationActions.js";
 import { findUnreadMessages } from "../../modules/unreadMessages/unreadMessagesActions.js";
 import { onMessage } from "./appActions";
-import { getMessages } from '../../scenes/Chat/chatActions';
+import { setFetchMessage } from '../../scenes/Chat/chatActions';
+import { getMyStats } from "../../modules/me/meActions";
 
 // i18n
 import { setLocale } from "../../i18n";
@@ -102,6 +103,7 @@ class AppContainer extends Component {
                 nextProps.me &&
                 nextProps.me.settings
             ) {
+                this.props.findUnreadMessages();
                 this._oneSignalSetup(nextProps);
                 setLocale(nextProps.me.settings.locale || DEFAULT_LOCALE);
                 this.props.setDefaultRadius(
@@ -129,22 +131,15 @@ class AppContainer extends Component {
     }
 
     _openNotification = (notification, insideApp) => {
-        // console.log('props', this.props);
-        // console.log('notification', notification)
-        // console.log('insideApp', insideApp)
         const {
             findUnreadMessages,
             refreshScene,
             changeScene,
             onMessage,
-            nav
+            nav,
+            getMyStats,
+            setFetchMessage
         } = this.props;
-
-        const {
-            chatId,
-            postId,
-            type
-        } = notification.payload.additionalData
 
         // console.log('Notification received: ', notification, '\n', 'insideApp:', insideApp);
 
@@ -155,50 +150,49 @@ class AppContainer extends Component {
         //     displayType: 1, //The display method of a received notification
         //     silentNotification: false // BOOLEAN : Wether the received notification was a silent one
         // }
-
+        console.log(notification)
         if (
             notification.payload.additionalData &&
             notification.payload.additionalData.hasOwnProperty("type")
         ) {
             const currentIndex = nav.routes["0"].routes[1].routes["0"].index;
             const routes = nav.routes["0"].routes[1].routes["0"].routes;
-
-            switch (type) {
+            switch (notification.payload.additionalData.type) {
                 case NOTIFICATION_TYPES.chatMessage:
-                    console.log('chatMessage')
-                    getMessages(postId, chatId);
-                case NOTIFICATION_TYPES.chatSchedule:
-                case NOTIFICATION_TYPES.chatScheduleAccepted:
-                case NOTIFICATION_TYPES.chatScheduleRejected:
-                    findUnreadMessages();
+                    console.log(notification.payload.additionalData.type)
+                    findUnreadMessages()
+                    getMyStats();
                     if (
-                        notification.payload.additionalData.hasOwnProperty(
-                            "chatId"
-                        )
+                        notification.payload.additionalData
                     ) {
                         const params = {
                             itemId: notification.payload.additionalData.postId,
                             chatId: notification.payload.additionalData.chatId,
                             refreshTimestamp: new Date().getTime()
                         };
-                        if (routes[currentIndex].routeName === "chat") {
-                            // refreshScene("chat", params);
+                        if (routes[currentIndex].routeName === "messageCenter" && nav.routes.length < 2) {
+                            refreshScene("messageCenter", params);
+                        } else if (routes[currentIndex].routeName === "chat") {
+                            setFetchMessage();
+                        } else if (insideApp) {
+                            onMessage(
+                                "You just received a new message",
+                                () => {
+                                    changeScene("chat", params);
+                                },
+                                "VIEW"
+                            );
                         } else {
-                            // refreshScene(routes[currentIndex].routeName, params)
-                            if (insideApp) {
-                                onMessage(
-                                    "You just received a new message",
-                                    () => {
-                                        changeScene("chat", params);
-                                    },
-                                    "VIEW"
-                                );
-                            } else {
-                                changeScene("chat", params);
-                            }
+                            changeScene("chat", params);
                         }
                     }
-
+                    break;
+                case NOTIFICATION_TYPES.chatSchedule:
+                    break;
+                case NOTIFICATION_TYPES.chatScheduleAccepted:
+                    break;
+                case NOTIFICATION_TYPES.chatScheduleRejected:
+                    console.log('chatScheduleRejected', notification.payload.additionalData.type)
                     break;
                 case NOTIFICATION_TYPES.answer:
                     if (
@@ -245,7 +239,8 @@ function mapStateToProps(state) {
 export default connect(
     mapStateToProps,
     {
-        getMessages,
+        setFetchMessage,
+        getMyStats,
         findUnreadMessages,
         changeScene,
         refreshScene,

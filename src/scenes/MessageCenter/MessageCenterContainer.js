@@ -24,6 +24,7 @@ import {
 import {changeScene} from '../../modules/navigation/navigationActions.js';
 import {requestVerification} from '../../modules/auth/authActions';
 import {getMe} from '../../modules/me/meActions';
+import { findUnreadMessages } from "../../modules/unreadMessages/unreadMessagesActions.js";
 
 // styles
 import commonStyles from '../../styles/common';
@@ -70,6 +71,7 @@ class MessageCenterContainer extends Component {
     const {getMessages, navigation} = this.props;
     const item = navigation && navigation.getParam('item');
 
+
     // check if we have item id
     if(item) {
       getMessages(item);
@@ -79,19 +81,20 @@ class MessageCenterContainer extends Component {
     }
   }
 
-//   shouldComponentUpdate(props) {
-//     const {getMessages, navigation} = props;
-//     const item = navigation && navigation.getParam('item');
+  shouldComponentUpdate(props) {
+    const {getMessages, navigation} = props;
+    const item = navigation && navigation.getParam('item');
 
-//     // check if we have item id
-//     if(item && (this.itemId != item._id)) {
-//       getMessages(item);
-//       this.itemId = item._id;
-//       return true;
-//     } else {
-//       return true;
-//     }
-//   }
+    // check if we have item id
+    if(item && (this.itemId != item._id)) {
+      getMessages(item);
+      this.itemId = item._id;
+      return true;
+    } else {
+      return true;
+    }
+  }
+
 componentWillReceiveProps(props) {
     const {getMessages, navigation} = props;
     const item = navigation && navigation.getParam('item');
@@ -110,7 +113,6 @@ componentWillReceiveProps(props) {
       chats,
       navigation,
       unreadMessages,
-      unreadMessageCount,
       gotoChat,
     } = this.props;
     const item = navigation && navigation.getParam('item');
@@ -133,7 +135,6 @@ componentWillReceiveProps(props) {
             chats={chats}
             item={item}
             unreadMessages={unreadMessages}
-            unreadMessageCount={unreadMessageCount}
             gotoChat={gotoChat}
           />
           <CreatePostModal
@@ -152,17 +153,16 @@ componentWillReceiveProps(props) {
 
 function mapStateToProps(state) {
   return {
-    // states
     ...state.messageCenterScene,
     me: state.me.me,
     unreadMessages: state.unreadMessages.unreadMessages,
-    unreadMessageCount: state.unreadMessages.unreadMessages.length,
   };
 }
 
 export default connect(
   mapStateToProps,
   {
+    findUnreadMessages,
     getMessages,
     gotoChat,
     openCreatePostModal,

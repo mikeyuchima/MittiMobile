@@ -39,6 +39,15 @@ export const CHAT_SCENE_READ_MESSAGES_ERROR = 'CHAT_SCENE_READ_MESSAGES_ERROR';
 
 export const CHAT_SCENE_SAVE_STATE = 'CHAT_SCENE_SAVE_STATE';
 export const CHAT_SCENE_REMOVE_STATE = 'CHAT_SCENE_REMOVE_STATE';
+export const CHAT_SCENE_SET_FETCH_MESSAGE = 'CHAT_SCENE_SET_FETCH_MESSAGE';
+
+export const setFetchMessage = scene => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: CHAT_SCENE_SET_FETCH_MESSAGE,
+        });
+    };
+};
 
 export const saveState = scene => {
     return (dispatch, getState) => {
@@ -108,7 +117,6 @@ export const getMessages = (itemId, chatId) => {
             .getChat(token, itemId, chatId)
             .then(resp => dispatch(appActions.processApiResponse(resp)))
             .then(chat => {
-                console.log('chat', chat)
                 dispatch({
                     type: CHAT_SCENE_GET_MESSAGES_SUCCESS,
                     chat,
@@ -119,7 +127,6 @@ export const getMessages = (itemId, chatId) => {
                 return chat;
             })
             .catch(error => {
-                console.log('error', error)
                 dispatch({
                     type: CHAT_SCENE_GET_MESSAGES_ERROR,
                     error,
@@ -271,6 +278,7 @@ export const cancelAppointmentRequest = () => ({
 });
 
 export const initializeChat = (itemId, chatId) => {
+    console.log('initializeChat')
     return (dispatch, getState) => {
         const { token } = getState().auth;
         dispatch({
