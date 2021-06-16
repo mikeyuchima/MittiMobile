@@ -2,7 +2,7 @@ export const login = (username, password) => {
   return new Promise((resolve, reject) => {
     const respData = {
       data: {
-        token: "a94a8fe5ccb19ba61c4c0873d391e987982fbbd3",
+        token: "",
       },
     };
     const respDataJson = JSON.stringify(respData);
