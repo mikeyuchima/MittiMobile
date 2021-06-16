@@ -14,15 +14,15 @@ export const NOTIFICATION_TYPES = {
 };
 
 export const GOOGLE_INFO = {
-    geoApiKey: 'AIzaSyCx25MsX97hiEYTd160s42HtvNgYpsc128',
+    geoApiKey: '',
 };
 
 export const AWS3_INFO = {
     bucket: 'mitti',
     region: 'us-east-2',
     keyPrefix: 'posts/',
-    accessKey: 'AKIAIEQFJINF73VCZPGA',
-    secretKey: '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',
+    accessKey: '',
+    secretKey: '',
 };
 
 export const SPLASH_WAIT = 2000;
